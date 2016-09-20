@@ -13,4 +13,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="action_settings">设置</string>
+    <string name="action_favorite">收藏</string>
 </resources>
