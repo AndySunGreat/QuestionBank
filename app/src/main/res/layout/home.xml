@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- This could be your fragment container, or something -->
+    <FrameLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar" />
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        android:layout_alignParentBottom="true"
+       ></com.roughike.bottombar.BottomBar>
+<!--    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:bb_inActiveTabColor="#222222"
+        app:bb_activeTabColor="@color/colorPrimary"
+
+        app:bb_titleTextAppearance="@style/CustomTitleTextAppearance"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_badgeBackgroundColor="@color/white"
+        />-->
+
+</RelativeLayout>

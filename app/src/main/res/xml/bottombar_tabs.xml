@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        id="@+id/tab_recents1"
+        icon="@drawable/ic_recents"
+        title="Recents"
+        barColorWhenSelected="@color/colorAccent" />
+    <tab
+        id="@+id/tab_favorites"
+        icon="@drawable/ic_favorites"
+        title="Favorites"
+        barColorWhenSelected="#5D4037" />
+    <tab inActiveColor="#00FF00"
+        activeColor="#FF0000" id="@+id/tab_recents"
+        title="Recents" icon="@drawable/empty_icon"
+        barColorWhenSelected="#FF0000"
+        badgeBackgroundColor="#FF0000" />
+
+    <tab
+        id="@+id/tab_favorites"
+        title="Favorites1"
+        icon="@drawable/ic_action_trending_up"
+        barColorWhenSelected="#5D4037"
+        />
+    <tab
+        id="@+id/tab_favorites"
+        title="Favorites2"
+        icon="@drawable/ic_action_pageview"
+        barColorWhenSelected="#5D4037"
+        />
+    <tab
+        id="@+id/tab_favorites"
+        title="Favorites3"
+        icon="@drawable/ic_action_account_child"
+        barColorWhenSelected="#5D4037"
+        />
+
+</tabs>
