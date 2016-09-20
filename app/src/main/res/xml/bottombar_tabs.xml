@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs xmlns:android="http://schemas.android.com/apk/res/android">
     <tab
-        id="@+id/tab_recents"
+        id="@+id/tab_question"
         icon="@drawable/ic_recents"
         title="面试题"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
     <tab
-        id="@+id/tab_favorites"
+        id="@+id/tab_promotion"
         icon="@drawable/ic_favorites"
         title="升职"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
-    <tab  id="@+id/tab_nearby"
+    <tab  id="@+id/tab_discovery"
         title="发现"
         icon="@drawable/ic_nearby"
         barColorWhenSelected="@color/white"
@@ -22,7 +22,7 @@
         />
 
     <tab
-        id="@+id/tab_friends"
+        id="@+id/tab_me"
         title="我"
         icon="@drawable/ic_friends"
         barColorWhenSelected="@color/white"
