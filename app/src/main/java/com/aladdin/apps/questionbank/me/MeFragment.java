@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.question;
+package com.aladdin.apps.questionbank.me;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -14,20 +14,20 @@ import com.aladdin.apps.questionbank.R;
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class QuestionFragment extends Fragment {
-    private Button mQuestionBankButton;
-    private TextView mQuestionTextView;
+public class MeFragment extends Fragment {
+    private Button mMeBankButton;
+    private TextView mMeTextView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.question_fragment, container, false);
-        mQuestionTextView = (TextView)view.findViewById(R.id.questionFragTextView);
-        mQuestionTextView.setText("This is QuestionBank channel");
-        mQuestionBankButton = (Button)view.findViewById(R.id.questionFragButton);
-        mQuestionBankButton.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.me_fragment, container, false);
+        mMeTextView = (TextView)view.findViewById(R.id.meFragTextView);
+        mMeTextView.setText("This is MeBank channel");
+        mMeBankButton = (Button)view.findViewById(R.id.meFragButton);
+        mMeBankButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //你的fragment是基于fragmentactivity的，getactivity()就可以了
-                Intent intent = new Intent(getActivity(),QuestionMainActivity.class);
+                Intent intent = new Intent(getActivity(),MeMainActivity.class);
                 intent.putExtra("position", "test data");
                 startActivity(intent);
             }

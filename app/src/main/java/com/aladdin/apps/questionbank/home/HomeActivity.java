@@ -15,14 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
+import com.aladdin.apps.questionbank.me.MeFragment;
 import com.aladdin.apps.questionbank.promotion.PromotionFragment;
+import com.aladdin.apps.questionbank.discovery.DiscoveryFragment;
 import com.aladdin.apps.questionbank.question.QuestionFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by AndySun on 2016/9/19.
@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_question) {
+                    Toast.makeText(getApplicationContext(), "Question", Toast.LENGTH_SHORT).show();
                     messageView.setText("QuestionActivity");
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
@@ -49,16 +50,14 @@ public class HomeActivity extends AppCompatActivity {
 
                 }else if(tabId == R.id.tab_promotion){
                     messageView.setText("PromotionActivity");
-                    //clazz = PromotionActivity.class;
                     fragment = new PromotionFragment();
                 }else if(tabId == R.id.tab_discovery){
                     messageView.setText("DiscoveryFragment");
-                    //clazz = DiscoveryFragment.class;
+                    fragment = new DiscoveryFragment();
 
                 }else if(tabId == R.id.tab_me){
                     messageView.setText("MeActivity");
-                    //clazz = MeActivity.class;
-
+                    fragment = new MeFragment();
                 }
                 switchMainFragment(R.id.contentContainer,fragment);
             }
@@ -70,6 +69,13 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
     }
+    public void switchMainFragment(int location, Fragment f){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(location,f);
+        ft.commit();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -90,10 +96,5 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void switchMainFragment(int location, Fragment f){
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(location,f);
-        ft.commit();
-    }
+
 }
