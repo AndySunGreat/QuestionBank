@@ -29,7 +29,7 @@ public class QuestionMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_mainlayout);
+        setContentView(R.layout.question_mainpage);
         init();//一系列初始化
     }
     //找到对应的View

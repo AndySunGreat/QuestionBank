@@ -18,25 +18,38 @@ import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.me.MeFragment;
 import com.aladdin.apps.questionbank.promotion.PromotionFragment;
 import com.aladdin.apps.questionbank.discovery.DiscoveryFragment;
-import com.aladdin.apps.questionbank.question.QuestionFragment;
+import com.aladdin.apps.questionbank.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
+import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
  * Created by AndySun on 2016/9/19.
  */
 public class HomeActivity extends AppCompatActivity {
-    private TextView messageView;
 
+    @Bind(R.id.messageView)
+    TextView messageView;
+
+    @Bind(R.id.bottomBar)
+    BottomBar bottomBar;
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        messageView = (TextView) findViewById(R.id.messageView);
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        ButterKnife.bind(this);
+        createBottomBar();
+    }
+
+
+    public void createBottomBar(){
+        bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             Fragment fragment =null;
             @Override
@@ -46,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                     messageView.setText("QuestionActivity");
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
-                    fragment = new QuestionFragment();
+                    fragment = new QuestionChannelFragment();
 
                 }else if(tabId == R.id.tab_promotion){
                     messageView.setText("PromotionActivity");
@@ -62,13 +75,23 @@ public class HomeActivity extends AppCompatActivity {
                 switchMainFragment(R.id.contentContainer,fragment);
             }
         });
-
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_question) {
+                    Toast.makeText(getApplicationContext(), "Reselection Question", Toast.LENGTH_SHORT).show();
+                    // The tab with id R.id.tab_favorites was reselected,
+                    // change your content accordingly.
+                }
+            }
+        });
         BottomBarTab nearby = bottomBar.getTabWithId(R.id.tab_me);
         nearby.setBadgeCount(6);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
     }
+
+
     public void switchMainFragment(int location, Fragment f){
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

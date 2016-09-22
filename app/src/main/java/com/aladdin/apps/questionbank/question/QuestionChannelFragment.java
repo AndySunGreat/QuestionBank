@@ -14,12 +14,12 @@ import com.aladdin.apps.questionbank.R;
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class QuestionFragment extends Fragment {
+public class QuestionChannelFragment extends Fragment {
     private Button mQuestionBankButton;
     private TextView mQuestionTextView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.question_fragment, container, false);
+        View view = inflater.inflate(R.layout.question_mainchannel_fragment, container, false);
         mQuestionTextView = (TextView)view.findViewById(R.id.questionFragTextView);
         mQuestionTextView.setText("This is QuestionBank channel");
         mQuestionBankButton = (Button)view.findViewById(R.id.questionFragButton);
