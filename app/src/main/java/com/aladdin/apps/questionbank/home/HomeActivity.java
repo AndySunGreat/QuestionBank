@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,8 +58,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         ButterKnife.bind(this);
+        createTitleBar();
         createViewPagerTab();
         createBottomBar();
+        asyncBadgeView();  // 相当于微信小红点
+    }
+
+    @Override
+    public void createTitleBar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
     }
 
     @Override
@@ -134,10 +143,24 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
                 }
             }
         });
+
+    }
+
+    // 创建BadgeView
+    public void asyncBadgeView(){
         BottomBarTab nearby = bottomBar.getTabWithId(R.id.tab_me);
         nearby.setBadgeCount(6);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        nearby.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View view) {
+                Toast.makeText(getApplicationContext(), "我的Tab onViewAttachedToWindow", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View view) {
+                Toast.makeText(getApplicationContext(), "我的Tab onViewDetachedFromWindow", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -148,7 +171,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 //        ft.commit();
 //    }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.actionbar_menu, menu);
@@ -166,7 +189,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
 
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+View层：question_mainpage.xml频道模块主要是用来为面试题/学习人士的试题信息的频道,
+View层的接口大概需要如下的方法：
+1)顺序练习
+2)随机练习
+3)背题模式
+4)专项练习
+5)错题练习
+6)实战演练
+7)VIP专家课程
+8)学霸PK
+9)能力排行榜
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:dividerPadding="@dimen/activity_horizontal_margin"
+    android:divider="@color/blueviolet"
+    android:dividerHeight="22dp"
+    >
+    <ListView
+        android:id="@+id/list_app"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:divider="@color/blanchedalmond"
+        android:dividerHeight="12dp"
+        />
+
+    <ListView
+        android:id="@+id/list_book"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:divider="@color/blanchedalmond"
+        android:dividerHeight="12dp"
+        />
+
+
+
+</LinearLayout>
