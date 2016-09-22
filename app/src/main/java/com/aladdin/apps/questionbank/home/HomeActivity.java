@@ -1,11 +1,14 @@
 package com.aladdin.apps.questionbank.home;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,6 +27,9 @@ import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -31,23 +37,69 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeView{
 
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
+    @Bind(R.id.myCoordinator)
+    CoordinatorLayout myCoordinator;
     @Bind(R.id.messageView)
     TextView messageView;
 
     @Bind(R.id.bottomBar)
     BottomBar bottomBar;
+
+    private List<Fragment> fragmentList;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         ButterKnife.bind(this);
+        createViewPagerTab();
         createBottomBar();
     }
 
+    @Override
+    public void createViewPagerTab(){
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new QuestionChannelFragment());
+        fragmentList.add(new PromotionFragment());
+        fragmentList.add(new DiscoveryFragment());
+        fragmentList.add(new MeFragment());
+        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public android.support.v4.app.Fragment getItem(int position) {
+                return fragmentList.get(position);
+            }
 
+            @Override
+            public int getCount() {
+                return fragmentList.size();
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomBar.selectTabAtPosition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
+    @Override
     public void createBottomBar(){
         bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -59,20 +111,17 @@ public class HomeActivity extends AppCompatActivity {
                     messageView.setText("QuestionActivity");
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
-                    fragment = new QuestionChannelFragment();
-
+                    viewPager.setCurrentItem(0);
                 }else if(tabId == R.id.tab_promotion){
                     messageView.setText("PromotionActivity");
-                    fragment = new PromotionFragment();
+                    viewPager.setCurrentItem(1);
                 }else if(tabId == R.id.tab_discovery){
                     messageView.setText("DiscoveryFragment");
-                    fragment = new DiscoveryFragment();
-
+                    viewPager.setCurrentItem(2);
                 }else if(tabId == R.id.tab_me){
                     messageView.setText("MeActivity");
-                    fragment = new MeFragment();
+                    viewPager.setCurrentItem(3);
                 }
-                switchMainFragment(R.id.contentContainer,fragment);
             }
         });
         bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
@@ -92,12 +141,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    public void switchMainFragment(int location, Fragment f){
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(location,f);
-        ft.commit();
-    }
+//    public void switchMainFragment(int location, Fragment f){
+//        FragmentManager fm = getFragmentManager();
+//        FragmentTransaction ft = fm.beginTransaction();
+//        ft.replace(location,f);
+//        ft.commit();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
