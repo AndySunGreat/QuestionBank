@@ -13,9 +13,7 @@ import android.widget.TextView;
 
 import com.aladdin.apps.questionbank.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /*********************************************
  * author: Blankj on 2016/7/23 15:39
@@ -54,7 +52,7 @@ public class ViewHolderAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             // 通过LayoutInflater实例化布局
-            convertView = mInflater.inflate(R.layout.quesc_content_listview_row, null);
+            convertView = mInflater.inflate(R.layout.ques_c_content_listview_row, null);
             viewHolder.img = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolder.title = (TextView) convertView.findViewById(R.id.textView);
             convertView.setTag(viewHolder);

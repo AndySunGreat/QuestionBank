@@ -4,8 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="5dp"
-    android:layout_gravity="center">
-
+    android:layout_gravity="center"
+    android:descendantFocusability="blocksDescendants"
+    >
+<!--    android:descendantFocusability="blocksDescendants" 解决自定义listview的item无法获取focus-->
     <ImageView
         android:id="@+id/rowLogo"
         android:layout_width="55dp"

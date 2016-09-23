@@ -203,8 +203,6 @@ public abstract class ListViewAdapter<T> extends BaseAdapter {
             return this;
         }
 
-        //其他方法可自行扩展
-
     }
 
 }
