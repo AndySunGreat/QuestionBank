@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.adapter;
+package com.aladdin.apps.questionbank.component.listview;
 
 /**
  * Created by AndySun on 2016/9/23.
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.aladdin.apps.questionbank.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /*********************************************
@@ -22,10 +24,10 @@ import java.util.List;
  *********************************************/
 public class ViewHolderAdapter extends BaseAdapter {
 
-    private List<String> mData;
+    private ArrayList<String> mData;
     private LayoutInflater mInflater;
 
-    public ViewHolderAdapter(Context context, List<String> data) {
+    public ViewHolderAdapter(Context context, ArrayList<String> data) {
         this.mData = data;
         mInflater = LayoutInflater.from(context);
     }
@@ -52,7 +54,7 @@ public class ViewHolderAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             // 通过LayoutInflater实例化布局
-            convertView = mInflater.inflate(R.layout.adapter_viewholder_item, null);
+            convertView = mInflater.inflate(R.layout.quesc_content_listview_row, null);
             viewHolder.img = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolder.title = (TextView) convertView.findViewById(R.id.textView);
             convertView.setTag(viewHolder);
@@ -69,5 +71,6 @@ public class ViewHolderAdapter extends BaseAdapter {
     public final class ViewHolder {
         public ImageView img;
         public TextView title;
+        //public ImageView img;
     }
 }

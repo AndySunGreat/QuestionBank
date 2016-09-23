@@ -44,8 +44,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     ViewPager viewPager;
     @Bind(R.id.myCoordinator)
     CoordinatorLayout myCoordinator;
-    @Bind(R.id.messageView)
-    TextView messageView;
+    //@Bind(R.id.messageView)
+    //TextView messageView;
+    @Bind(R.id.homeToolBar)
+    Toolbar homeToolBar;
 
     @Bind(R.id.bottomBar)
     BottomBar bottomBar;
@@ -66,9 +68,60 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
 
     @Override
     public void createTitleBar(){
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        // App Logo
+        homeToolBar.setLogo(R.mipmap.ic_launcher);
+        String strSyncCount = "(11)";
+        // Title
+        homeToolBar.setTitle("充电乐"+strSyncCount);
+        // Sub Title
+        //homeToolBar.setSubtitle("Sub title");
+        setSupportActionBar(homeToolBar);
+        //homeToolBar.setNavigationIcon(R.mipmap.ic_launcher);
+        homeToolBar.setOnMenuItemClickListener(onMenuItemClick);
+        // 设置回退按钮
+        //关键下面两句话，设置了回退按钮，及点击事件的效果
+/*       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        homeToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });*/
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        /**
+         * 此方法用于初始化菜单，其中menu参数就是即将要显示的Menu实例。 返回true则显示该menu,false 则不显示;
+         * (只会在第一次初始化菜单时调用) Inflate the menu; this adds items to the action bar
+         * if it is present.
+         */
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            String msg = "";
+            switch (menuItem.getItemId()) {
+                case R.id.action_favorite:
+                    msg += "Click edit";
+                    break;
+                case R.id.action_friends:
+                    msg += "Click share";
+                    break;
+                case R.id.action_settings:
+                    msg += "Click setting";
+                    break;
+            }
+
+            if(!msg.equals("")) {
+                Toast.makeText(HomeActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+    };
 
     @Override
     public void createViewPagerTab(){
@@ -117,18 +170,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_question) {
                     Toast.makeText(getApplicationContext(), "Question", Toast.LENGTH_SHORT).show();
-                    messageView.setText("QuestionActivity");
+                    //messageView.setText("QuestionActivity");
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
                     viewPager.setCurrentItem(0);
                 }else if(tabId == R.id.tab_promotion){
-                    messageView.setText("PromotionActivity");
+                    //messageView.setText("PromotionActivity");
                     viewPager.setCurrentItem(1);
                 }else if(tabId == R.id.tab_discovery){
-                    messageView.setText("DiscoveryFragment");
+                    //messageView.setText("DiscoveryFragment");
                     viewPager.setCurrentItem(2);
                 }else if(tabId == R.id.tab_me){
-                    messageView.setText("MeActivity");
+                    //messageView.setText("MeActivity");
                     viewPager.setCurrentItem(3);
                 }
             }

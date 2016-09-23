@@ -3,15 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <!-- 1. TitleBar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/homeToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="@color/darkslategray"
+        android:elevation="4dp"
+        android:titleTextColor="@color/white"
+        android:titleTextAppearance="@color/white"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
+    <!-- 2. ViewPaper Content -->
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/myCoordinator"
         xmlns:tools="http://schemas.android.com/tools"
@@ -27,21 +33,24 @@
 
 
     </android.support.design.widget.CoordinatorLayout>
+    <!--
+        <TextView
+            android:id="@+id/messageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/contentContainer"
+            android:gravity="center"
+            android:text="Hi mom!" />
+         This could be your fragment container, or something -->
 
-    <TextView
-        android:id="@+id/messageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/contentContainer"
-        android:gravity="center"
-        android:text="Hi mom!" />
-    <!-- This could be your fragment container, or something -->
+    <!--
     <FrameLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomBar" />
-
+        -->
+    <!-- 4. BottomBar  -->
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"

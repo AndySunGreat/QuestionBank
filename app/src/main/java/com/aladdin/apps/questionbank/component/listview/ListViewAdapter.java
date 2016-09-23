@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.adapter;
+package com.aladdin.apps.questionbank.component.listview;
 
 import android.content.Context;
 import android.widget.BaseAdapter;
