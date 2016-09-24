@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_action_info.png",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\drawable-hdpi\\ic_action_info.png"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_action_new.png",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\drawable-hdpi\\ic_action_new.png"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_list_remove.png",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\drawable-hdpi\\ic_list_remove.png"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_action_photo.png",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\drawable-hdpi\\ic_action_photo.png"
+    }
+]

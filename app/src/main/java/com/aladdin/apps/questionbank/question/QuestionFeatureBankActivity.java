@@ -15,7 +15,7 @@ public class QuestionFeatureBankActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ques_m_content_listview);
+        setContentView(R.layout.ques_m_bank_content_listview);
         ButterKnife.bind(this);
     }
 }

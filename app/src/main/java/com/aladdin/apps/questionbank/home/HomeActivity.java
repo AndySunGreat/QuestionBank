@@ -1,8 +1,6 @@
 package com.aladdin.apps.questionbank.home;
 
 import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 
@@ -12,16 +10,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.me.MeFragment;
-import com.aladdin.apps.questionbank.promotion.PromotionFragment;
 import com.aladdin.apps.questionbank.discovery.DiscoveryFragment;
+import com.aladdin.apps.questionbank.me.MeChannelFragment;
 import com.aladdin.apps.questionbank.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
@@ -127,9 +122,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView{
     public void createViewPagerTab(){
         fragmentList = new ArrayList<>();
         fragmentList.add(new QuestionChannelFragment());
-        fragmentList.add(new PromotionFragment());
+        //fragmentList.add(new PromotionFragment());
         fragmentList.add(new DiscoveryFragment());
-        fragmentList.add(new MeFragment());
+        fragmentList.add(new MeChannelFragment());
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {

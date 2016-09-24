@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_card_front.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\fragment_card_front.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\excerpt_content.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\excerpt_content.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_card_back.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\fragment_card_back.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_screen_slide.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_screen_slide.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_card_flip.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_card_flip.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_zoom.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_zoom.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_layout_changes.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_layout_changes.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_screen_slide_page.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\fragment_screen_slide_page.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\activity_crossfade.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\activity_crossfade.xml"
+    },
+    {
+        "merged": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_example.xml",
+        "source": "F:\\AllWorkSpace\\StudioProjects\\QuestionBank\\animationsDemo\\src\\main\\res\\layout\\list_item_example.xml"
+    }
+]

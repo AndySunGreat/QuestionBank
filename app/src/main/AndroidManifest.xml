@@ -34,20 +34,64 @@
             android:logo="@drawable/ic_pets_black_24dp"
             >
         </activity>
-        <activity
-            android:name=".question.QuestionModuleActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".me.MeMainActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity
-            android:name=".promotion.PromotionMainActivity"
-            android:label="@string/app_name">
-        </activity>
+
         <activity
             android:name=".discovery.DiscoveryMainActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <!-- "题库" 频道 -->
+        <activity
+            android:name=".question.QuestionModuleBankActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".question.QuestionFeatureBankActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".question.QuestionFeatureBossActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".question.QuestionFeatureHotActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".question.QuestionModuleSalaryActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".question.QuestionModuleStrategyActivity"
+            android:label="@string/app_name">
+        </activity>
+        <!-- "我" 频道 -->
+        <activity
+            android:name=".me.MeFeatureInfoActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModuleAssetActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModuleInfoActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModulePlanActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModuleSettingsActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModuleBankActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".me.MeModuleTargetActivity"
             android:label="@string/app_name">
         </activity>
     </application>

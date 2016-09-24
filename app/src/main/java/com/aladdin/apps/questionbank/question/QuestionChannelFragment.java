@@ -40,7 +40,7 @@ public class QuestionChannelFragment extends Fragment {
                                     int position, long id) {
                 Log.v("BaseAdapterTest", "你点击了ListView条目" + position + id);
                 if(position==0){
-                    intent = new Intent(getActivity(),QuestionModuleActivity.class);
+                    intent = new Intent(getActivity(),QuestionModuleBankActivity.class);
                     intent.putExtra("testData","dsfds");
                     startActivity(intent);
                 }
@@ -55,10 +55,10 @@ public class QuestionChannelFragment extends Fragment {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
         mData1.add(new ChannelRow(R.drawable.ic_favorites, "我的题库"));
-        mData1.add(new ChannelRow(R.drawable.ic_recents, "充电值"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "最新热库"));
-        mData1.add(new ChannelRow(R.drawable.ic_restaurants, "题库重置"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "挑战高手"));
+        mData1.add(new ChannelRow(R.drawable.ic_recents, "热门题库"));
+        mData1.add(new ChannelRow(R.drawable.ic_nearby, "面试策略"));
+        mData1.add(new ChannelRow(R.drawable.ic_restaurants, "Boss战"));
+        mData1.add(new ChannelRow(R.drawable.ic_nearby,"薪酬谈判"));
         //Adapter初始化
         myAdapter1 = new ListViewAdapter<ChannelRow>((ArrayList) mData1, R.layout.ques_c_content_listview_row) {
             @Override
