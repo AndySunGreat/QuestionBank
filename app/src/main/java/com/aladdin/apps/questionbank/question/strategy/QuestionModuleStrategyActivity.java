@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.question;
+package com.aladdin.apps.questionbank.question.strategy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.component.listview.ChannelRow;
+import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.component.listview.ListViewAdapter;
+import com.aladdin.apps.questionbank.question.bank.QuestionFeatureBankActivity;
 
 import java.util.ArrayList;
 

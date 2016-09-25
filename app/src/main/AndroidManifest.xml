@@ -42,27 +42,27 @@
 
         <!-- "题库" 频道 -->
         <activity
-            android:name=".question.QuestionModuleBankActivity"
+            android:name=".question.bank.QuestionModuleBankActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".question.QuestionFeatureBankActivity"
+            android:name=".question.bank.QuestionFeatureBankActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".question.QuestionFeatureBossActivity"
+            android:name=".question.boss.QuestionFeatureBossActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".question.QuestionFeatureHotActivity"
+            android:name=".question.hot.QuestionFeatureHotActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".question.QuestionModuleSalaryActivity"
+            android:name=".question.salary.QuestionModuleSalaryActivity"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".question.QuestionModuleStrategyActivity"
+            android:name=".question.strategy.QuestionModuleStrategyActivity"
             android:label="@string/app_name">
         </activity>
         <!-- "我" 频道 -->
@@ -93,7 +93,11 @@
         <activity
             android:name=".me.MeModuleTargetActivity"
             android:label="@string/app_name">
-        </activity>
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

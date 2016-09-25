@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.question;
+package com.aladdin.apps.questionbank.question.salary;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.component.listview.ChannelRow;
+import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.component.listview.ListViewAdapter;
+import com.aladdin.apps.questionbank.question.bank.QuestionFeatureBankActivity;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/9/21.
  */
-public class QuestionModuleBossActivity extends AppCompatActivity {
+public class QuestionModuleSalaryActivity extends AppCompatActivity {
 
     @Bind(R.id.homeToolBar)
     Toolbar homeToolBar;
@@ -35,11 +36,11 @@ public class QuestionModuleBossActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ques_m_boss_content_listview);
+        setContentView(R.layout.ques_m_salary_content_listview);
         ButterKnife.bind(this);
         createTitleBar();
-        mainListView = (ListView) findViewById( R.id.quesmBossContentListview );
-        createQuesBossModuleContent();
+        mainListView = (ListView) findViewById( R.id.quesmSalaryContentListview );
+        createQuesSalaryModuleContent();
             /*为ListView添加点击事件*/
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +67,7 @@ public class QuestionModuleBossActivity extends AppCompatActivity {
         homeToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(12)";
         // Title
-        homeToolBar.setTitle("Boss战"+strSyncCount);
+        homeToolBar.setTitle("薪酬谈判"+strSyncCount);
         // Sub Title
         //homeToolBar.setSubtitle("Sub title");
         setSupportActionBar(homeToolBar);
@@ -83,16 +84,16 @@ public class QuestionModuleBossActivity extends AppCompatActivity {
         });
     }
 
-    private void createQuesBossModuleContent() {
+    private void createQuesSalaryModuleContent() {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
-        mData1.add(new ChannelRow(R.drawable.ic_favorites, "Boss1"));
-        mData1.add(new ChannelRow(R.drawable.ic_recents, "Boss2"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Boss3"));
-        mData1.add(new ChannelRow(R.drawable.ic_restaurants, "Boss4"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Boss5"));
+        mData1.add(new ChannelRow(R.drawable.ic_favorites, "Java Core"));
+        mData1.add(new ChannelRow(R.drawable.ic_recents, "Spring MVC"));
+        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Javascript"));
+        mData1.add(new ChannelRow(R.drawable.ic_restaurants, "HTML/CSS"));
+        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Java Thread"));
         //Adapter初始化
-        myAdapter1 = new ListViewAdapter<ChannelRow>((ArrayList) mData1, R.layout.ques_m_boss_content_listview_row) {
+        myAdapter1 = new ListViewAdapter<ChannelRow>((ArrayList) mData1, R.layout.ques_m_bank_content_listview_row) {
             @Override
             public void bindView(ViewHolder holder, ChannelRow obj) {
                 holder.setImageResource(R.id.rowLogo, obj.getRowIcon());
@@ -138,7 +139,7 @@ public class QuestionModuleBossActivity extends AppCompatActivity {
             }
 
             if(!msg.equals("")) {
-                Toast.makeText(QuestionModuleBossActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuestionModuleSalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }

@@ -13,9 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.component.listview.ChannelRow;
+import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.component.listview.ListViewAdapter;
-import com.aladdin.apps.questionbank.question.QuestionFeatureBankActivity;
 
 import java.util.ArrayList;
 

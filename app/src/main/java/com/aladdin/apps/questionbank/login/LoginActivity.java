@@ -33,6 +33,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.home.HomeActivity;
@@ -82,8 +84,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        setContentView(R.layout.login_c_signin);
+        ButterKnife.bind(this);
         setupUI();
     }
 

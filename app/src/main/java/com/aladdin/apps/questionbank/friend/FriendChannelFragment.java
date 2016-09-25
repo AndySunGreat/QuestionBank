@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.component.listview.ChannelRow;
+import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.component.listview.ListViewAdapter;
 import com.aladdin.apps.questionbank.me.MeModuleAssetActivity;
 import com.aladdin.apps.questionbank.me.MeModuleBankActivity;

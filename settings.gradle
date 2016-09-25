@@ -1,1 +1,2 @@
 include ':app', ':bottom-bar'
+include ':animationsDemo'

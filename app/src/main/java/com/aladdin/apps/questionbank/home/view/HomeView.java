@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.home;
+package com.aladdin.apps.questionbank.home.view;
 
 /**
  * Created by AndySun on 2016/9/22.

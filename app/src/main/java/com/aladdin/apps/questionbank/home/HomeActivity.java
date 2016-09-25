@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.discovery.DiscoveryFragment;
+import com.aladdin.apps.questionbank.home.view.HomeView;
 import com.aladdin.apps.questionbank.me.MeChannelFragment;
 import com.aladdin.apps.questionbank.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
@@ -33,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class HomeActivity extends AppCompatActivity implements HomeView{
+public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Bind(R.id.viewPager)
     ViewPager viewPager;

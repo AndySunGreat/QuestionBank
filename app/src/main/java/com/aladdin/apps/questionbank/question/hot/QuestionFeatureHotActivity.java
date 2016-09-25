@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.question;
+package com.aladdin.apps.questionbank.question.hot;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/9/23.
  */
-public class QuestionFeatureBossActivity extends AppCompatActivity {
+public class QuestionFeatureHotActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

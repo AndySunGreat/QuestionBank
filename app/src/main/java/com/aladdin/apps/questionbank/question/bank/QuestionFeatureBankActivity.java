@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.question;
+package com.aladdin.apps.questionbank.question.bank;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

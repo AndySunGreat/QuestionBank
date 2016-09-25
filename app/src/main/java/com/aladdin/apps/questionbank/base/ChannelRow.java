@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.component.listview;
+package com.aladdin.apps.questionbank.base;
 
 /**
  * Created by AndySun on 2016/9/23.
@@ -7,8 +7,13 @@ public class ChannelRow {
     private int rowIcon;
     private String rowName;
     private int rowBadgeIcon;
+    private String rowIconImgName;
 
-    public ChannelRow(int rowIcon,String rowName) {
+
+    public ChannelRow() {
+    }
+
+    public ChannelRow(int rowIcon, String rowName) {
         this.rowName = rowName;
         this.rowIcon = rowIcon;
     }
@@ -17,6 +22,14 @@ public class ChannelRow {
         this.rowIcon = rowIcon;
         this.rowName = rowName;
         this.rowBadgeIcon = rowBadgeIcon;
+    }
+
+    public String getRowIconImgName() {
+        return rowIconImgName;
+    }
+
+    public void setRowIconImgName(String rowIconImgName) {
+        this.rowIconImgName = rowIconImgName;
     }
 
     public int getRowIcon() {
