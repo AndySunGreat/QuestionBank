@@ -1,5 +1,6 @@
 package com.aladdin.apps.questionbank.question.bank;
 
+import com.aladdin.apps.questionbank.base.BaseModuleView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
 
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by AndySun on 2016/9/24.
  */
-public interface QuestionModuleBankView {
+public interface QuestionModuleBankView extends BaseModuleView {
     void showProgress();
 
     void hideProgress();

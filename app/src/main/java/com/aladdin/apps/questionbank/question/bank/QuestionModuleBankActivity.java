@@ -56,8 +56,6 @@ public class QuestionModuleBankActivity extends AppCompatActivity implements Que
         progressBar = (ProgressBar) findViewById(R.id.progress);
         mainListView.setOnItemClickListener(this);
         presenter = new QuestionModuleBankPresenterImpl(this, new QuestionModuleBankInteractorImpl());
-        //createTitleBar();
-        //createQuesBankModuleContent();
     }
 
     @Override

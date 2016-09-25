@@ -52,7 +52,7 @@ public class QuestionModuleBankInteractorImpl implements QuestionModuleBankInter
                     try {
                         // 获取具体的一个JSONObject对象
                         JSONObject obj = response.getJSONObject(i);
-                        cr.setRowIconImgName("ic_friends");
+                        cr.setRowIconImgName(obj.getString("bankIconImgName"));
                         //cr.setRowIcon(R.id.rowLogo);
                         cr.setRowName(obj.getString("bankName"));
 
