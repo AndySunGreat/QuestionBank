@@ -10,12 +10,12 @@
     <tab
         id="@+id/tab_promotion"
         icon="@drawable/ic_favorites"
-        title="升职"
+        title="干货"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
     <tab  id="@+id/tab_discovery"
-        title="发现"
+        title="充电圈"
         icon="@drawable/ic_nearby"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"

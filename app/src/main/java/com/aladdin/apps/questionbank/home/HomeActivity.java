@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         homeToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(11)";
         // Title
-        homeToolBar.setTitle("充电乐"+strSyncCount);
+        homeToolBar.setTitle("充电宝"+strSyncCount);
         // Sub Title
         //homeToolBar.setSubtitle("Sub title");
         setSupportActionBar(homeToolBar);
@@ -211,34 +211,4 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             }
         });
     }
-
-
-//    public void switchMainFragment(int location, Fragment f){
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.replace(location,f);
-//        ft.commit();
-//    }
-
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.actionbar_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_friends:
-                Toast.makeText(this, "Friends", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.action_favorite:
-                Toast.makeText(this, "Favorite", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
-
-
 }
