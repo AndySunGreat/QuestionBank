@@ -3,15 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#ffff44">
-
-    <!-- -->
+    android:background="#ffff44"
+    android:orientation="horizontal">
+    <!-- 问题序号-->
     <TextView
-        android:id="@+id/txt_num"
+        android:id="@+id/quesNumberTV"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:text="1"
-        android:textSize="22dp"
-        android:gravity="center"/>
-
+        android:textSize="22dp"/>
+    <TextView
+        android:id="@+id/quesBankNameTV"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="1"
+        android:textSize="22dp"/>
+    <TextView
+        android:id="@+id/quesCategoryNameTV"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="1"
+        android:textSize="22dp"/>
+    <TextView
+        android:id="@+id/quesTypeNameTV"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="1"
+        android:textSize="22dp"/>
+    <TextView
+        android:id="@+id/quesSubject"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="1"
+        android:textSize="22dp"/>
+    <RadioGroup android:id="@+id/radioGroup"
+        android:contentDescription="答案选项"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </RadioGroup>
 </LinearLayout>

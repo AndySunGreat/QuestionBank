@@ -1,26 +1,93 @@
 package com.aladdin.apps.questionbank.data.bean;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by AndySun on 2016/9/24.
  */
-public class Question {
+public class Question implements Serializable {
     private Long questionId;
     private Long questionCategoryId;
+    private String questionCategoryName;
     private Long questionBankId;
+    private String questionBankName;
     private Long questionTypeId;
+    private String questionTypeName;
     private String questionSubject; //题目
-    private String answerJson;
+    private List<QuestionChooseItem> answerItemsList;
     private String questionComments;
+    private String answers;
 
-    public Question(Long questionId, Long questionCategoryId, Long questionBankId, Long questionTypeId, String questionSubject, String answerJson, String questionComments) {
+
+    public Question() {
+    }
+
+    public Question(Long questionId,
+                    Long questionCategoryId,
+                    String questionCategoryName,
+                    Long questionBankId,
+                    String questionBankName,
+                    Long questionTypeId,
+                    String questionTypeName,
+                    String questionSubject,
+                    List<QuestionChooseItem> answerItemsList,
+                    String questionComments,
+                    String answers) {
         this.questionId = questionId;
         this.questionCategoryId = questionCategoryId;
+        this.questionCategoryName = questionCategoryName;
         this.questionBankId = questionBankId;
+        this.questionBankName = questionBankName;
         this.questionTypeId = questionTypeId;
+        this.questionTypeName = questionTypeName;
         this.questionSubject = questionSubject;
-        this.answerJson = answerJson;
+        this.answerItemsList = answerItemsList;
         this.questionComments = questionComments;
+        this.answers = answers;
     }
+
+
+    public String getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(String answers) {
+        this.answers = answers;
+    }
+    public List<QuestionChooseItem> getAnswerItemsList() {
+        return answerItemsList;
+    }
+
+    public void setAnswerItemsList(List<QuestionChooseItem> answerItemsList) {
+        this.answerItemsList = answerItemsList;
+    }
+
+    public String getQuestionCategoryName() {
+        return questionCategoryName;
+    }
+
+    public void setQuestionCategoryName(String questionCategoryName) {
+        this.questionCategoryName = questionCategoryName;
+    }
+
+    public String getQuestionBankName() {
+        return questionBankName;
+    }
+
+    public void setQuestionBankName(String questionBankName) {
+        this.questionBankName = questionBankName;
+    }
+
+    public String getQuestionTypeName() {
+        return questionTypeName;
+    }
+
+    public void setQuestionTypeName(String questionTypeName) {
+        this.questionTypeName = questionTypeName;
+    }
+
+
 
     public Long getQuestionId() {
         return questionId;
@@ -60,14 +127,6 @@ public class Question {
 
     public void setQuestionSubject(String questionSubject) {
         this.questionSubject = questionSubject;
-    }
-
-    public String getAnswerJson() {
-        return answerJson;
-    }
-
-    public void setAnswerJson(String answerJson) {
-        this.answerJson = answerJson;
     }
 
     public String getQuestionComments() {

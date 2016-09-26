@@ -182,32 +182,7 @@ public class QuestionModuleBankActivity extends AppCompatActivity implements Que
         });
     }
 
-    private void createQuesBankModuleContent() {
-        //数据初始化
-        mData1 = new ArrayList<ChannelRow>();
-        mData1.add(new ChannelRow(R.drawable.ic_favorites, "Java Core"));
-        mData1.add(new ChannelRow(R.drawable.ic_recents, "Spring MVC"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Javascript"));
-        mData1.add(new ChannelRow(R.drawable.ic_restaurants, "HTML/CSS"));
-        mData1.add(new ChannelRow(R.drawable.ic_nearby, "Java Thread"));
-        //Adapter初始化
-        myAdapter1 = new ListViewAdapter<ChannelRow>((ArrayList) mData1, R.layout.ques_m_bank_content_listview_row) {
-            @Override
-            public void bindView(ViewHolder holder, ChannelRow obj) {
-                holder.setImageResource(R.id.rowLogo, obj.getRowIcon());
-                holder.setText(R.id.rowName, obj.getRowName());
-                /*为Button添加点击事件*/
-            /*    holder.bt.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.v("BaseAdapterTest", "你点击了按钮" + position);
-                        //打印Button的点击信息
-                    }
-                });*/
-            }
-        };
-        mainListView.setAdapter(myAdapter1);
-    }
+
 
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
