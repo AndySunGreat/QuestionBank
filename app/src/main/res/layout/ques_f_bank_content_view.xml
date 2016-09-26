@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:gravity="center"
     android:background="#ffff44"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:fitsSystemWindows="true">
     <!-- 问题序号-->
     <TextView
         android:id="@+id/quesNumberTV"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="1"
-        android:textSize="22dp"/>
+        android:textSize="22dp"
+        android:textColor="@color/black"
+
+        />
     <TextView
         android:id="@+id/quesBankNameTV"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="1"
         android:textSize="22dp"/>
     <TextView
         android:id="@+id/quesCategoryNameTV"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="1"
         android:textSize="22dp"/>
     <TextView
         android:id="@+id/quesTypeNameTV"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="1"
         android:textSize="22dp"/>
     <TextView
         android:id="@+id/quesSubject"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="1"
         android:textSize="22dp"/>
     <RadioGroup android:id="@+id/radioGroup"

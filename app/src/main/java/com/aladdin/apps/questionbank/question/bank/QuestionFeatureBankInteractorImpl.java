@@ -73,7 +73,7 @@ public class QuestionFeatureBankInteractorImpl implements QuestionFeatureBankInt
                             qChooseItemList.add(qChooseItem);
                         }
                         question.setAnswerItemsList(qChooseItemList);
-                        question.setAnswers(obj.getString("answer"));
+                        question.setAnswers(obj.getString("answers"));
                     } catch (JSONException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

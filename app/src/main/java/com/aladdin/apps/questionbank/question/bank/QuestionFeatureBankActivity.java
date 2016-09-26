@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,8 +61,6 @@ public class QuestionFeatureBankActivity extends AppCompatActivity implements Qu
 
     @Override
     public void setItems(List<Question> mData) {
-        mData = new ArrayList<Question>();
-
         //这里只设置了4.因为在实现应用中，我们在页面加载的时候，你会根据数据的多少，而知道这个页面的数量
         //一般情况下，我们会根据list<>或是string[]这样的数组的数量来判断要有多少页
         for(int i=0;i<mData.size();i++)
@@ -78,7 +77,7 @@ public class QuestionFeatureBankActivity extends AppCompatActivity implements Qu
             quesTypeNameTV.setText(question.getQuestionTypeName());
             radioGroup = (RadioGroup)view.findViewById(R.id.radioGroup);
             answerItemsList = question.getAnswerItemsList();
-            for(int j=0;i<answerItemsList.size();j++){
+            for(int j=0;j<answerItemsList.size();j++){
                 questionChooseItem = (QuestionChooseItem)answerItemsList.get(j);
                 RadioButton tempButton = new RadioButton(this);
                 tempButton.setText(questionChooseItem.getQiSeq() + questionChooseItem.getQiContent());
@@ -86,7 +85,7 @@ public class QuestionFeatureBankActivity extends AppCompatActivity implements Qu
             }
             list_view.add(view);
         }
-
+        Log.i("list_view.size():",String.valueOf(list_view.size()));
         adpter = new ViewpageAdapter(list_view);
         fBankContentlistPager.setAdapter(adpter);
 
