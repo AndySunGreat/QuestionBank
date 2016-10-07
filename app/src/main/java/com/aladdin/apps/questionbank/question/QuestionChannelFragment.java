@@ -41,7 +41,10 @@ public class QuestionChannelFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Log.v("BaseAdapterTest", "你点击了ListView条目" + position + id);
+                // jump to first module '我的题库[进入答题]'
                 if(position==0){
+                    // TODO: 2016-10-9 big change: directly get first bank's questions based on userId/packageId/orderId/bankId
+
                     intent = new Intent(getActivity(),QuestionModuleBankActivity.class);
                     intent.putExtra("testData","dsfds");
                     startActivity(intent);
@@ -56,7 +59,7 @@ public class QuestionChannelFragment extends Fragment {
     private void createQuesChlContent() {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
-        mData1.add(new ChannelRow(R.drawable.ic_favorites, "我的题库"));
+        mData1.add(new ChannelRow(R.drawable.ic_favorites, "开始答题"));
         mData1.add(new ChannelRow(R.drawable.ic_recents, "热门题库"));
         mData1.add(new ChannelRow(R.drawable.ic_nearby, "面试策略"));
         mData1.add(new ChannelRow(R.drawable.ic_restaurants, "Boss战"));

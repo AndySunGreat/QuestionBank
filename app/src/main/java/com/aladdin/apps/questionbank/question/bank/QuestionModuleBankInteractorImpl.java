@@ -57,7 +57,6 @@ public class QuestionModuleBankInteractorImpl implements QuestionModuleBankInter
                         cr.setRowName(obj.getString("bankName"));
 
                     } catch (JSONException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                     objects.add(cr);

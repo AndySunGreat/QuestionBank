@@ -61,13 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "abc@126.com:abc","foo@example.com:hello", "bar@example.com:world"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -238,12 +232,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -393,10 +385,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         super.onSuccess(statusCode, headers, responseObj);
                         Log.d("LoginActivity",responseObj.toString());
                          String strObj = responseObj.toString();
-                        if(strObj.indexOf("200B")!=-1){
-                            navigatetoRegisterActivity();
-                        }else if(strObj.indexOf("200C")!=-1){
-                            //TODO CLEAN INPUTS
+                        // 200B - No UserNew found for AccountNumber
+                        if(strObj.indexOf("200C")!=-1){
+                            // 200C - Password is incorrect
+                            // TODO: 2016-10-18 handle password incorrect logic
                             Log.d("LoginActivity","200c");
                         }else{
                             Snackbar.make(layoutRoot, "登录成功!", Snackbar.LENGTH_SHORT)
@@ -426,7 +418,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                     Log.i("QuestionId:", obj.getInt("questionId") + "");
                                     objects.add(obj.getString("questionSubject"));
                                 } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
                             }
@@ -444,6 +435,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // When Http response code is '404'
                         if (statusCode == 404) {
                             Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                            navigatetoRegisterActivity();
                         }
                         // When Http response code is '500'
                         else if (statusCode == 500) {
@@ -484,7 +476,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            // attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -500,7 +492,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
-            // TODO: register the new account here.
+            //register the new account here.
             return true;
         }
 

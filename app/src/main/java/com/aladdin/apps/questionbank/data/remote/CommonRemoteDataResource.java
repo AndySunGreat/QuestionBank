@@ -36,7 +36,6 @@ public class CommonRemoteDataResource {
                 if(strObj.indexOf("200B")!=-1){
                     navigatetoRegisterActivity();
                 }else if(strObj.indexOf("200C")!=-1){
-                    //TODO CLEAN INPUTS
                     Log.d("LoginActivity","200c");
                 }else{
                     Snackbar.make(layoutRoot, "登录成功!", Snackbar.LENGTH_SHORT)
@@ -66,7 +65,6 @@ public class CommonRemoteDataResource {
                             Log.i("QuestionId:", obj.getInt("questionId") + "");
                             objects.add(obj.getString("questionSubject"));
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
