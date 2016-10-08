@@ -10,9 +10,10 @@ import java.net.UnknownHostException;
  */
 public class Constants {
     public static final String restfulEndpoints = "http://192.168.2.105:8081/MajorBank/api/";
-    //public static final String restfulEndpoints = "http://10.10.8.102:8081/AladdinSpringFour/";
+    //public static final String restfulEndpoints = "http://10.10.8.102:8081/MajorBank/api/";
     public static final String  getCustomersById= "questionBanks";
     public static final String  getLoginByAccountNumberUrl= "login/user/validate";
+    public static final String  createNewUserUrl = "login/user";
     // 获得定购的题库
     public static final String getOrderQuestionBankUrl = "orderQuestionBank";
     // 根据题库ID来获得题库内容

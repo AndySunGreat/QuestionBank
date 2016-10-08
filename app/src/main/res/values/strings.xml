@@ -1,9 +1,26 @@
 <resources>
     <string name="app_name">智题银行</string>
 
+    <string name="sign_up_username">手机号码</string>
+    <string name="sign_up_password">密码</string>
+    <string name="sign_up_job">当前职业</string>
+    <string name="sign_up_job_prompt">请选择职业</string>
+    <string name="sign_up_action">注册</string>
+    <string-array name="sign_up_job_arrays">
+        <item>请选择职业</item>
+        <item>应届毕业生</item>
+        <item>Java初级软件工程师</item>
+        <item>Java软件工程师</item>
+        <item>Java高级软件工程师</item>
+        <item>架构师</item>
+    </string-array>
+    
     <!-- Strings related to login -->
     <string name="prompt_email">邮箱/手机号码</string>
     <string name="prompt_password">密码 (选填)</string>
+
+
+
     <string name="action_sign_in">登录或注册</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -15,4 +32,7 @@
     </string>
     <string name="action_settings">设置</string>
     <string name="action_favorite">收藏</string>
+
+
+
 </resources>

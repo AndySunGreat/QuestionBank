@@ -1,10 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".login.LoginActivity">
+
+    <!-- RegisterActivity progress
+        view.setVisibility(View.visible)
+        view.setVisibility(View.invisible)  不可见
+        view.setVisibility(View.gone) == gone
+     -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/homeToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/darkslategray"
+        android:elevation="4dp"
+        android:titleTextColor="@color/white"
+        android:titleTextAppearance="@color/white"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
+    <ProgressBar
+        android:id="@+id/sign_up_progress"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="registerButton"
-        android:id="@+id/registerButton" />
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/register_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/username_sign_up_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 1.Username -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <AutoCompleteTextView
+                    android:id="@+id/username_sign_up_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_username"
+                    android:inputType="textAutoComplete"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <!-- 2.Password -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password_sign_up_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+            <!-- -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/job_sign_up_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_up_password"
+                    android:entries="@array/sign_up_job_arrays"
+                    android:prompt="@string/sign_up_job_prompt" />
+
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/submit_sign_up_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/sign_up_action"
+                android:textStyle="bold" />
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/layoutRoot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

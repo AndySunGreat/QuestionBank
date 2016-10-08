@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.home.HomeActivity;
+import com.aladdin.apps.questionbank.login.signup.RegisterActivity;
 import com.aladdin.apps.questionbank.util.Constants;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;

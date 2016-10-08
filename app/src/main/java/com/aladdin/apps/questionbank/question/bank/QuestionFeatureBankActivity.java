@@ -97,6 +97,7 @@ public class QuestionFeatureBankActivity extends AppCompatActivity implements Qu
         fBankContentlistPager.setCurrentItem(currentItem);
     }
 
+    // List View click event
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         presenter.onItemClicked(position);
