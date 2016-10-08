@@ -8,4 +8,5 @@ import com.aladdin.apps.questionbank.base.BaseResultObject;
  */
 public interface RegisterView extends BaseModuleView {
     void setItemsError(BaseResultObject bro);
+    void navigatePackageActivity();
 }

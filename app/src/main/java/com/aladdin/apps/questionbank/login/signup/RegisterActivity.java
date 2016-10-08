@@ -1,5 +1,6 @@
 package com.aladdin.apps.questionbank.login.signup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
+import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.question.bank.QuestionFeatureBankActivity;
 import com.loopj.android.http.RequestParams;
 
 
@@ -27,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class RegisterActivity extends AppCompatActivity implements RegisterView,View.OnClickListener {
+public class RegisterActivity extends BaseActivity implements RegisterView,View.OnClickListener {
 
     @Bind(R.id.homeToolBar)
     Toolbar homeToolBar;
@@ -48,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView,
     @Bind(R.id.sign_up_progress)
     ProgressBar progressBar;
     RegisterPresenter presenter;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,22 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView,
         // TODO: 2016-10-8 insert first order record by calling /api/me/order[POST] when to click 'submit' in package choosing page.
         // TODO: 2016-10-8 jump 'question bank channel' and then directly go to question list pages.
 
+    }
+
+    @Override
+    public void navigatePackageActivity() {
+        intent = new Intent(getApplicationContext(), QuestionFeatureBankActivity.class);
+        intent.putExtra("userLevel", "Senior Software Engineer");
+       /* if (position == 0) {
+            intent.putExtra("industry", "IT");
+            intent.putExtra("questionCategory", "Java");
+            intent.putExtra("questionBankName", "JavaCore");
+        } else if (position == 1) {
+            intent.putExtra("industry", "IT");
+            intent.putExtra("questionCategory", "Java");
+            intent.putExtra("questionBankName", "SpringMVC");
+        }*/
+        startActivity(intent);
     }
 
      @Override
@@ -131,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView,
         homeToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(12)";
         // Title
-        homeToolBar.setTitle("我的题库" + strSyncCount);
+        homeToolBar.setTitle("注册" + strSyncCount);
         // Sub Title
         //homeToolBar.setSubtitle("Sub title");
         setSupportActionBar(homeToolBar);

@@ -53,6 +53,7 @@ public class RegisterPresenterImpl implements  RegisterPresenter, RegisterIntera
             registerView.hideProgress();
         }
         // TODO: 20161009 - jump into choose package page
+
     }
 
     @Override
