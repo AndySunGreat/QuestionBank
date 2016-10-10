@@ -28,18 +28,19 @@ public class RegisterPresenterImpl implements  RegisterPresenter, RegisterIntera
             registerView.showTitleBar();
             registerView.showProgress();
         }
-
+        registerView.showJobSpinner();
     }
 
    @Override
     public void onClickd(View v,JSONObject jsonObject){
-/*        if (registerView != null) {
-            registerView.showMessage(String.format("Position %d clicked", position + 1));
-        }*/
+       if (registerView != null) {
+            registerView.showMessage("Submit Button %d clicked");
+        }
         //registerView.navigateFeaturesActivity(position);
 
        registerInteractor.insertUserForSignup(this,jsonObject,v.getContext());
-    }
+       registerView.navigatePackageActivity(jsonObject);
+   }
 
     @Override
     public void onDestroy(){

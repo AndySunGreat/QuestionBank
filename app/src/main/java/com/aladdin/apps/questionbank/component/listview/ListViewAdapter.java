@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -98,14 +99,17 @@ public abstract class ListViewAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
+    /**
+     * ViewHolder is static class. It used to reduce calling for findViewById, and then put component's reference
+     * into ViewHolder, and set this ViewHolder into view using 'View.setTag(holder)'
+     */
     public static class ViewHolder {
 
         private SparseArray<View> mViews;   //存储ListView 的 item中的View
         private View item;                  //存放convertView
         private int position;               //游标
         private Context context;            //Context上下文
-
+        private Button bt;
         //构造方法，完成相关初始化
         private ViewHolder(Context context, ViewGroup parent, int layoutRes) {
             mViews = new SparseArray<>();
@@ -164,6 +168,15 @@ public abstract class ListViewAdapter<T> extends BaseAdapter {
             }
             return this;
         }
+
+        public ViewHolder setButton(int id, CharSequence text) {
+            View view = getView(id);
+            if (view instanceof TextView) {
+                ((Button) view).setText(text);
+            }
+            return this;
+        }
+
 
         /**
          * 设置图片

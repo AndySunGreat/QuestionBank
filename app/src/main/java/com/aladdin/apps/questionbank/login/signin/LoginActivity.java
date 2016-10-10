@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.login;
+package com.aladdin.apps.questionbank.login.signin;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".login.LoginActivity">
+    tools:context=".login.signin.LoginActivity">
 
     <!-- RegisterActivity progress
         view.setVisibility(View.visible)
@@ -84,9 +84,7 @@
                     android:id="@+id/job_sign_up_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_up_password"
-                    android:entries="@array/sign_up_job_arrays"
-                    android:prompt="@string/sign_up_job_prompt" />
+                    android:hint="@string/sign_up_job_prompt" />
 
             </android.support.design.widget.TextInputLayout>
             <Button

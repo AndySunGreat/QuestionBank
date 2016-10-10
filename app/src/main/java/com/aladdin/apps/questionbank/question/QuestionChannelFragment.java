@@ -44,7 +44,6 @@ public class QuestionChannelFragment extends Fragment {
                 // jump to first module '我的题库[进入答题]'
                 if(position==0){
                     // TODO: 2016-10-9 big change: directly get first bank's questions based on userId/packageId/orderId/bankId
-
                     intent = new Intent(getActivity(),QuestionModuleBankActivity.class);
                     intent.putExtra("testData","dsfds");
                     startActivity(intent);
