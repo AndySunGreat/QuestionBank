@@ -46,7 +46,7 @@
         android:layout_below="@+id/descTv"
         android:layout_marginTop="10dp"
         android:background="#2ED667"
-        android:drawableLeft="@mipmap/icons_howto"
+        android:drawableLeft="@mipmap/ic_launcher"
         android:drawablePadding="5dp"
         android:text="10086"
         android:textColor="#ffffff"

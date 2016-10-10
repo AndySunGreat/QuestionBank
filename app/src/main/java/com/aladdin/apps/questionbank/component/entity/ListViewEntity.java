@@ -12,11 +12,12 @@ public class ListViewEntity {
     public ListViewEntity() {
     }
 
-    public ListViewEntity(String phone, String title, String desc, String time) {
-        this.phone = phone;
+    public ListViewEntity(String title, String desc, String time, String phone) {
         this.title = title;
+
         this.desc = desc;
         this.time = time;
+        this.phone = phone;
     }
 
     public String getTitle() {

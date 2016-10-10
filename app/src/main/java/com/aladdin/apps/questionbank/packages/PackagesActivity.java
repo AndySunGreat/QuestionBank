@@ -3,6 +3,7 @@ package com.aladdin.apps.questionbank.packages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,6 +39,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     private ArrayList<ChannelRow> mData1;
     private ListViewAdapter myAdapter1;
     private Package autoPackage;
+    private ListViewEntity bean;
     private PackagesPresenter presenter;
     Map map = new HashMap<>();
     private List<ListViewEntity> mDatas;
@@ -68,15 +70,27 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     public void setItems(List<Package> mData) {
         packageListView = (ListView)findViewById(R.id.getPackageListview);
         mDatas = new ArrayList<ListViewEntity>();
-
-        //将数据装到集合中去
-        ListViewEntity bean = new ListViewEntity("Android新技能1", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
+        for(int i=0;i<mData.size();i++) {
+            autoPackage = (Package) mData.get(i);
+            Log.d("date:",autoPackage.getCreateDate().toString());
+            //将数据装到集合中去
+            bean = new ListViewEntity(autoPackage.getPackageName(), "Android为ListView和GridView打造万能适配器",
+                    autoPackage.getCreateDate().toString(), "进入答题");
+            mDatas.add(bean);
+        }
         bean = new ListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
         bean = new ListViewEntity("Android新技能3", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        mDatas.add(bean);
+
+        bean = new ListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        mDatas.add(bean);
+
+        bean = new ListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        mDatas.add(bean);
+
+        bean = new ListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
         bean = new ListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
@@ -127,7 +141,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     @Override
     public void showTitleBar() {
         // App Logo
-        homeToolBar.setLogo(R.mipmap.ic_launcher);
+        //homeToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(12)";
         // Title
         homeToolBar.setTitle("我的题库" + strSyncCount);
