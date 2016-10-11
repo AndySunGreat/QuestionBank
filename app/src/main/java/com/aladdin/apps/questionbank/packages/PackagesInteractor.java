@@ -22,8 +22,12 @@ public interface PackagesInteractor {
         void onFinished(List<Package> items);
         void onFailure(BaseResultObject items);
     }
+    interface OnCreatingOrderFinishedListener{
+        void onFinished(BaseResultObject items);
+        void onFailure(BaseResultObject items);
+    }
     // AHC calling for getting auto recommend packages based on JobId
     void getAutoPackagesByJobId(OnShowingPackagesFinishedListener listener, Map map, RequestParams params);
-
-
+    // insert first order record by calling /api/me/order[POST] when to click 'submit' in package choosing page.
+    void generateOrderForPackages(OnCreatingOrderFinishedListener listener, JSONObject jsonObject, Context context);
 }

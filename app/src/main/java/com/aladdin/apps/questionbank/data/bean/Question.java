@@ -1,139 +1,87 @@
 package com.aladdin.apps.questionbank.data.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 /**
- * Created by AndySun on 2016/9/24.
+ * Created by AndySun on 2016/10/11.
  */
 public class Question implements Serializable {
-    private Long questionId;
-    private Long questionCategoryId;
-    private String questionCategoryName;
-    private Long questionBankId;
-    private String questionBankName;
-    private Long questionTypeId;
-    private String questionTypeName;
-    private String questionSubject; //题目
-    private List<QuestionChooseItem> answerItemsList;
-    private String questionComments;
-    private String answers;
-
+    private long questionId;
+    private long bankId;
+    private String questContent;
+    private String questType; // 1-单选 2-多选
+    private String questOptionsJson;
+    private String correctAnswer;
+    private String changeDate;
 
     public Question() {
     }
 
-    public Question(Long questionId,
-                    Long questionCategoryId,
-                    String questionCategoryName,
-                    Long questionBankId,
-                    String questionBankName,
-                    Long questionTypeId,
-                    String questionTypeName,
-                    String questionSubject,
-                    List<QuestionChooseItem> answerItemsList,
-                    String questionComments,
-                    String answers) {
+    public Question(long questionId, long bankId, String questContent,
+                    String questType, String questOptionsJson, String correctAnswer, String changeDate) {
         this.questionId = questionId;
-        this.questionCategoryId = questionCategoryId;
-        this.questionCategoryName = questionCategoryName;
-        this.questionBankId = questionBankId;
-        this.questionBankName = questionBankName;
-        this.questionTypeId = questionTypeId;
-        this.questionTypeName = questionTypeName;
-        this.questionSubject = questionSubject;
-        this.answerItemsList = answerItemsList;
-        this.questionComments = questionComments;
-        this.answers = answers;
+        this.bankId = bankId;
+        this.questContent = questContent;
+        this.questType = questType;
+        this.questOptionsJson = questOptionsJson;
+        this.correctAnswer = correctAnswer;
+        this.changeDate = changeDate;
     }
 
-
-    public String getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(String answers) {
-        this.answers = answers;
-    }
-    public List<QuestionChooseItem> getAnswerItemsList() {
-        return answerItemsList;
-    }
-
-    public void setAnswerItemsList(List<QuestionChooseItem> answerItemsList) {
-        this.answerItemsList = answerItemsList;
-    }
-
-    public String getQuestionCategoryName() {
-        return questionCategoryName;
-    }
-
-    public void setQuestionCategoryName(String questionCategoryName) {
-        this.questionCategoryName = questionCategoryName;
-    }
-
-    public String getQuestionBankName() {
-        return questionBankName;
-    }
-
-    public void setQuestionBankName(String questionBankName) {
-        this.questionBankName = questionBankName;
-    }
-
-    public String getQuestionTypeName() {
-        return questionTypeName;
-    }
-
-    public void setQuestionTypeName(String questionTypeName) {
-        this.questionTypeName = questionTypeName;
-    }
-
-
-
-    public Long getQuestionId() {
+    public long getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(Long questionId) {
+    public void setQuestionId(long questionId) {
         this.questionId = questionId;
     }
 
-    public Long getQuestionCategoryId() {
-        return questionCategoryId;
+    public long getBankId() {
+        return bankId;
     }
 
-    public void setQuestionCategoryId(Long questionCategoryId) {
-        this.questionCategoryId = questionCategoryId;
+    public void setBankId(long bankId) {
+        this.bankId = bankId;
     }
 
-    public Long getQuestionBankId() {
-        return questionBankId;
+    public String getQuestContent() {
+        return questContent;
     }
 
-    public void setQuestionBankId(Long questionBankId) {
-        this.questionBankId = questionBankId;
+    public void setQuestContent(String questContent) {
+        this.questContent = questContent;
     }
 
-    public Long getQuestionTypeId() {
-        return questionTypeId;
+    public String getQuestType() {
+        return questType;
     }
 
-    public void setQuestionTypeId(Long questionTypeId) {
-        this.questionTypeId = questionTypeId;
+    public void setQuestType(String questType) {
+        this.questType = questType;
     }
 
-    public String getQuestionSubject() {
-        return questionSubject;
+    public String getQuestOptionsJson() {
+        return questOptionsJson;
     }
 
-    public void setQuestionSubject(String questionSubject) {
-        this.questionSubject = questionSubject;
+    public void setQuestOptionsJson(String questOptionsJson) {
+        this.questOptionsJson = questOptionsJson;
     }
 
-    public String getQuestionComments() {
-        return questionComments;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setQuestionComments(String questionComments) {
-        this.questionComments = questionComments;
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getChangeDate() {
+        return changeDate;
+    }
+
+    public void setChangeDate(String changeDate) {
+        this.changeDate = changeDate;
     }
 }

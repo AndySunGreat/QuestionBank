@@ -4,25 +4,19 @@ import android.content.Context;
 import android.util.Log;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.data.bean.Question;
-import com.aladdin.apps.questionbank.data.bean.QuestionChooseItem;
-import com.aladdin.apps.questionbank.question.bank.QuestionFeatureBankInteractor;
 import com.aladdin.apps.questionbank.util.Constants;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.PersistentCookieStore;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.ByteArrayEntity;
-import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.cookie.BasicClientCookie;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
@@ -35,6 +29,12 @@ public class RegisterInteractorImpl implements RegisterInteractor {
     public void insertUserForSignup(final RegisterInteractor.OnCreatingUserFinishedListener listener, JSONObject jsonObject, Context context){
         bro = new BaseResultObject();
         String url = Constants.restfulEndpoints + Constants.createNewUserUrl;
+        String strUserId = "1";
+/*        try {
+            strUserId = jsonObject.get("userId").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
         Log.d("url:",url);
         AsyncHttpClient client = new AsyncHttpClient();
         //StringEntity entity = null;
@@ -45,13 +45,22 @@ public class RegisterInteractorImpl implements RegisterInteractor {
         }catch (UnsupportedEncodingException e1){
             e1.printStackTrace();
         }
+        //保存cookie，自动保存到了shareprefercece
+        PersistentCookieStore myCookieStore = new PersistentCookieStore(context);
+        BasicClientCookie newCookie = new BasicClientCookie("userId", strUserId);
+        newCookie.setVersion(1);
+        newCookie.setDomain("mydomain.com");
+        newCookie.setPath("/");
+        myCookieStore.addCookie(newCookie);
+        client.setCookieStore(myCookieStore);
         entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
         // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())
         client.post(context,url,entity,"application/json",new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response){
 
-                Log.d("statusCode1",String.valueOf(statusCode));
+                Log.d("statusCode",String.valueOf(statusCode));
+                Log.d("Register","注册成功,cookie");
                 // called when response HTTP status is "200 OK"
                 bro.setResultStateCode(statusCode);
                 bro.setResultMsg("Success");
@@ -84,4 +93,6 @@ public class RegisterInteractorImpl implements RegisterInteractor {
             }
         });
     }
+
+
 }

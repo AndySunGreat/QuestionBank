@@ -15,10 +15,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.discovery.DiscoveryFragment;
 import com.aladdin.apps.questionbank.home.view.HomeView;
-import com.aladdin.apps.questionbank.me.MeChannelFragment;
-import com.aladdin.apps.questionbank.question.QuestionChannelFragment;
+import com.aladdin.apps.questionbank.others.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -124,8 +122,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         fragmentList = new ArrayList<>();
         fragmentList.add(new QuestionChannelFragment());
         //fragmentList.add(new PromotionFragment());
-        fragmentList.add(new DiscoveryFragment());
-        fragmentList.add(new MeChannelFragment());
+        //fragmentList.add(new DiscoveryFragment());
+        //fragmentList.add(new MeChannelFragment());
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {

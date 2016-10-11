@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.component.entity.SpinnerData;
+import com.aladdin.apps.questionbank.common.entity.SpinnerData;
 import com.aladdin.apps.questionbank.packages.PackagesActivity;
 
 
@@ -69,8 +69,6 @@ public class RegisterActivity extends BaseActivity implements RegisterView,View.
         submitSignUpBtn.setOnClickListener(this);
         // TODO: 2016-10-8 call /api/login/user [POST] to insert user data when click 'submit' button
 
-        // TODO: 2016-10-8 insert first order record by calling /api/me/order[POST] when to click 'submit' in package choosing page.
-        // TODO: 2016-10-8 jump 'question bank channel' and then directly go to question list pages.
 
     }
 

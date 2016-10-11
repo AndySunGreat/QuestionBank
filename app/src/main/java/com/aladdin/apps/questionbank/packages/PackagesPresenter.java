@@ -1,6 +1,7 @@
 package com.aladdin.apps.questionbank.packages;
 
 import android.view.View;
+import android.widget.AdapterView;
 
 import org.json.JSONObject;
 
@@ -11,8 +12,10 @@ import org.json.JSONObject;
 public interface PackagesPresenter {
     void onResume();
 
-    void onItemClicked(int position);
+    void onItemClicked(AdapterView<?> parent, View view, int position, long id);
 
     void onDestroy();
+
+    void onClick(View view);
 
 }

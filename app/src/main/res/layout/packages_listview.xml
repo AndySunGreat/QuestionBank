@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFE1FF"
+    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 1. TitleBar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/homeToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/royalblue"
+        android:elevation="4dp"
+        android:titleTextColor="@color/white"
+        android:titleTextAppearance="@color/white"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+        <!-- android:paddingTop="60dp"-->
+    <ListView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/getPackageListview"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="5dp"
+        android:divider="@color/lightgray"
+        android:dividerHeight="2dp"
+        android:showDividers="middle"
+        >
+    </ListView>
+    </LinearLayout>
+</LinearLayout>

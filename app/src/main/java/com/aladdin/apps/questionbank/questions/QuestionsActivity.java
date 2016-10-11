@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.packages;
+package com.aladdin.apps.questionbank.questions;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,14 +15,10 @@ import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
-import com.aladdin.apps.questionbank.common.entity.PackageListViewEntity;
+import com.aladdin.apps.questionbank.common.entity.QuestionsListViewEntity;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
-import com.aladdin.apps.questionbank.common.listview.PackageListVAdapter;
-import com.aladdin.apps.questionbank.data.bean.Package;
-import com.aladdin.apps.questionbank.questions.QuestionsActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.aladdin.apps.questionbank.common.listview.QuestionsListVAdapter;
+import com.aladdin.apps.questionbank.data.bean.Question;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,19 +31,19 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/10/9.
  */
-public class PackagesActivity extends BaseActivity implements PackagesView, AdapterView.OnItemClickListener,ListView.OnClickListener{
+public class QuestionsActivity extends BaseActivity implements QuestionsView, AdapterView.OnItemClickListener,ListView.OnClickListener{
     @Bind(R.id.homeToolBar)
     Toolbar homeToolBar;
-    ListView packageListView;
+    ListView questionListView;
     private ArrayAdapter<String> listAdapter ;
     private ArrayList<ChannelRow> mData1;
     private ListViewAdapter myAdapter1;
-    private Package autoPackage;
-    private PackageListViewEntity bean;
-    private PackagesPresenter presenter;
+    private Question question;
+    private QuestionsListViewEntity bean;
+    private QuestionsPresenter presenter;
     Map map = new HashMap<>();
-    private List<PackageListViewEntity> mDatas;
-    private PackageListVAdapter packageListVAdapter;
+    private List<QuestionsListViewEntity> mDatas;
+    private QuestionsListVAdapter questionListVAdapter;
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,79 +52,75 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
                     2) Display available Customize banks to customize user package: /package/{userId}/banks
         And insert this package when click 'generate' button to call API: /package/{jobId}/custom
         */
-        setContentView(R.layout.packages_listview);
+        setContentView(R.layout.questions_listview);
         ButterKnife.bind(this);
 
-        packageListView = (ListView)findViewById(R.id.getPackageListview);
-        presenter = new PackagesPresenterImpl(this,new PackagesInteractorImpl());
+        questionListView = (ListView)findViewById(R.id.getPackageListview);
+        presenter = new QuestionsPresenterImpl(this,new QuestionsInteractorImpl());
     }
 
     @Override
     public Map getFilterParams(){
         Intent registerIntent =  getIntent();
-        String jobId = registerIntent.getStringExtra("jobId");
-        map.put("jobId",jobId);
+        String bankId = registerIntent.getStringExtra("bankId");
+        map.put("bankId",bankId);
         return map;
     }
 
     @Override
-    public void setItems(List<Package> mData) {
-        packageListView = (ListView)findViewById(R.id.getPackageListview);
-        mDatas = new ArrayList<PackageListViewEntity>();
+    public void setItems(List<Question> mData) {
+        questionListView = (ListView)findViewById(R.id.getPackageListview);
+        mDatas = new ArrayList<QuestionsListViewEntity>();
         for(int i=0;i<mData.size();i++) {
-            autoPackage = (Package) mData.get(i);
-            Log.d("packageId:",String.valueOf(autoPackage.getPackageId()));
-            Log.d("bankIdsJson:",autoPackage.getBankIdsJson());
+            question = (Question) mData.get(i);
             //将数据装到集合中去
-            bean = new PackageListViewEntity(
-                    autoPackage.getPackageName(), "Android为ListView和GridView打造万能适配器",
-                    autoPackage.getCreateDate().toString(), "进入答题");
+            bean = new QuestionsListViewEntity(question.getQuestContent(), question.getQuestOptionsJson(),
+                    question.getChangeDate(), "进入答题");
             mDatas.add(bean);
         }
-        bean = new PackageListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能3", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能3", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+        bean = new QuestionsListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
         //为数据绑定适配器
-        packageListVAdapter = new PackageListVAdapter(this, mDatas);
-        packageListView.setAdapter(packageListVAdapter);
+        questionListVAdapter = new QuestionsListVAdapter(this, mDatas);
+        questionListView.setAdapter(questionListVAdapter);
         // Click each item
-        packageListView.setOnItemClickListener(this);
+        questionListView.setOnItemClickListener(this);
     }
     // Clicking each item of list view
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        presenter.onItemClicked(parent, view, position,id);
+        presenter.onItemClicked(position);
     }
 
     /**
      * Go to Question Page
-     * @param jsonObject
+     * @param position
      */
     @Override
-    public void navigateQuestionActivity(JSONObject jsonObject){
+    public void navigateQuestionActivity(int position){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
-        //intent.putExtra("bankId",bankId);
-        try {
-            intent.putExtra("bankId", jsonObject.getString("bankId"));
+/*        try {
+            intent.putExtra("jobId", jsonObject.getString("jobId"));
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        Log.d("PgkAct","QuestAct");
+        }*/
+        Log.d("navigatePackageActivity","navigatePackageActivity");
         startActivity(intent);
     }
 
@@ -173,7 +165,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
             }
 
             if (!msg.equals("")) {
-                Toast.makeText(PackagesActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(QuestionsActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
             return true;
         }
