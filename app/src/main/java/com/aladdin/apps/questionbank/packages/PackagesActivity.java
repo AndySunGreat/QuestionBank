@@ -81,6 +81,8 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
             Log.d("bankIdsJson:",autoPackage.getBankIdsJson());
             //将数据装到集合中去
             bean = new PackageListViewEntity(
+                    String.valueOf(autoPackage.getPackageId()),
+                    autoPackage.getBankIdsJson(),
                     autoPackage.getPackageName(), "Android为ListView和GridView打造万能适配器",
                     autoPackage.getCreateDate().toString(), "进入答题");
             mDatas.add(bean);

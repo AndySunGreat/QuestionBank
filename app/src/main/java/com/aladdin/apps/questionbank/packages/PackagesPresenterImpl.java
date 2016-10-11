@@ -57,8 +57,10 @@ public class PackagesPresenterImpl implements PackagesPresenter,
         if (packagesView != null) {
             packagesView.showMessage(String.format("您选择了第 %d 个套餐", position + 1));
             // Package ID
-            strPackageId = ((TextView)view.findViewById(R.id.hiddenPackageId)).toString();
-            strBankIds = ((TextView)view.findViewById(R.id.hiddenBankIds)).toString();
+            strPackageId = ((TextView)view.findViewById(R.id.hiddenPackageId)).getText().toString();
+            Log.d("strPackageId",strPackageId);
+            strBankIds = ((TextView)view.findViewById(R.id.hiddenBankIds)).getText().toString();
+            Log.d("strBankIds",strBankIds);
         }
         JSONObject jsonObject = new JSONObject();
         String[] bankIdArray = strBankIds.split(",");

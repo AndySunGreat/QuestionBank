@@ -16,8 +16,8 @@ public class Constants {
     public static final String  createNewUserUrl = "login/user";
     public static final String  getAllPkgsUrl = "login/package";
     public static final String  crudPackagePartialUrl = "login/package";
-    public static final String  getAllOrderssUrl = "login/order";
-    public static final String  crudOrderPartialUrl = "login/order";
+    public static final String  getAllOrderssUrl = "me/orders";
+    public static final String  crudOrderPartialUrl = "me/orders";
     // login/package/{jobId}/auto
     public static final String getAutoPkgsByJobIdOneUrl = "login/package/";
     public static final String getAutoPkgsByJobIdTwoUrl = "/auto";
