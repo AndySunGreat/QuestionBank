@@ -28,4 +28,6 @@ public interface QuestionsView extends BaseModuleView {
     void showTitleBar();
 
     Map getFilterParams();
+
+    void showCorrectAnswer();
 }

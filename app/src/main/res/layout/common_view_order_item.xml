@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="New CheckBox"
+        android:layout_weight="0.5"
+        android:id="@+id/optSeq"
+        android:gravity="left|center_vertical"
+        android:singleLine="true"
+        />
+
+<!--    <TextView
+        android:id="@+id/optSeq1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:padding="10dp"
+        android:gravity="left|center_vertical"
+        android:singleLine="true"
+        android:text="可口可乐"/>-->
+
+
+
+    <TextView
+        android:id="@+id/optContent"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="￥15"/>
+
+   <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="1"/>
+
+</LinearLayout>

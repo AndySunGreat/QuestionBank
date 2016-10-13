@@ -3,6 +3,7 @@ package com.aladdin.apps.questionbank.questions;
 import android.util.Log;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionItem;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.aladdin.apps.questionbank.packages.PackagesInteractor;
@@ -38,6 +39,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
     private String bankId;
     @Override
     public void getQuestionsByBankId(final OnShowingQuestionsFinishedListener listener, Map map, RequestParams params){
+
         bro = new BaseResultObject();
         if(map.get("bankId")!=null){
             bankId = map.get("bankId").toString();
@@ -54,9 +56,14 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 bro.setResultMsg("Success");
                 bro.setResultJSONArray(response);
                 questionList = new ArrayList<Question>();
+                JSONArray jsonArrayTemp;
+                JSONObject jsonObjectTemp;
+                List<QuestionItem> questionItemList = new ArrayList<QuestionItem>();
+                QuestionItem questionItemTemp;
                 // 循环遍历auoRecommendPackages
                 for (int i = 0; i < response.length(); i++) {
                     question = new Question();
+                    questionItemList = new ArrayList<QuestionItem>();
                     try {
                         obj = response.getJSONObject(i);
                         question.setQuestionId(obj.getLong("questionId"));
@@ -68,9 +75,19 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
 /*                        if(strChangeDate!=null){
                             question.setChangeDate((java.util.Date)sdf.parse(strChangeDate));
                         }*/
+                        question.setCorrectIndexes(obj.getString("correctIndexes"));
                         question.setCorrectAnswer(obj.getString("correctAnswer"));
                         question.setQuestOptionsJson(obj.getString("questOptionsJson"));
                         question.setQuestType(obj.getString("questType"));
+                        jsonArrayTemp = (JSONArray) obj.get("questOptions");
+                        for(int w=0;w<jsonArrayTemp.length();w++){
+                            jsonObjectTemp = (JSONObject)jsonArrayTemp.get(w);
+                            questionItemTemp = new QuestionItem();
+                            questionItemTemp.setOptSeq(jsonObjectTemp.getString("optSeq"));
+                            questionItemTemp.setOptContent(jsonObjectTemp.getString("optContent"));
+                            questionItemList.add(questionItemTemp);
+                        }
+                        question.setQuestOptions(questionItemList);
                     }catch(JSONException e){
                         e.printStackTrace();
 /*                    }catch (ParseException e2){

@@ -1,6 +1,9 @@
 package com.aladdin.apps.questionbank.questions;
 
 import android.view.View;
+import android.widget.AdapterView;
+
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionAdapter;
 
 
 /**
@@ -9,10 +12,11 @@ import android.view.View;
 public interface QuestionsPresenter {
     void onResume();
 
-    void onItemClicked(int position);
+    void onItemClicked(AdapterView<?> parent, View view, int position, long id);
 
     void onDestroy();
 
     void onClick(View view);
 
+    void validateCheckedAnswer(QuestionAdapter adapter);
 }

@@ -7,16 +7,17 @@
     <!-- 用户存放对象的ID等值 -->
 
     <TextView
-        android:id="@+id/titleTv"
+        android:id="@+id/questTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:text="Android新技能"
         android:textColor="#444"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/descTv"
+        android:id="@+id/questOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/titleTv"
@@ -28,7 +29,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/timeTv"
+        android:id="@+id/questTime"
         android:paddingTop="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

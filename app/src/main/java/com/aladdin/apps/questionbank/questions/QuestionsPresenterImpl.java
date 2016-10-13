@@ -2,8 +2,11 @@ package com.aladdin.apps.questionbank.questions;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.base.BaseViewHolder;
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionAdapter;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.loopj.android.http.RequestParams;
@@ -39,7 +42,13 @@ public class QuestionsPresenterImpl implements QuestionsPresenter, QuestionsInte
     }
 
     @Override
-    public void onItemClicked(int position){
+    public void validateCheckedAnswer(QuestionAdapter adapter){
+
+    }
+
+
+    @Override
+    public void onItemClicked(AdapterView<?> parent, View view, int position, long id){
         if (questionsView != null) {
             questionsView.showMessage(String.format("Position %d clicked", position + 1));
         }
