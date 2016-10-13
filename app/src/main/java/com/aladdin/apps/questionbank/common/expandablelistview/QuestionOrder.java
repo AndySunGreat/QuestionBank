@@ -16,7 +16,6 @@ public class QuestionOrder {
     private String itemsVisibility;
     private String footVisibility;
     private  int orderTest;
-    public static final int VISIBLE = 0;
     //private double totalPrices ;
 
     public final int getOrderTest() {

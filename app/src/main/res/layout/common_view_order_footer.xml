@@ -9,13 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:text="提交"
         />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/answerResultFooter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:padding="10dp"
         android:textSize="16sp"
         android:text="80"/>

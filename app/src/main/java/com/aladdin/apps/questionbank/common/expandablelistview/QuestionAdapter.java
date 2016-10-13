@@ -113,11 +113,21 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         return null;
     }
 
+    public void checkIfAnswerCorrect(View view, final int groupPosition,final int childPosition){
+        // 获得当前group的所有数据
+        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+        Log.d("QuesAdapter",order.getQuestionType());
+        // 1.单选题逻辑
+        if("单选题".equals(order.getQuestionType())){
+            String strChildPosition = childPosition + "";
+        }
+    }
 
 
     // 响应onCheckedChanged事件
     public void setOnCheckedChanged(View view, final int groupPosition,final int childPosition,boolean isChecked){
         ChildHolder childHolder = (ChildHolder)view.getTag();
+
         // 获得当前group的child account
         int childCount = this.getChildrenCount(groupPosition);
         QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
@@ -151,12 +161,8 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         }else if("多选题".equals(order.getQuestionType())){
             // 若多选题，则在footer中显示"提交答案"按钮。
            isSelectedMap.get(groupPosition).put(childPosition, isChecked);
-        }
 
-        //View groupView = this.getGroupView(groupPosition,true, ViewParent parent, )
-        //this.getChildView(groupPosition,childPosition,true,getGroupView(groupPosition))
-        // String groupCorrectAnswer = order.getCorrectAnswer();
-        // QuestionItem orderItem = (QuestionItem)getChild(groupPosition,childPosition);
+        }
 
         this.notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状
         //this.notifyDataSetInvalidated();
@@ -241,11 +247,16 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 }
                 // 单选题隐藏按钮，直接显示结果
                 if("单选题".equals(order.getQuestionType())){
-                    order.setFootVisibility("INVISIBLE,VISIBLE");
+                    order.setFootVisibility("GONE,VISIBLE");
                 }else if("多选题".equals(order.getQuestionType())){
-                    order.setFootVisibility("VISIBLE,INVISIBLE");
+                    order.setFootVisibility("VISIBLE,VISIBLE");
                 }
-
+                // 一定要设置该语句
+                footerHolder.submitFooter.setFocusable(false);
+                int childCount = this.getChildrenCount(groupPosition);
+                footerHolder.submitFooter.setOnClickListener(new submitBtnClick(
+                        convertView,groupPosition,childPosition,childCount,this
+                        ));
                 if("INVISIBLE,VISIBLE".equals(order.getFootVisibility())) {
                     footerHolder.submitFooter.setVisibility(INVISIBLE);
                     footerHolder.answerResultFooter.setVisibility(VISIBLE);
@@ -258,6 +269,15 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 }else if("VISIBLE,INVISIBLE".equals(order.getFootVisibility())) {
                     footerHolder.submitFooter.setVisibility(VISIBLE);
                     footerHolder.answerResultFooter.setVisibility(INVISIBLE);
+                }else if("GONE,GONE".equals(order.getFootVisibility())){
+                    footerHolder.submitFooter.setVisibility(GONE);
+                    footerHolder.answerResultFooter.setVisibility(GONE);
+                }else if("VISIBLE,GONE".equals(order.getFootVisibility())){
+                    footerHolder.submitFooter.setVisibility(VISIBLE);
+                    footerHolder.answerResultFooter.setVisibility(GONE);
+                }else if("GONE,VISIBLE".equals(order.getFootVisibility())) {
+                    footerHolder.submitFooter.setVisibility(GONE);
+                    footerHolder.answerResultFooter.setVisibility(VISIBLE);
                 }
                 if(order.getAnswerResult()==null){
                     footerHolder.answerResultFooter.setText("答题结果：_______");
@@ -277,6 +297,50 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         });
 
         return convertView;
+    }
+
+    private class submitBtnClick implements Button.OnClickListener{
+        View view = null;
+        int groupPosition=0;
+        int childPosition=0;
+        int childCount = 0;
+        QuestionAdapter adapter;
+        public submitBtnClick(View view,int groupPosition,int childPosition,int childCount,QuestionAdapter adapter){
+            this.view = view;
+            this.groupPosition = groupPosition;
+            this.childPosition = childPosition;
+            this.childCount = childCount;
+            this.adapter = adapter;
+        }
+        @Override
+        public void onClick(View view) {
+            // 获得当前group的child account
+            QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+            //int childCount = order.getItems().size()+2;
+            Log.d("childCount",childCount+"");
+            String strChildPosition = "";
+            for (int i = 1; i < childCount - 1; i++) {
+                if(isSelectedMap.get(groupPosition).get(i)){
+                    strChildPosition = strChildPosition + i + ",";
+                }
+            }
+            if(strChildPosition.endsWith(",")) {
+                strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
+            }
+            Log.d("strChildPosition",strChildPosition);
+            Log.d("order:",order.getCorrectPostions()+"");
+            // 1.2 判断单选题用户答案是否正确
+            if(strChildPosition.equals(order.getCorrectPostions())){
+                // 回答正确,则直接收起该group的item内容,或是整体隐藏
+                //order.setFootVisibility(View.VISIBLE);
+                order.setAnswerResult("回答正确");
+                order.setFootVisibility("GONE,VISIBLE");
+            }else{
+                // 若错误在footer中显示“回答错误”
+                order.setAnswerResult("回答错误");
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private class CheckedChange implements CompoundButton.OnCheckedChangeListener{

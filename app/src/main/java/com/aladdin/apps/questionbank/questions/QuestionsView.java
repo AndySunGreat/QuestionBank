@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface QuestionsView extends BaseModuleView {
 
-    void navigateQuestionActivity(int position);
+    void navigateAnswerActivity(int position);
 
     void showProgress();
 

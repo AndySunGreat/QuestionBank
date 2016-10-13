@@ -52,7 +52,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter, QuestionsInte
         if (questionsView != null) {
             questionsView.showMessage(String.format("Position %d clicked", position + 1));
         }
-        questionsView.navigateQuestionActivity(position);
+        questionsView.navigateAnswerActivity(position);
     }
 
     @Override
