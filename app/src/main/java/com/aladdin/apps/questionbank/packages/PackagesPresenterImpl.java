@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
@@ -118,8 +119,9 @@ public class PackagesPresenterImpl implements PackagesPresenter,
     }
 
     @Override
-    public void onFinished(BaseResultObject items) {
+    public void onFinished(Order items) {
         if (packagesView != null) {
+            packagesView.setOrderItem(items);
             Log.d("Create Order","生成订单成功");
             packagesView.hideProgress();
         }

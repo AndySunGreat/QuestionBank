@@ -2,7 +2,7 @@ package com.aladdin.apps.questionbank.questions;
 
 import com.aladdin.apps.questionbank.base.BaseModuleView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.data.bean.Package;
+import com.aladdin.apps.questionbank.data.bean.BankAnswers;
 import com.aladdin.apps.questionbank.data.bean.Question;
 
 import java.util.List;
@@ -19,6 +19,8 @@ public interface QuestionsView extends BaseModuleView {
 
     void hideProgress();
 
+    void setAnswers(BankAnswers mData);
+
     void setItems(List<Question> mData);
 
     void setItemsError(BaseResultObject bro);
@@ -30,4 +32,6 @@ public interface QuestionsView extends BaseModuleView {
     Map getFilterParams();
 
     void showCorrectAnswer();
+
+    BankAnswers getAnswers();
 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.aladdin.apps.questionbank.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,12 +34,39 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
     private List<QuestionOrder> orderList ;
     private LayoutInflater inflater ;
     private View group ;
-    
+    private QuestionOrder questionOrder;
     public QuestionAdapter(List<QuestionOrder> orderList,Context context) {
         this.orderList = orderList ;
         inflater = LayoutInflater.from(context) ;
         group = new FrameLayout(context) ;
         setDefaultChkList();
+    }
+
+    public Map getAnswersResultMap(){
+        Map answerResultMap = new HashMap();
+        int groupPosition = this.getGroupCount();
+        int childrenCount = 0;
+        List<QuestionOrder> questionOrderList  = new ArrayList<>();
+        int score =0;
+        int wrongQuestionCount = 0;
+        String strWrongQuestIds = "";
+        for(int i=0;i<groupPosition-1;i++) {
+            questionOrder  = (QuestionOrder) getGroup(i);
+            childrenCount = this.getChildrenCount(i);
+            questionOrder = markingQuestions(i,childrenCount);
+            if("问题错误".equals(questionOrder.getAnswerResult())){
+                strWrongQuestIds =  strWrongQuestIds + questionOrder.getQuestionId() + ",";
+                wrongQuestionCount++;
+            }
+            questionOrderList.add(questionOrder);
+        }
+        if(strWrongQuestIds.endsWith(",")) {
+            strWrongQuestIds = strWrongQuestIds.substring(0, strWrongQuestIds.length() - 1);
+        }
+        score = wrongQuestionCount/groupPosition*100;
+        answerResultMap.put("wrongQuestIds",strWrongQuestIds);
+        answerResultMap.put("score",score);
+        return answerResultMap;
     }
 
 
@@ -100,28 +128,6 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    public Map getCheckedChildPosition(final int groupPosition){
-        Map checkedChildPostionMap = new HashMap();
-        Map<Integer,Boolean> subMap = new HashMap<Integer,Boolean>();
-        // 获得当前group的child account
-        int childCount = this.getChildrenCount(groupPosition);
-        for(int i=0;i<childCount;i++){
-            if(isSelectedMap.get(groupPosition).get(i)){
-                checkedChildPostionMap.put(i,"");
-            }
-        }
-        return null;
-    }
-
-    public void checkIfAnswerCorrect(View view, final int groupPosition,final int childPosition){
-        // 获得当前group的所有数据
-        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
-        Log.d("QuesAdapter",order.getQuestionType());
-        // 1.单选题逻辑
-        if("单选题".equals(order.getQuestionType())){
-            String strChildPosition = childPosition + "";
-        }
-    }
 
 
     // 响应onCheckedChanged事件
@@ -161,7 +167,6 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         }else if("多选题".equals(order.getQuestionType())){
             // 若多选题，则在footer中显示"提交答案"按钮。
            isSelectedMap.get(groupPosition).put(childPosition, isChecked);
-
         }
 
         this.notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状
@@ -299,6 +304,34 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    // 对每一个试题进行批卷打分，将错误生成字符串(wrong_quest_ids)以及成绩(score)返回。
+    public QuestionOrder markingQuestions(int groupPosition,int childCount){
+        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+        Log.d("childCount",childCount+"");
+        String strChildPosition = "";
+        for (int i = 1; i < childCount - 1; i++) {
+            if(isSelectedMap.get(groupPosition).get(i)){
+                strChildPosition = strChildPosition + i + ",";
+            }
+        }
+        if(strChildPosition.endsWith(",")) {
+            strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
+        }
+        Log.d("strChildPosition",strChildPosition);
+        Log.d("order:",order.getCorrectPostions()+"");
+        // 1.2 判断单选题用户答案是否正确
+        if(strChildPosition.equals(order.getCorrectPostions())){
+            // 回答正确,则直接收起该group的item内容,或是整体隐藏
+            //order.setFootVisibility(View.VISIBLE);
+            order.setAnswerResult("回答正确");
+            order.setFootVisibility("GONE,VISIBLE");
+        }else{
+            // 若错误在footer中显示“回答错误”
+            order.setAnswerResult("回答错误");
+        }
+        return order;
+    }
+
     private class submitBtnClick implements Button.OnClickListener{
         View view = null;
         int groupPosition=0;
@@ -314,31 +347,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         }
         @Override
         public void onClick(View view) {
-            // 获得当前group的child account
-            QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
-            //int childCount = order.getItems().size()+2;
-            Log.d("childCount",childCount+"");
-            String strChildPosition = "";
-            for (int i = 1; i < childCount - 1; i++) {
-                if(isSelectedMap.get(groupPosition).get(i)){
-                    strChildPosition = strChildPosition + i + ",";
-                }
-            }
-            if(strChildPosition.endsWith(",")) {
-                strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
-            }
-            Log.d("strChildPosition",strChildPosition);
-            Log.d("order:",order.getCorrectPostions()+"");
-            // 1.2 判断单选题用户答案是否正确
-            if(strChildPosition.equals(order.getCorrectPostions())){
-                // 回答正确,则直接收起该group的item内容,或是整体隐藏
-                //order.setFootVisibility(View.VISIBLE);
-                order.setAnswerResult("回答正确");
-                order.setFootVisibility("GONE,VISIBLE");
-            }else{
-                // 若错误在footer中显示“回答错误”
-                order.setAnswerResult("回答错误");
-            }
+            markingQuestions(groupPosition,childCount);
             adapter.notifyDataSetChanged();
         }
     }
@@ -389,4 +398,29 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         public TextView correctAnswerFooter;
         public Button submitFooter;
     }
+
+
+    /*
+    public Map getCheckedChildPosition(final int groupPosition){
+        Map checkedChildPostionMap = new HashMap();
+        Map<Integer,Boolean> subMap = new HashMap<Integer,Boolean>();
+        // 获得当前group的child account
+        int childCount = this.getChildrenCount(groupPosition);
+        for(int i=0;i<childCount;i++){
+            if(isSelectedMap.get(groupPosition).get(i)){
+                checkedChildPostionMap.put(i,"");
+            }
+        }
+        return null;
+    }*/
+/*
+    public void checkIfAnswerCorrect(View view, final int groupPosition,final int childPosition){
+        // 获得当前group的所有数据
+        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+        Log.d("QuesAdapter",order.getQuestionType());
+        // 1.单选题逻辑
+        if("单选题".equals(order.getQuestionType())){
+            String strChildPosition = childPosition + "";
+        }
+    }*/
 }

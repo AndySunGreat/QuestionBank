@@ -18,6 +18,7 @@ import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.common.entity.PackageListViewEntity;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
 import com.aladdin.apps.questionbank.common.listview.PackageListVAdapter;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.aladdin.apps.questionbank.questions.QuestionsActivity;
 
@@ -49,6 +50,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     private List<PackageListViewEntity> mDatas;
     private PackageListVAdapter packageListVAdapter;
     private Intent intent;
+    private Order insertAndGetOrder = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         */
         setContentView(R.layout.packages_listview);
         ButterKnife.bind(this);
-
+        insertAndGetOrder = new Order();
         packageListView = (ListView)findViewById(R.id.getPackageListview);
         presenter = new PackagesPresenterImpl(this,new PackagesInteractorImpl());
     }
@@ -111,6 +113,13 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         // Click each item
         packageListView.setOnItemClickListener(this);
     }
+
+    @Override
+    public void setOrderItem(Order orderItem) {
+        this.insertAndGetOrder = orderItem;
+    }
+
+
     // Clicking each item of list view
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -124,9 +133,10 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     @Override
     public void navigateQuestionActivity(JSONObject jsonObject){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
-        //intent.putExtra("bankId",bankId);
         try {
             intent.putExtra("bankId", jsonObject.getString("bankId"));
+            intent.putExtra("packageId",insertAndGetOrder.getPackageId());
+            intent.putExtra("orderId",insertAndGetOrder.getOrderId());
         } catch (JSONException e) {
             e.printStackTrace();
         }

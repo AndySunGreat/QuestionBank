@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.loopj.android.http.RequestParams;
 
@@ -23,7 +24,7 @@ public interface PackagesInteractor {
         void onFailure(BaseResultObject items);
     }
     interface OnCreatingOrderFinishedListener{
-        void onFinished(BaseResultObject items);
+        void onFinished(Order items);
         void onFailure(BaseResultObject items);
     }
     // AHC calling for getting auto recommend packages based on JobId

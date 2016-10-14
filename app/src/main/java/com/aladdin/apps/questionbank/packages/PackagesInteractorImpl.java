@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.aladdin.apps.questionbank.login.signup.RegisterInteractor;
 import com.aladdin.apps.questionbank.util.Constants;
@@ -115,7 +116,7 @@ public class PackagesInteractorImpl  implements PackagesInteractor {
 
     // insert first order record by calling /api/me/order[POST] when to click 'submit' in package choosing page.
     @Override
-    public void generateOrderForPackages(final PackagesInteractor.OnCreatingOrderFinishedListener listener, JSONObject jsonObject, Context context){
+    public void generateOrderForPackages(final PackagesInteractor.OnCreatingOrderFinishedListener listener, JSONObject jsonObjectData, Context context){
         bro = new BaseResultObject();
         String url = Constants.restfulEndpoints + Constants.crudOrderPartialUrl;
         Log.d("url:",url);
@@ -124,25 +125,37 @@ public class PackagesInteractorImpl  implements PackagesInteractor {
         ByteArrayEntity entity = null;
         try {
             // entity = new StringEntity(jsonObject.toString());
-            entity = new ByteArrayEntity(jsonObject.toString().getBytes("UTF-8"));
+            entity = new ByteArrayEntity(jsonObjectData.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e1){
             e1.printStackTrace();
         }
         entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
         // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())
-        client.post(context,url,entity,"application/json",new AsyncHttpResponseHandler(){
+        client.post(context,url,entity,"application/json",new JsonHttpResponseHandler(){
             @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response){
+            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject){
 
                 Log.d("statusCode",String.valueOf(statusCode));
                 Log.d("createOrderByBankId","创建Order成功!");
                 // called when response HTTP status is "200 OK"
-                bro.setResultStateCode(statusCode);
-                bro.setResultMsg("Success");
-                listener.onFinished(bro);
+                /*bro.setResultStateCode(statusCode);
+                bro.setResultMsg("Success");*/
+                Order newOrder = new Order();
+                try {
+                    newOrder.setOrderId(jsonObject.getLong("orderId"));
+                    newOrder.setUserId(jsonObject.getLong("userId"));
+                    newOrder.setBankId(jsonObject.getString("bankId"));
+                    newOrder.setOrderStatus(jsonObject.getString("orderStatus"));
+                    newOrder.setOrderType(jsonObject.getString("orderType"));
+                    newOrder.setPackageId(jsonObject.getString("packageId"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                listener.onFinished(newOrder);
             }
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers,String content, Throwable error) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.d("statusCode2",String.valueOf(statusCode));
                 Log.d("createOrderByBankId","创建Order失败!");

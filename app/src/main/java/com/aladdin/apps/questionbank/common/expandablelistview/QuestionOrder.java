@@ -6,6 +6,7 @@ import java.util.List;
  * Created by AndySun on 2016/10/12.
  */
 public class QuestionOrder {
+    private Long questionId;
     private String questTitle ;
     private List<QuestionItem> items ;
     private String correctAnswer;
@@ -18,13 +19,7 @@ public class QuestionOrder {
     private  int orderTest;
     //private double totalPrices ;
 
-    public final int getOrderTest() {
-        return orderTest;
-    }
 
-    public final void setOrderTest( int orderTest) {
-        this.orderTest = orderTest;
-    }
 
     public QuestionOrder() {
     }
@@ -50,10 +45,11 @@ public class QuestionOrder {
         this.questionType = questionType;
     }
 
-    public QuestionOrder(String questTitle, List<QuestionItem> items,
+    public QuestionOrder(Long questionId, String questTitle, List<QuestionItem> items,
                          String correctAnswer, String answerResult,
                          String questionType, String correctPostions,
                          String headVisibility, String itemsVisibility, String footVisibility) {
+        this.questionId = questionId;
         this.questTitle = questTitle;
         this.items = items;
         this.correctAnswer = correctAnswer;
@@ -63,6 +59,16 @@ public class QuestionOrder {
         this.headVisibility = headVisibility;
         this.itemsVisibility = itemsVisibility;
         this.footVisibility = footVisibility;
+    }
+
+
+
+    public final int getOrderTest() {
+        return orderTest;
+    }
+
+    public final void setOrderTest( int orderTest) {
+        this.orderTest = orderTest;
     }
 
     public String getHeadVisibility() {
@@ -113,7 +119,13 @@ public class QuestionOrder {
         this.correctAnswer = correctAnswer;
     }
 
+    public Long getQuestionId() {
+        return questionId;
+    }
 
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
 
     public String getQuestTitle() {
         return questTitle;

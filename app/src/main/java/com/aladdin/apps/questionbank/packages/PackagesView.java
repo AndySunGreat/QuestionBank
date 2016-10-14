@@ -2,6 +2,7 @@ package com.aladdin.apps.questionbank.packages;
 
 import com.aladdin.apps.questionbank.base.BaseModuleView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 
 import org.json.JSONObject;
@@ -21,6 +22,8 @@ public interface PackagesView extends BaseModuleView {
     void hideProgress();
 
     void setItems(List<Package> mData);
+
+    void setOrderItem(Order orderItem);
 
     void setItemsError(BaseResultObject bro);
 
