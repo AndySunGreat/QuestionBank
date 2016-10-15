@@ -6,7 +6,6 @@ package com.aladdin.apps.questionbank.common.expandablelistview;
 public class QuestionItem {
     private String optSeq;
     private String optContent;
-
     public QuestionItem() {
     }
 

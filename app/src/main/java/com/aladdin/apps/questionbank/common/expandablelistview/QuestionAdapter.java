@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -111,7 +112,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-     // 初始化 设置所有checkbox都为未选择
+    // 初始化 设置所有checkbox都为未选择
     public void setDefaultChkList() {
         isSelectedMap = new HashMap<Integer, Map<Integer, Boolean>>();
         Map<Integer,Boolean> subMap = new HashMap<Integer,Boolean>();
@@ -121,58 +122,12 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         for(int i=0;i<groupCount;i++){
             subMap = new HashMap<Integer,Boolean>();
             childCount = this.getChildrenCount(i);
-            for(int j=0;j<childCount;j++){
+            for(int j=1;j<childCount-1;j++){
                 subMap.put(j,false);
             }
             isSelectedMap.put(i,subMap);
         }
     }
-
-
-
-    // 响应onCheckedChanged事件
-    public void setOnCheckedChanged(View view, final int groupPosition,final int childPosition,boolean isChecked){
-        ChildHolder childHolder = (ChildHolder)view.getTag();
-
-        // 获得当前group的child account
-        int childCount = this.getChildrenCount(groupPosition);
-        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
-        Log.d("QuesAdapter",order.getQuestionType());
-        // 1.单选题逻辑
-        if("单选题".equals(order.getQuestionType())){
-            // 1.1 若是单选题，则使同组的checkbox为false,
-            boolean setChckFlag = false;
-            String strChildPosition = childPosition + "";
-            if(isChecked) {
-                for (int i = 1; i <childCount-1; i++) {
-                    setChckFlag = false;
-                    if (i == childPosition) {
-                        setChckFlag = true;
-                    }
-                    isSelectedMap.get(groupPosition).put(i,setChckFlag);
-                }
-                Log.d("strChildPosition",strChildPosition);
-                Log.d("order:",order.getCorrectPostions()+"");
-                // 1.2 判断单选题用户答案是否正确
-                if(strChildPosition.equals(order.getCorrectPostions())){
-                    // 回答正确,则直接收起该group的item内容,或是整体隐藏
-                    //order.setFootVisibility(View.VISIBLE);
-                    order.setAnswerResult("回答正确");
-                }else{
-                    // 若错误在footer中显示“回答错误”
-                    order.setAnswerResult("回答错误");
-                }
-            }
-
-        }else if("多选题".equals(order.getQuestionType())){
-            // 若多选题，则在footer中显示"提交答案"按钮。
-           isSelectedMap.get(groupPosition).put(childPosition, isChecked);
-        }
-
-        this.notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状
-        //this.notifyDataSetInvalidated();
-    }
-
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
@@ -185,15 +140,14 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
         return convertView;
     }
-   
+
 
 
     // 得到小组成员的view
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.d("groupPosition:",groupPosition+"");
-        Log.d("childPosition:",childPosition+"");
-        Log.d("isLastChild:",String.valueOf(isLastChild));
+        Log.d("getChildView begin ","************************************************");
+
         do {
             // 判断childPosition的索引数是否不是header或不是footer
             if (childPosition > 0 && childPosition < getChildrenCount(groupPosition) - 1) {
@@ -216,8 +170,58 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 }
 
                 holder.optSeq.setText(item.getOptSeq());
+
+                int childCount=this.getChildrenCount(groupPosition);
+                Log.d("testingGetView",childCount+"");
+                Log.d("groupPosition:",groupPosition+"");
+                Log.d("childPosition:",childPosition+"");
+                Log.d("isLastChild:",String.valueOf(isLastChild));
+                holder.optSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        Log.d("当前groupPosition:", groupPosition+"");
+                        Log.d("当前childPosition",childPosition+"");
+                         QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+                        Log.d("QuesAdapter",order.getQuestionType());
+                        int childCount = getChildrenCount(groupPosition);
+                        // 1.单选题逻辑
+                        if("单选题".equals(order.getQuestionType())){
+                            // 1.1 若是单选题，则使同组的checkbox为false,
+                            boolean setChckFlag = false;
+                            String strChildPosition = childPosition + "";
+                            if(isChecked) {
+                                for (int i = 1; i <childCount-1; i++) {
+                                    setChckFlag = false;
+                                    if (i == childPosition) {
+                                        setChckFlag=true;
+                                    }
+                                    isSelectedMap.get(groupPosition).put(i,setChckFlag);
+                                }
+                                // 1.2 判断单选题用户答案是否正确
+                                if(strChildPosition.equals(order.getCorrectPostions())){
+                                    // 回答正确,则直接收起该group的item内容,或是整体隐藏
+                                    //order.setFootVisibility(View.VISIBLE);
+                                    order.setAnswerResult("回答正确");
+                                }else{
+                                    // 若错误在footer中显示“回答错误”
+                                    order.setAnswerResult("回答错误");
+                                }
+                            }else{
+                                isSelectedMap.get(groupPosition).put(childPosition,false);
+                            }
+
+                        }else if("多选题".equals(order.getQuestionType())){
+                            // 若多选题，则在footer中显示"提交答案"按钮。
+                            //isSelectedMap.get(groupPosition).put(childPosition, isChecked);
+                            //Log.d("multiple-choose","clicked");
+                            //Log.d("groupPosition",groupPosition+"");
+                            //Log.d("childPosition",childPosition+"");
+                        }
+                        notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状
+                    }
+                });
+                // 这点语句必须在设置监听器之后，
                 holder.optSeq.setChecked(isSelectedMap.get(groupPosition).get(childPosition));
-                holder.optSeq.setOnCheckedChangeListener(new CheckedChange(convertView,groupPosition,childPosition));
                 holder.optContent.setText(item.getOptContent());
                 //holder.quantity.setText(String.valueOf(item.getQuantity()));
                 holder.quantity.setText("100.01");
@@ -261,7 +265,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 int childCount = this.getChildrenCount(groupPosition);
                 footerHolder.submitFooter.setOnClickListener(new submitBtnClick(
                         convertView,groupPosition,childPosition,childCount,this
-                        ));
+                ));
                 if("INVISIBLE,VISIBLE".equals(order.getFootVisibility())) {
                     footerHolder.submitFooter.setVisibility(INVISIBLE);
                     footerHolder.answerResultFooter.setVisibility(VISIBLE);
@@ -300,7 +304,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
             }
         });
-
+        Log.d("getChildView end ","************************************************");
         return convertView;
     }
 
@@ -356,18 +360,21 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         View view = null;
         int groupPosition=0;
         int childPosition=0;
-        public CheckedChange(View view,int groupPosition,int childPosition){
+        int childCount =0;
+        QuestionAdapter  adapter;
+        public CheckedChange(View view,int groupPosition,int childPosition,QuestionAdapter adapter,int childCount){
             this.view = view;
             this.groupPosition = groupPosition;
             this.childPosition = childPosition;
+            this.adapter = adapter;
+            this.childCount = childCount;
         }
         @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            Log.d("question:","onCheckedChanged");
-            ChildHolder childHolder = (ChildHolder)view.getTag();
-            //FooterHolder footerHolder = (FooterHolder)view.getTag();
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
             // TODO Auto-generated method stub
-            setOnCheckedChanged(view,groupPosition,childPosition,b);
+            //setOnCheckedChanged(view,groupPosition,childPosition,b);
+            Log.d("CheckedChange","end----------------------------------------------");
         }
     }
 

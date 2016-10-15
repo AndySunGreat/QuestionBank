@@ -3,6 +3,7 @@ package com.aladdin.apps.questionbank.questions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +82,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     public Map getFilterParams(){
         Intent packageIntent =  getIntent();
         map.put("bankId",packageIntent.getStringExtra("bankId"));
-        map.put("orderId",packageIntent.getStringExtra("orderId"));
+        //map.put("orderId",String.valueOf(packageIntent.getLongExtra(1L)));
         return map;
     }
 
@@ -139,6 +140,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         }
         @Override
         public void onClick(View view) {
+            Log.d("submit all question","question");
             QuestionAdapter adapter = (QuestionAdapter)questExpandableListView.getAdapter();
             Map map = adapter.getAnswersResultMap();
             // 需要传bankId,userId,wrongQuestId
