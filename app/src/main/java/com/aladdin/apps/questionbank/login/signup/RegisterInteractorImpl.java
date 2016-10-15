@@ -66,6 +66,7 @@ public class RegisterInteractorImpl implements RegisterInteractor {
                 bro.setResultMsg("Success");
                 listener.onFinished(bro);
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)

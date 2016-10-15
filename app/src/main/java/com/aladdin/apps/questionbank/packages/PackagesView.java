@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface PackagesView extends BaseModuleView {
 
-    void navigateQuestionActivity(JSONObject jsonObject);
+    void navigateQuestionActivity(Order order);
 
     void showProgress();
 
@@ -23,7 +23,6 @@ public interface PackagesView extends BaseModuleView {
 
     void setItems(List<Package> mData);
 
-    void setOrderItem(Order orderItem);
 
     void setItemsError(BaseResultObject bro);
 

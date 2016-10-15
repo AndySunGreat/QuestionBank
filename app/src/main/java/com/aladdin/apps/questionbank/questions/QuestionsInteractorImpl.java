@@ -160,9 +160,9 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 BankAnswers bankAnswers = new BankAnswers();
                 try {
                     bankAnswers.setAnswerId(jsonObject.getLong("answerId"));
-                    bankAnswers.setBankId(jsonObject.getLong("bankId"));
                     bankAnswers.setScore(jsonObject.getLong("score"));
-                    bankAnswers.setUserId(jsonObject.getLong("userId"));
+                    bankAnswers.setBankId(jsonObject.getLong("bankId"));
+                    bankAnswers.setOrderId(jsonObject.getLong("orderId"));
                     bankAnswers.setWrongQuestIds(jsonObject.getString("wrongQuestIds"));
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -201,14 +201,16 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
     @Override
     public void updateOrderStatus(final OnUpdatingOrderFinishedListener listener, JSONObject jsonObjectParam, Context context) {
         bro = new BaseResultObject();
-        String url = Constants.restfulEndpoints + Constants.updateOrderStatusUrl;
-        Log.d("url:",url);
+        String orderId = "";
         AsyncHttpClient client = new AsyncHttpClient();
         try {
             jsonObjectParam.put("orderStatus","COMPLETED");
+            orderId = jsonObjectParam.getString("orderId");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        String url = Constants.restfulEndpoints + Constants.updateOrderStatusUrl + "/"+ orderId;
+        Log.d("url:",url);
         //StringEntity entity = null;
         ByteArrayEntity entity = null;
         try {
@@ -227,7 +229,11 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 Log.d("createOrderByBankId","更新order状态为Completed成功!");
                 // called when response HTTP status is "200 OK"
                 bro.setResultStateCode(statusCode);
-                bro.setResultMsg("Success");
+                try {
+                    bro.setResultMsg(jsonObject.getString("msg"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 listener.onUpdateOrderFinished(bro);
             }
             @Override
@@ -235,6 +241,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.d("statusCode2",String.valueOf(statusCode));
                 Log.d("createOrderByBankId","更新order状态为Completed失败!");
+                error.printStackTrace();
                 // Hide Progress Dialog
                 //progress.hide();
                 String resultErrorMsg = "";

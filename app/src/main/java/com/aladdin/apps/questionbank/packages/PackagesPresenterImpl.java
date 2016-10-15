@@ -11,6 +11,7 @@ import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
+import com.aladdin.apps.questionbank.questions.QuestionsActivity;
 import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
@@ -97,7 +98,8 @@ public class PackagesPresenterImpl implements PackagesPresenter,
         // 当用户答完第一个题库时，去检测该package中其它bankId如果有再次创建order.
         packagesInteractor.generateOrderForPackages(this,jsonObject,view.getContext());
         // TODO: 2016-10-8 jump 'question bank channel' and then directly go to question list pages.
-        packagesView.navigateQuestionActivity(jsonObject);
+        //packagesInteractor.setPassingData(jsonObject);
+
     }
 
     @Override
@@ -110,6 +112,8 @@ public class PackagesPresenterImpl implements PackagesPresenter,
 
     }
 
+
+
     @Override
     public void onFinished(List<Package> items) {
         if (packagesView != null) {
@@ -121,7 +125,7 @@ public class PackagesPresenterImpl implements PackagesPresenter,
     @Override
     public void onFinished(Order items) {
         if (packagesView != null) {
-            packagesView.setOrderItem(items);
+            packagesView.navigateQuestionActivity(items);
             Log.d("Create Order","生成订单成功");
             packagesView.hideProgress();
         }

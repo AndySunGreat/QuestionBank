@@ -50,7 +50,6 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     private List<PackageListViewEntity> mDatas;
     private PackageListVAdapter packageListVAdapter;
     private Intent intent;
-    private Order insertAndGetOrder = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +59,6 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         */
         setContentView(R.layout.packages_listview);
         ButterKnife.bind(this);
-        insertAndGetOrder = new Order();
         packageListView = (ListView)findViewById(R.id.getPackageListview);
         presenter = new PackagesPresenterImpl(this,new PackagesInteractorImpl());
     }
@@ -114,10 +112,6 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         packageListView.setOnItemClickListener(this);
     }
 
-    @Override
-    public void setOrderItem(Order orderItem) {
-        this.insertAndGetOrder = orderItem;
-    }
 
 
     // Clicking each item of list view
@@ -128,19 +122,14 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
 
     /**
      * Go to Question Page
-     * @param jsonObject
+     * @param order
      */
     @Override
-    public void navigateQuestionActivity(JSONObject jsonObject){
+    public void navigateQuestionActivity(Order order){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
-        try {
-            intent.putExtra("bankId", jsonObject.getString("bankId"));
-            intent.putExtra("packageId",insertAndGetOrder.getPackageId());
-            intent.putExtra("orderId",insertAndGetOrder.getOrderId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("PgkAct","QuestAct");
+        intent.putExtra("bankId", order.getBankId());
+        intent.putExtra("packageId",order.getPackageId());
+        intent.putExtra("orderId",order.getOrderId());
         startActivity(intent);
     }
 

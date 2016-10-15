@@ -17,5 +17,4 @@ public interface PackagesPresenter {
     void onDestroy();
 
     void onClick(View view);
-
 }

@@ -9,18 +9,18 @@ public class BankAnswers {
     private long answerId;
     private long bankId;
     private long score;
-    private long userId;
+    private long orderId;
     private String wrongQuestIds;
     private Date createDate;
 
     public BankAnswers() {
     }
 
-    public BankAnswers(long answerId, long bankId, long score, long userId, String wrongQuestIds, Date createDate) {
+    public BankAnswers(long answerId, long bankId, long score, long orderId, String wrongQuestIds, Date createDate) {
         this.answerId = answerId;
         this.bankId = bankId;
         this.score = score;
-        this.userId = userId;
+        this.orderId = orderId;
         this.wrongQuestIds = wrongQuestIds;
         this.createDate = createDate;
     }
@@ -49,12 +49,12 @@ public class BankAnswers {
         this.score = score;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public String getWrongQuestIds() {

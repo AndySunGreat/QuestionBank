@@ -82,7 +82,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     public Map getFilterParams(){
         Intent packageIntent =  getIntent();
         map.put("bankId",packageIntent.getStringExtra("bankId"));
-        //map.put("orderId",String.valueOf(packageIntent.getLongExtra(1L)));
+        map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
         return map;
     }
 
@@ -114,11 +114,16 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
             orders.add(order);
         }
         questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
+        Intent packageIntent =  getIntent();
+        String bankId = packageIntent.getStringExtra("bankId");
+        String orderId = String.valueOf(packageIntent.getLongExtra("orderId",1L));
+        Log.d("Intent orderId",orderId);
         View v = getLayoutInflater().inflate(R.layout.questions_expandlistview_footview, null);
+        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(bankId,orderId));
         questExpandableListView.addFooterView(v);
         QuestionAdapter adapter = new QuestionAdapter(orders,this) ;
         questExpandableListView.setAdapter(adapter);
-        submitAllQuestBtn.setOnClickListener(new SubmitAllQuestion(getFilterParams()));
+        //submitAllQuestBtn.setOnClickListener(new SubmitAllQuestion(getFilterParams()));
         //questExpandableListView.setOnItemClickListener(this);
 
         int size = adapter.getGroupCount() ;
@@ -134,19 +139,22 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     }
 
     private class SubmitAllQuestion implements View.OnClickListener{
-         Map intentMap;
-        SubmitAllQuestion(Map map){
-            this.intentMap = map;
+        String bankId;
+        String orderId;
+        SubmitAllQuestion(String bankId,String orderId){
+            this.bankId = bankId;
+            this.orderId = orderId;
         }
         @Override
         public void onClick(View view) {
             Log.d("submit all question","question");
-            QuestionAdapter adapter = (QuestionAdapter)questExpandableListView.getAdapter();
-            Map map = adapter.getAnswersResultMap();
+            //QuestionAdapter adapter = (QuestionAdapter)questExpandableListView.getAdapter();
+            //Map map = adapter.getAnswersResultMap();
             // 需要传bankId,userId,wrongQuestId
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("orderId",intentMap.get("orderId"));
+                jsonObject.put("bankId",bankId);
+                jsonObject.put("orderId",orderId);
                 jsonObject.put("wrongQuestIds",map.get("wrongQuestIds"));
                 jsonObject.put("score",map.get("score"));
             } catch (JSONException e) {

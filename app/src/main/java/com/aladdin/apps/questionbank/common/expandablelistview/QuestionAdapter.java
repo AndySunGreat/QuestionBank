@@ -92,8 +92,8 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        Log.d("groupPosition:",groupPosition+"");
-        Log.d("childPosition:",childPosition+"");
+       // Log.d("groupPosition:",groupPosition+"");
+       // Log.d("childPosition:",childPosition+"");
         return orderList.get(groupPosition).getItems().get(childPosition) ;
     }
 
@@ -146,7 +146,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
     // 得到小组成员的view
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        Log.d("getChildView begin ","************************************************");
+        //Log.d("getChildView begin ","************************************************");
 
         do {
             // 判断childPosition的索引数是否不是header或不是footer
@@ -172,17 +172,16 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 holder.optSeq.setText(item.getOptSeq());
 
                 int childCount=this.getChildrenCount(groupPosition);
-                Log.d("testingGetView",childCount+"");
-                Log.d("groupPosition:",groupPosition+"");
-                Log.d("childPosition:",childPosition+"");
-                Log.d("isLastChild:",String.valueOf(isLastChild));
+                //Log.d("groupPosition:",groupPosition+"");
+               // Log.d("childPosition:",childPosition+"");
+               // Log.d("isLastChild:",String.valueOf(isLastChild));
                 holder.optSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        Log.d("当前groupPosition:", groupPosition+"");
-                        Log.d("当前childPosition",childPosition+"");
+                       // Log.d("当前groupPosition:", groupPosition+"");
+                        //Log.d("当前childPosition",childPosition+"");
                          QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
-                        Log.d("QuesAdapter",order.getQuestionType());
+                       // Log.d("QuesAdapter",order.getQuestionType());
                         int childCount = getChildrenCount(groupPosition);
                         // 1.单选题逻辑
                         if("单选题".equals(order.getQuestionType())){
@@ -212,7 +211,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
                         }else if("多选题".equals(order.getQuestionType())){
                             // 若多选题，则在footer中显示"提交答案"按钮。
-                            //isSelectedMap.get(groupPosition).put(childPosition, isChecked);
+                            isSelectedMap.get(groupPosition).put(childPosition, isChecked);
                             //Log.d("multiple-choose","clicked");
                             //Log.d("groupPosition",groupPosition+"");
                             //Log.d("childPosition",childPosition+"");
@@ -304,7 +303,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 notifyDataSetChanged();
             }
         });
-        Log.d("getChildView end ","************************************************");
+       // Log.d("getChildView end ","************************************************");
         return convertView;
     }
 

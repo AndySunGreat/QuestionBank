@@ -142,6 +142,7 @@ public class PackagesInteractorImpl  implements PackagesInteractor {
                 bro.setResultMsg("Success");*/
                 Order newOrder = new Order();
                 try {
+
                     newOrder.setOrderId(jsonObject.getLong("orderId"));
                     newOrder.setUserId(jsonObject.getLong("userId"));
                     newOrder.setBankId(jsonObject.getString("bankId"));
