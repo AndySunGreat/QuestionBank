@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.questions;
+package com.aladdin.apps.questionbank.answers;
 
 import com.aladdin.apps.questionbank.base.BaseModuleView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
@@ -11,9 +11,9 @@ import java.util.Map;
 /**
  * Created by AndySun on 2016/10/8.
  */
-public interface QuestionsView extends BaseModuleView {
+public interface AnswersView extends BaseModuleView {
 
-    void navigateAnswersActivity(Map map,BankAnswers bankAnswers);
+    //void navigateAnswerActivity(Map map);
 
     void showProgress();
 
@@ -29,7 +29,9 @@ public interface QuestionsView extends BaseModuleView {
 
     void showTitleBar();
 
-    Map getFilterParamsByIntent();
+    Map getFilterParams();
+
+    void showCorrectAnswer();
 
     BankAnswers getAnswers();
 }

@@ -23,6 +23,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,6 +133,13 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
             }
         });
     }
+
+    @Override
+    public void submitAllAnswers(OnSubmitAllAnaswersFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+        String createNewAnswerUrl = Constants.restfulEndpoints + Constants.postBankAnswersUrl;
+    }
+
+
     @Override
     public void createNewAnswerRecord(final OnCreatingAnswerFinishedListener listener, JSONObject jsonObjectParam, Context context) {
         bro = new BaseResultObject();
@@ -234,6 +242,15 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Map map = new HashMap();
+                try {
+                    map.put("orderId",String.valueOf(jsonObject.getLong("orderId")));
+                    map.put("answerId",jsonObject.getString("answerId"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                bro.setResultDataMap(map);
                 listener.onUpdateOrderFinished(bro);
             }
             @Override

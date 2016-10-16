@@ -48,14 +48,14 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         int groupPosition = this.getGroupCount();
         int childrenCount = 0;
         List<QuestionOrder> questionOrderList  = new ArrayList<>();
-        int score =0;
+        float score;
         int wrongQuestionCount = 0;
         String strWrongQuestIds = "";
         for(int i=0;i<groupPosition-1;i++) {
             questionOrder  = (QuestionOrder) getGroup(i);
             childrenCount = this.getChildrenCount(i);
             questionOrder = markingQuestions(i,childrenCount);
-            if("问题错误".equals(questionOrder.getAnswerResult())){
+            if("回答错误".equals(questionOrder.getAnswerResult())){
                 strWrongQuestIds =  strWrongQuestIds + questionOrder.getQuestionId() + ",";
                 wrongQuestionCount++;
             }
@@ -64,7 +64,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         if(strWrongQuestIds.endsWith(",")) {
             strWrongQuestIds = strWrongQuestIds.substring(0, strWrongQuestIds.length() - 1);
         }
-        score = wrongQuestionCount/groupPosition*100;
+        score = ((float)wrongQuestionCount/(float)groupPosition)*100;
         answerResultMap.put("wrongQuestIds",strWrongQuestIds);
         answerResultMap.put("score",score);
         return answerResultMap;
@@ -293,6 +293,8 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                     footerHolder.answerResultFooter.setText("答题结果:  " + order.getAnswerResult().toString());
                 }
                 footerHolder.correctAnswerFooter.setText("正确答案:  " + order.getCorrectAnswer());
+
+
                 break ;
             }
         } while(false) ;

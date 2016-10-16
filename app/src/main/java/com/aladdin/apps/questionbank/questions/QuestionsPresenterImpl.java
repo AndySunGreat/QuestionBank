@@ -38,7 +38,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
         if (questionsView != null) {
             questionsView.showTitleBar();
             questionsView.showProgress();
-            map = questionsView.getFilterParams();
+            map = questionsView.getFilterParamsByIntent();
             Log.d("bankId1",map.get("bankId").toString());
         }
         RequestParams params = new RequestParams();
@@ -46,10 +46,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
         questionsInteractor.getQuestionsByBankId(this,map,params);
     }
 
-    @Override
-    public void validateCheckedAnswer(QuestionAdapter adapter){
 
-    }
 
     /**
      *             业务逻辑：
@@ -61,8 +58,15 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
      API: /api/bank/order/{orderId}/answer/{answerId} [POST] –保存用户答题情况（包括错误题以及分值）
      API: /api/bank/order/{orderId} [PUT] –更新当前用户题库order的status
      */
+    /***
+     *
+     * @param jsonObject [bankId,orderId,packageId,wrongQuestIds,score]
+     * @param v
+     */
     @Override
     public void submitAllAnswers(JSONObject jsonObject,View v) {
+
+
         RequestParams params = new RequestParams();
         // 1.生成新的answer记录，获得answerId以便更新到Order信息表中,包括打分逻辑放到后端
         questionsInteractor.createNewAnswerRecord(this,jsonObject,v.getContext());
@@ -82,7 +86,6 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
         if (questionsView != null) {
             questionsView.showMessage(String.format("Position %d clicked", position + 1));
         }
-        questionsView.navigateAnswerActivity(position);
     }
 
     @Override
@@ -140,10 +143,34 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
         if (questionsView != null) {
             // 是否显示更新订单状态成功
             Log.d("updateOrder:","Successful");
-            //questionsView.setItems(items);
-            //questionsView.hideProgress();
+            BankAnswers bankAnswers = questionsView.getAnswers();
+            questionsView.navigateAnswersActivity(items.getResultDataMap(),bankAnswers);
         }
     }
+            /*
 
+
+2) 当(1)逻辑处理完成后，会跳转到业务选择页面，该页面提供用户三种选择：
+A.重新做一遍
+B.进行下一环节（取决于package设置）
+C.错题复习
+	选择“A”，则向order表新插入一条记录（order status : new），该题库的;
+WHOLE API: /api/bank/order/new
+	选择“B”，则会根据order表的package Id查询package表，用户下一环节要做的题库是那一个，然后生成新的order，插入到order 表。
+WHOLE API: /api/bank/order/next
+	选择“C”，则会生成一条新的answer表记录，并更新order 表的change date以及将新的answer Id添加到order表的该条记录的answer Ids字段中，并更新last_answer_id。
+WHOLE API: /api/bank/order/wrong
+3) 当用户的该package所有题库都做完的时候，会跳转到“充电频道”的“能力评估”页面，会根据用户当前答题情况和用户所有时间、用户当前职业、用户目标进行判断，显示用户能力各项参数，以及推荐用户选择订制新的套餐。
+WHOLE API: /api/charge/evaluate/{userId}
+
+             */
+         /*intent = new Intent(getApplicationContext(),AnswersActivity.class);
+*//*        try {
+            intent.putExtra("jobId", jsonObject.getString("jobId"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*//*
+        Log.d("navigateAnswerActivity","navigateAnswerActivity");
+        startActivity(intent);*/
 
 }

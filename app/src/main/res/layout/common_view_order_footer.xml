@@ -30,4 +30,6 @@
         android:textSize="16sp"
         android:text="80"
         android:visibility="invisible"/>
+
+
 </LinearLayout>

@@ -33,8 +33,15 @@ public interface QuestionsInteractor {
         void onCreateAnswerFailure(BaseResultObject items);
     }
 
+    interface OnSubmitAllAnaswersFinishedListener{
+        void onSubmitAllAnaswersFinished(BaseResultObject items);
+        void onSubmitAllAnaswersFailure(BaseResultObject items);
+    }
+
     // AHC calling for getting auto recommend packages based on JobId
     void getQuestionsByBankId(OnShowingQuestionsFinishedListener listener, Map map, RequestParams params);
+
+    void submitAllAnswers(OnSubmitAllAnaswersFinishedListener listener,JSONObject jsonObjectParam, Context context);
 
     // update order status as completed
     void updateOrderStatus(OnUpdatingOrderFinishedListener listener, JSONObject jsonObjectParam, Context context);

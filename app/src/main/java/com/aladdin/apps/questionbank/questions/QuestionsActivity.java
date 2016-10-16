@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
+import com.aladdin.apps.questionbank.answers.AnswersActivity;
 import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
@@ -47,7 +48,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     Toolbar homeToolBar;
     @Bind(R.id.bottomBar)
     BottomBar bottomBar;
-    @Bind(R.id.submitAllQuestBtn)
     Button submitAllQuestBtn;
     ListView questionListView;
     ExpandableListView questExpandableListView;
@@ -79,16 +79,17 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     }
 
     @Override
-    public Map getFilterParams(){
+    public Map getFilterParamsByIntent(){
         Intent packageIntent =  getIntent();
         map.put("bankId",packageIntent.getStringExtra("bankId"));
         map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
+        map.put("packageId",String.valueOf(packageIntent.getLongExtra("packageId",1L)));
         return map;
     }
 
+    // 加载questions数据给question adapter.
     @Override
     public void setItems(List<Question> mData) {
-        //loadListViewData(mData);
         loadExpandableListView(mData);
     }
 
@@ -97,7 +98,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         // Group Data
         List<QuestionOrder> orders = new ArrayList<>() ;
         // Child Data
-        List<QuestionItem> questionItemList = new ArrayList<>();
+        List<QuestionItem> questionItemList;
         // 遍历所有试题
         for (int i=0;i<mData.size();i++) {
             question = (Question)mData.get(i);
@@ -118,51 +119,42 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         String bankId = packageIntent.getStringExtra("bankId");
         String orderId = String.valueOf(packageIntent.getLongExtra("orderId",1L));
         Log.d("Intent orderId",orderId);
-        View v = getLayoutInflater().inflate(R.layout.questions_expandlistview_footview, null);
-        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(bankId,orderId));
-        questExpandableListView.addFooterView(v);
+
         QuestionAdapter adapter = new QuestionAdapter(orders,this) ;
         questExpandableListView.setAdapter(adapter);
-        //submitAllQuestBtn.setOnClickListener(new SubmitAllQuestion(getFilterParams()));
-        //questExpandableListView.setOnItemClickListener(this);
 
         int size = adapter.getGroupCount() ;
         for (int i=0;i<size;i++) {
             questExpandableListView.expandGroup(i);
         }
-    }
+        Map calculateResult = adapter.getAnswersResultMap();
+        View v = getLayoutInflater().inflate(R.layout.questions_expandlistview_footview, null);
+        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(getFilterParamsByIntent(),calculateResult));
+        questExpandableListView.addFooterView(v);
 
-    @Override
-    public void showCorrectAnswer(){
-        QuestionAdapter adapter = (QuestionAdapter) questExpandableListView.getAdapter();
-        presenter.validateCheckedAnswer(adapter);
     }
 
     private class SubmitAllQuestion implements View.OnClickListener{
-        String bankId;
-        String orderId;
-        SubmitAllQuestion(String bankId,String orderId){
-            this.bankId = bankId;
-            this.orderId = orderId;
+        Map filterParamsByIntent;
+        Map calculateResult;
+        SubmitAllQuestion(Map filterParamsByIntent,Map calculateResult){
+            this.filterParamsByIntent = filterParamsByIntent;
+            this.calculateResult = calculateResult;
         }
         @Override
         public void onClick(View view) {
             Log.d("submit all question","question");
-            //QuestionAdapter adapter = (QuestionAdapter)questExpandableListView.getAdapter();
-            //Map map = adapter.getAnswersResultMap();
-            // 需要传bankId,userId,wrongQuestId
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("bankId",bankId);
-                jsonObject.put("orderId",orderId);
-                jsonObject.put("wrongQuestIds",map.get("wrongQuestIds"));
-                jsonObject.put("score",map.get("score"));
+                jsonObject.put("bankId",filterParamsByIntent.get("bankId"));
+                jsonObject.put("orderId",filterParamsByIntent.get("orderId"));
+                jsonObject.put("packageId",filterParamsByIntent.get("packageId"));
+                jsonObject.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
+                jsonObject.put("score",calculateResult.get("score"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             presenter.submitAllAnswers(jsonObject,view);
-            // 提交完整个答案后跳到AnswersActivity
-            // navigateAnswerActivity();
         }
     }
 
@@ -175,37 +167,19 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
 
     /**
      * Go to Question Page
-     * @param position
+     * @param map
      */
     @Override
-    public void navigateAnswerActivity(int position){
-            /*
-
-
-2) 当(1)逻辑处理完成后，会跳转到业务选择页面，该页面提供用户三种选择：
-A.重新做一遍
-B.进行下一环节（取决于package设置）
-C.错题复习
-	选择“A”，则向order表新插入一条记录（order status : new），该题库的;
-WHOLE API: /api/bank/order/new
-	选择“B”，则会根据order表的package Id查询package表，用户下一环节要做的题库是那一个，然后生成新的order，插入到order 表。
-WHOLE API: /api/bank/order/next
-	选择“C”，则会生成一条新的answer表记录，并更新order 表的change date以及将新的answer Id添加到order表的该条记录的answer Ids字段中，并更新last_answer_id。
-WHOLE API: /api/bank/order/wrong
-3) 当用户的该package所有题库都做完的时候，会跳转到“充电频道”的“能力评估”页面，会根据用户当前答题情况和用户所有时间、用户当前职业、用户目标进行判断，显示用户能力各项参数，以及推荐用户选择订制新的套餐。
-WHOLE API: /api/charge/evaluate/{userId}
-
-             */
-         /*intent = new Intent(getApplicationContext(),AnswersActivity.class);
-*//*        try {
-            intent.putExtra("jobId", jsonObject.getString("jobId"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*//*
-        Log.d("navigateAnswerActivity","navigateAnswerActivity");
-        startActivity(intent);*/
-
+    public void navigateAnswersActivity(Map map,BankAnswers bankAnswers){
+        intent = new Intent(getApplicationContext(), AnswersActivity.class);
+        intent.putExtra("score",bankAnswers.getScore());
+        intent.putExtra("wrongQuestIds",bankAnswers.getWrongQuestIds());
+        intent.putExtra("bankId",bankAnswers.getBankId());
+        intent.putExtra("answerId",bankAnswers.getAnswerId());
+        intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
+        //startActivity(intent);
     }
+
     @Override
     public void showTitleBar() {
         // App Logo
@@ -304,28 +278,6 @@ WHOLE API: /api/charge/evaluate/{userId}
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-
-    public void loadListViewData(List<Question> mData){
-/*       questionListView = (ListView)findViewById(R.id.questionsListview);
-        mDatas = new ArrayList<QuestionsListViewEntity>();
-        for(int i=0;i<mData.size();i++) {
-            question = (Question) mData.get(i);
-            //将数据装到集合中去
-            bean = new QuestionsListViewEntity(question.getQuestContent(), question.getQuestOptionsJson(),
-                    question.getChangeDate(), "进入答题");
-            mDatas.add(bean);
-        }
-*//*        bean = new QuestionsListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
-*//*
-        //为数据绑定适配器
-        questionListVAdapter = new QuestionsListVAdapter(this, mDatas);
-        questionListView.setAdapter(questionListVAdapter);
-        // Click each item
-        questionListView.setOnItemClickListener(this);*/
     }
 
 }
