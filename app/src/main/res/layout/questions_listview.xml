@@ -11,7 +11,7 @@
 
     <!-- 1. TitleBar -->
     <android.support.v7.widget.Toolbar
-        android:id="@+id/homeToolBar"
+        android:id="@+id/topToolBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/royalblue"
@@ -26,18 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp">
-        <!-- android:paddingTop="60dp"-->
-<!--       <ListView android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/questionsListview"
-            android:fadingEdge="vertical"
-            android:fadingEdgeLength="5dp"
-            android:divider="@color/lightgray"
-            android:dividerHeight="2dp"
-            android:showDividers="middle"
-            >
-        </ListView>
-    -->
         <ExpandableListView
             android:id="@+id/questExpandableListView"
             android:layout_width="match_parent"

@@ -134,10 +134,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         });
     }
 
-    @Override
-    public void submitAllAnswers(OnSubmitAllAnaswersFinishedListener listener, JSONObject jsonObjectParam, Context context) {
-        String createNewAnswerUrl = Constants.restfulEndpoints + Constants.postBankAnswersUrl;
-    }
+
 
 
     @Override

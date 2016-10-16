@@ -34,5 +34,13 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 public class AnswersInteractorImpl implements AnswersInteractor {
 
 
+    @Override
+    public void doNextBank(OnNextBankFinishedListener listener, JSONObject jsonObjectParam, Context context) {
 
+    }
+
+    @Override
+    public void doAnswerAgain(OnNextBankFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+
+    }
 }

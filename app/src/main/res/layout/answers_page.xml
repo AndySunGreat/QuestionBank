@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFE1FF"
+    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 1. TitleBar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/topToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/royalblue"
+        android:elevation="4dp"
+        android:titleTextColor="@color/white"
+        android:titleTextAppearance="@color/white"
+        android:fitsSystemWindows="true"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        />
     <!-- Score TextView -->
 
-    <!-- 下一题库 -->
 
-    <!-- 重新再一遍 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
-    <!-- 错题复习 -->
+        <!-- 下一题库 -->
+
+        <!-- 重新再一遍 -->
+
+        <!-- 错题复习 -->
+    </LinearLayout>
+
 
 </LinearLayout>
+
+
+
+

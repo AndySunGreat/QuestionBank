@@ -44,8 +44,8 @@ import butterknife.ButterKnife;
  */
 public class QuestionsActivity extends BaseActivity implements QuestionsView,
         AdapterView.OnItemClickListener,ListView.OnClickListener{
-    @Bind(R.id.homeToolBar)
-    Toolbar homeToolBar;
+    @Bind(R.id.topToolBar)
+    Toolbar topToolBar;
     @Bind(R.id.bottomBar)
     BottomBar bottomBar;
     Button submitAllQuestBtn;
@@ -83,7 +83,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         Intent packageIntent =  getIntent();
         map.put("bankId",packageIntent.getStringExtra("bankId"));
         map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
-        map.put("packageId",String.valueOf(packageIntent.getLongExtra("packageId",1L)));
+        map.put("packageId",packageIntent.getStringExtra("packageId"));
         return map;
     }
 
@@ -177,25 +177,25 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         intent.putExtra("bankId",bankAnswers.getBankId());
         intent.putExtra("answerId",bankAnswers.getAnswerId());
         intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     @Override
     public void showTitleBar() {
         // App Logo
-        //homeToolBar.setLogo(R.mipmap.ic_launcher);
+        //topToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(12)";
         // Title
-        homeToolBar.setTitle("我的题库" + strSyncCount);
+        topToolBar.setTitle("我的题库" + strSyncCount);
         // Sub Title
-        //homeToolBar.setSubtitle("Sub title");
-        setSupportActionBar(homeToolBar);
-        //homeToolBar.setNavigationIcon(R.mipmap.ic_launcher);
-        homeToolBar.setOnMenuItemClickListener(onMenuItemClick);
+        //topToolBar.setSubtitle("Sub title");
+        setSupportActionBar(topToolBar);
+        //topToolBar.setNavigationIcon(R.mipmap.ic_launcher);
+        topToolBar.setOnMenuItemClickListener(onMenuItemClick);
         // 设置回退按钮
         //关键下面两句话，设置了回退按钮，及点击事件的效果
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        homeToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+        topToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

@@ -19,7 +19,6 @@ public interface AnswersView extends BaseModuleView {
 
     void hideProgress();
 
-    void setAnswers(BankAnswers mData);
 
     void setItems(List<Question> mData);
 
@@ -29,9 +28,7 @@ public interface AnswersView extends BaseModuleView {
 
     void showTitleBar();
 
-    Map getFilterParams();
+    Map getFilterParamsByIntent();
 
-    void showCorrectAnswer();
 
-    BankAnswers getAnswers();
 }
