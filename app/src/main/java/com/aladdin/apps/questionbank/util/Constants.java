@@ -25,6 +25,10 @@ public class Constants {
     public static final String getOrderQuestionBankUrl = "orderQuestionBank";
     // 根据题库ID来获得题库内容
     public static final String getQuestionsByBankIDPartOneUrl = "bank/itquest/bankid/";
+
+    // 根据错题questionIDs来获得题库内容
+    public static final String getQuestionsByQuestionIdsUrl = "bank/itquest";
+
     // 插入新的Answer记录
     public static final String postBankAnswersUrl = "bank/answers";
     // 更新订单状态

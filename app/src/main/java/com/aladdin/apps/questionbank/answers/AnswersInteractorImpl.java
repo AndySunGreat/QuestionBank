@@ -134,7 +134,6 @@ public class AnswersInteractorImpl implements AnswersInteractor {
             String orderId = "";
             AsyncHttpClient client = new AsyncHttpClient();
             try {
-                jsonObjectParam.put("orderStatus","AGAIN");
                 orderId = jsonObjectParam.getString("oldBankId");
             } catch (JSONException e) {
                 e.printStackTrace();

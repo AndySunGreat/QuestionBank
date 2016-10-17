@@ -121,11 +121,21 @@ public class AnswersPresenterImpl implements AnswersPresenter,
     // 2.将order记录状态置回"AGAINED",将answerID添加到answerIDs.
     @Override
     public void onAnswerAgainBtnClick(View view,JSONObject jsonObject) {
+        try {
+            jsonObject.put("orderStatus","AGAIN");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         answersInteractor.doAnswerAgain(this,jsonObject,view.getContext());
     }
 
     @Override
     public void onWrongAnswerAgainBtnClick(View view,JSONObject jsonObject) {
+        try {
+            jsonObject.put("orderStatus","WRONGAGAIN");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         answersInteractor.doAnswerAgain(this,jsonObject,view.getContext());
     }
 

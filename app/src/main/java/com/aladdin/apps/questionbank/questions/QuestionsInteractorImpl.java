@@ -53,7 +53,14 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         if(map.get("bankId")!=null){
             bankId = map.get("bankId").toString();
         }
-        String url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl + bankId;
+        String url = "";
+        if(map.get("oldWrongQuestIds")!=null){
+            url = Constants.restfulEndpoints + Constants.getQuestionsByQuestionIdsUrl;
+            params.put("questionIds",map.get("oldWrongQuestIds"));
+        }else{
+            url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl + bankId;
+        }
+
         Log.d("Pkg-url:",url);
         AsyncHttpClient client = new AsyncHttpClient();
         // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())

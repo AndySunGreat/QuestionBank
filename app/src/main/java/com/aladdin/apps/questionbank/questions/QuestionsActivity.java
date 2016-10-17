@@ -85,6 +85,9 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
         map.put("packageId",packageIntent.getStringExtra("packageId"));
         map.put("orderStatus",packageIntent.getStringExtra("orderStatus"));
+        if(packageIntent.getStringExtra("wrongQuestIds")!=null){
+            map.put("oldWrongQuestIds",packageIntent.getStringExtra("wrongQuestIds"));
+        }
         return map;
     }
 
