@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
@@ -130,6 +131,9 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         intent.putExtra("bankId", order.getBankId());
         intent.putExtra("packageId",order.getPackageId());
         intent.putExtra("orderId",order.getOrderId());
+        String strBankIds = ((TextView)findViewById(R.id.hiddenBankIds)).getText().toString();
+        Log.d("strBankIds",strBankIds);
+        intent.putExtra("bankIds",strBankIds);
         startActivity(intent);
     }
 

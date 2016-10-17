@@ -20,6 +20,12 @@ public interface AnswersPresenter {
 
     void onClick(View view);
 
+    void onNextBankBtnClick(View view,JSONObject jsonObject);
+
+    void onAnswerAgainBtnClick(View view,JSONObject jsonObject);
+
+    void onWrongAnswerAgainBtnClick(View view,JSONObject jsonObject);
+
     //void validateCheckedAnswer(QuestionAdapter adapter);
 
     //void submitAllAnswers(JSONObject jsonObject, View v);

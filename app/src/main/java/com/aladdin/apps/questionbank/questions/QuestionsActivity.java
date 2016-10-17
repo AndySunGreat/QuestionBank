@@ -177,6 +177,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         intent.putExtra("bankId",bankAnswers.getBankId());
         intent.putExtra("answerId",bankAnswers.getAnswerId());
         intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
+        intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
+        intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         startActivity(intent);
     }
 

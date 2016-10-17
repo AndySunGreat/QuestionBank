@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
@@ -13,7 +16,13 @@ import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.BankAnswers;
 import com.aladdin.apps.questionbank.data.bean.Question;
+import com.aladdin.apps.questionbank.questions.QuestionsInteractorImpl;
+import com.aladdin.apps.questionbank.questions.QuestionsPresenterImpl;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +32,18 @@ import butterknife.ButterKnife;
 /**
  * Created by AndySun on 2016/10/15.
  */
-public class AnswersActivity extends BaseActivity implements AnswersView{
+public class AnswersActivity extends BaseActivity implements AnswersView,
+        AdapterView.OnItemClickListener,ListView.OnClickListener{
     @Bind(R.id.topToolBar)
     Toolbar topToolBar;
+    @Bind(R.id.nextBankBtn)
+    Button nextBankBtn;
+    @Bind(R.id.answerAgainBtn)
+    Button answerAgainBtn;
+    @Bind(R.id.wrongAnswerAgainBtn)
+    Button  wrongAnswerAgainBtn;
+    @Bind(R.id.answerScore)
+    TextView answerScore;
     private AnswersPresenter presenter;
     private Map map;
 
@@ -35,17 +53,18 @@ public class AnswersActivity extends BaseActivity implements AnswersView{
         setContentView(R.layout.answers_page);
         ButterKnife.bind(this);
         presenter = new AnswersPresenterImpl(this,new AnswersInteractorImpl());
-
     }
 
     @Override
     public void showProgress() {
-
+        //progressBar.setVisibility(View.VISIBLE);
+        //fBankContentlistPager.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void hideProgress() {
-
+        //progressBar.setVisibility(View.INVISIBLE);
+        //fBankContentlistPager.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -86,6 +105,62 @@ public class AnswersActivity extends BaseActivity implements AnswersView{
         });
     }
 
+    @Override
+    public void showAnswerInfo() {
+        String answerInfo = "您的分数是：";
+        answerInfo = answerInfo + String.valueOf(getIntent().getLongExtra("score",1L));
+        answerScore.setText(answerInfo);
+    }
+
+    @Override
+    public Map getFilterParamsByIntent() {
+        Intent questionIntent =  getIntent();
+        map = new HashMap();
+        map.put("score",String.valueOf(questionIntent.getLongExtra("score",1L)));
+        map.put("wrongQuestIds",questionIntent.getStringExtra("wrongQuestIds"));
+        map.put("bankId",String.valueOf(questionIntent.getLongExtra("bankId",1L)));
+        map.put("answerId",String.valueOf(questionIntent.getLongExtra("answerId",1L)));
+        map.put("orderId",questionIntent.getStringExtra("orderId"));
+        map.put("packageId",questionIntent.getStringExtra("packageId"));
+        map.put("bankIds",questionIntent.getStringExtra("bankIds"));
+        return map;
+    }
+
+    @Override
+    public void showBottomButtons(){
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("score",String.valueOf(getIntent().getLongExtra("score",1L)));
+            jsonObject.put("wrongQuestIds",getIntent().getStringExtra("wrongQuestIds"));
+            jsonObject.put("oldBankId",String.valueOf(getIntent().getLongExtra("bankId",1L)));
+            jsonObject.put("answerId",String.valueOf(getIntent().getLongExtra("answerId",1L)));
+            jsonObject.put("orderId",getIntent().getStringExtra("orderId"));
+            jsonObject.put("packageId",getIntent().getStringExtra("packageId"));
+            jsonObject.put("bankIds",getIntent().getStringExtra("bankIds"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        nextBankBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onNextBankBtnClick(view,jsonObject);
+            }
+        });
+        answerAgainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onAnswerAgainBtnClick(view,jsonObject);
+            }
+        });
+        wrongAnswerAgainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onWrongAnswerAgainBtnClick(view,jsonObject);
+            }
+        });
+    }
+
+
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
@@ -108,17 +183,31 @@ public class AnswersActivity extends BaseActivity implements AnswersView{
             return true;
         }
     };
+
+
     @Override
-    public Map getFilterParamsByIntent() {
-        Intent questionIntent =  getIntent();
-        map.put("score",String.valueOf(questionIntent.getLongExtra("score",1L)));
-        map.put("wrongQuestIds",questionIntent.getStringExtra("wrongQuestIds"));
-        map.put("bankId",String.valueOf(questionIntent.getLongExtra("bankId",1L)));
-        map.put("answerId",String.valueOf(questionIntent.getLongExtra("answerId",1L)));
-        map.put("orderId",String.valueOf(questionIntent.getLongExtra("orderId",1L)));
-        return map;
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    public void onClick(View view) {
+        presenter.onClick(view);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        presenter.onItemClicked(parent, view, position,id);
+    }
 }

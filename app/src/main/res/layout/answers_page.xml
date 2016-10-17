@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFE1FF"
     android:orientation="vertical">
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
 
     <!-- 1. TitleBar -->
     <android.support.v7.widget.Toolbar
@@ -24,17 +22,53 @@
         />
     <!-- Score TextView -->
 
-
+    <TextView
+        android:id="@+id/answerScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="您的分数："
+        android:textSize="28dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
-
+        android:padding="5dp"
+        android:gravity="bottom"
+        android:layout_gravity="bottom">
         <!-- 下一题库 -->
-
+        <Button android:id="@+id/nextBankBtn"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightslategray"
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            android:textSize="18dp"
+            android:text="继续答题"
+            />
         <!-- 重新再一遍 -->
-
+        <Button android:id="@+id/answerAgainBtn"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightslategray"
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            android:textSize="18dp"
+            android:text="再答一遍"
+            />
         <!-- 错题复习 -->
+        <Button android:id="@+id/wrongAnswerAgainBtn"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightslategray"
+            android:textColor="@color/white"
+            android:layout_margin="2dp"
+            android:textSize="18dp"
+            android:text="错题复习"
+            />
     </LinearLayout>
 
 

@@ -21,9 +21,11 @@ import android.os.Build.VERSION;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -34,6 +36,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 import com.aladdin.apps.questionbank.R;
@@ -75,7 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private CoordinatorLayout layoutRoot;
     private FloatingActionButton btnFab;
-
+    @Bind(R.id.homeToolBar)
+    Toolbar homeToolBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
+        showTitleBar();
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -178,8 +182,50 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
+    public void showTitleBar() {
+        // App Logo
+        //topToolBar.setLogo(R.mipmap.ic_launcher);
+        // String strSyncCount = "(12)";
+        String strSyncCount = "";
+        // Title
+        homeToolBar.setTitle("充电宝" + strSyncCount);
+        // Sub Title
+        //topToolBar.setSubtitle("Sub title");
+        setSupportActionBar(homeToolBar);
+        //topToolBar.setNavigationIcon(R.mipmap.ic_launcher);
+        homeToolBar.setOnMenuItemClickListener(onMenuItemClick);
+        // 设置回退按钮
+        //关键下面两句话，设置了回退按钮，及点击事件的效果
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+/*       homeToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });*/
+    }
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            String msg = "";
+            switch (menuItem.getItemId()) {
+                case R.id.action_favorite:
+                    msg += "Click edit";
+                    break;
+                case R.id.action_friends:
+                    msg += "Click share";
+                    break;
+                case R.id.action_settings:
+                    msg += "Click setting";
+                    break;
+            }
 
-
+            if (!msg.equals("")) {
+                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+    };
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;

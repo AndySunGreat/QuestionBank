@@ -19,7 +19,6 @@ public interface AnswersView extends BaseModuleView {
 
     void hideProgress();
 
-
     void setItems(List<Question> mData);
 
     void setItemsError(BaseResultObject bro);
@@ -27,6 +26,10 @@ public interface AnswersView extends BaseModuleView {
     void showMessage(String message);
 
     void showTitleBar();
+
+    void showAnswerInfo();
+
+    void showBottomButtons();
 
     Map getFilterParamsByIntent();
 

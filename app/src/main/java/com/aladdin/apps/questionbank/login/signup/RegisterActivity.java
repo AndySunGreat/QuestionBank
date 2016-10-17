@@ -75,8 +75,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView,View.
     @Override
     public void showJobSpinner(){
         lst = new ArrayList<SpinnerData>();
-        SpinnerData c1 = new SpinnerData("0", "应届毕业生");
         SpinnerData c2 = new SpinnerData("1", "Java SSE");
+        SpinnerData c1 = new SpinnerData("0", "应届毕业生");
+
         SpinnerData c3 = new SpinnerData("2", "Java 架构师");
         SpinnerData c4 = new SpinnerData("3", "Java SE");
         lst.add(c1);lst.add(c2);lst.add(c3);lst.add(c4);
@@ -181,20 +182,20 @@ public class RegisterActivity extends BaseActivity implements RegisterView,View.
     }
     @Override
     public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         //fBankContentlistPager.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.INVISIBLE);
+        //progressBar.setVisibility(View.INVISIBLE);
        // fBankContentlistPager.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showTitleBar() {
         // App Logo
-        homeToolBar.setLogo(R.mipmap.ic_launcher);
+        //homeToolBar.setLogo(R.mipmap.ic_launcher);
         String strSyncCount = "(12)";
         // Title
         homeToolBar.setTitle("注册" + strSyncCount);

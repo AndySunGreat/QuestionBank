@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.BankAnswers;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.loopj.android.http.RequestParams;
 
@@ -22,7 +23,7 @@ public interface AnswersInteractor {
     // 2.跳回QuestionActivity会初始化调用getQuestionsByBankId()
     // 3.若是bank_ids所有order都已经完成，则显示两个路径，1.能力评估  2.新题库推荐
     interface  OnNextBankFinishedListener{
-        void onCreateOrderFinished(BaseResultObject items);
+        void onCreateOrderFinished(Order items);
         void onCreateOrderFailure(BaseResultObject items);
     }
 
