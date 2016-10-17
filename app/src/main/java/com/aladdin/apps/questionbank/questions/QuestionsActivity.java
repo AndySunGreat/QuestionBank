@@ -84,6 +84,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         map.put("bankId",packageIntent.getStringExtra("bankId"));
         map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
         map.put("packageId",packageIntent.getStringExtra("packageId"));
+        map.put("orderStatus",packageIntent.getStringExtra("orderStatus"));
         return map;
     }
 
@@ -149,6 +150,11 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
                 jsonObject.put("bankId",filterParamsByIntent.get("bankId"));
                 jsonObject.put("orderId",filterParamsByIntent.get("orderId"));
                 jsonObject.put("packageId",filterParamsByIntent.get("packageId"));
+                // AgainAnswer Logic
+                if(filterParamsByIntent.get("oldAnswerId")!=null
+                        && filterParamsByIntent.get("orderStatus").equals("AGAIN")) {
+                    jsonObject.put("oldAnswerId", filterParamsByIntent.get("oldAnswerId"));
+                }
                 jsonObject.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
                 jsonObject.put("score",calculateResult.get("score"));
             } catch (JSONException e) {
@@ -168,6 +174,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     /**
      * Go to Question Page
      * @param map
+     * @param bankAnswers
      */
     @Override
     public void navigateAnswersActivity(Map map,BankAnswers bankAnswers){
@@ -179,6 +186,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
         intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
+        intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
         startActivity(intent);
     }
 

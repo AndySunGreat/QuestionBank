@@ -3,6 +3,7 @@ package com.aladdin.apps.questionbank.answers;
 import com.aladdin.apps.questionbank.base.BaseModuleView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.BankAnswers;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Question;
 
 import java.util.List;
@@ -13,13 +14,13 @@ import java.util.Map;
  */
 public interface AnswersView extends BaseModuleView {
 
-    //void navigateAnswerActivity(Map map);
+    void navigateQuestionActivity(Order order);
 
     void showProgress();
 
     void hideProgress();
 
-    void setItems(List<Question> mData);
+    void setItems(List<Object> mData);
 
     void setItemsError(BaseResultObject bro);
 

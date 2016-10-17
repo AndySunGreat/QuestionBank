@@ -3,6 +3,7 @@ package com.aladdin.apps.questionbank.answers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +16,8 @@ import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.BankAnswers;
-import com.aladdin.apps.questionbank.data.bean.Question;
-import com.aladdin.apps.questionbank.questions.QuestionsInteractorImpl;
-import com.aladdin.apps.questionbank.questions.QuestionsPresenterImpl;
+import com.aladdin.apps.questionbank.data.bean.Order;
+import com.aladdin.apps.questionbank.questions.QuestionsActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +46,7 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     TextView answerScore;
     private AnswersPresenter presenter;
     private Map map;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +69,13 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     }
 
     @Override
-    public void setItems(List<Question> mData) {
-
-    }
-
-    @Override
-    public void setItemsError(BaseResultObject bro) {
+    public void setItems(List<Object> mData) {
 
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -123,7 +119,40 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
         map.put("orderId",questionIntent.getStringExtra("orderId"));
         map.put("packageId",questionIntent.getStringExtra("packageId"));
         map.put("bankIds",questionIntent.getStringExtra("bankIds"));
+        map.put("orderStatus",questionIntent.getStringExtra("orderStatus"));
         return map;
+    }
+
+    /**
+     * Go to Question Page
+     * @param order
+     */
+    @Override
+    public void navigateQuestionActivity(Order order){
+        intent = new Intent(getApplicationContext(), QuestionsActivity.class);
+        if(order.getBankId()!=null) {
+            intent.putExtra("bankId", order.getBankId());
+        }else{
+            intent.putExtra("bankId",String.valueOf(getIntent().getLongExtra("bankId",1L)));
+        }
+        if(order.getPackageId()!=null) {
+            intent.putExtra("packageId", order.getPackageId());
+        }else{
+            intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
+        }
+        if(order.getOrderId()!=0) {
+            intent.putExtra("orderId", order.getOrderId());
+        }else{
+            intent.putExtra("orderId",Long.valueOf(getIntent().getStringExtra("orderId")));
+        }
+        if(order.getOrderStatus()!=null){
+            intent.putExtra("orderStatus", order.getOrderStatus());
+        }else{
+            intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
+        }
+        intent.putExtra("oldAnswerId",String.valueOf(getIntent().getLongExtra("answerId",1L)));
+        intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
+        startActivity(intent);
     }
 
     @Override
@@ -210,4 +239,10 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         presenter.onItemClicked(parent, view, position,id);
     }
+
+    @Override
+    public void setItemsError(BaseResultObject bro) {
+        showMessage(bro.getResultMsg());
+    }
+
 }

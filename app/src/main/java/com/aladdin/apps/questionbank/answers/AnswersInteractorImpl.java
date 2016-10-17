@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,6 @@ public class AnswersInteractorImpl implements AnswersInteractor {
                 bro.setResultMsg("Success");*/
                 Order newOrder = new Order();
                 try {
-
                     newOrder.setOrderId(jsonObject.getLong("orderId"));
                     newOrder.setUserId(jsonObject.getLong("userId"));
                     newOrder.setBankId(jsonObject.getString("bankId"));
@@ -115,8 +115,86 @@ public class AnswersInteractorImpl implements AnswersInteractor {
         });
     }
 
-    @Override
-    public void doAnswerAgain(final OnNextBankFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+    /**
+     *             jsonObject.put("score",String.valueOf(getIntent().getLongExtra("score",1L)));
+     jsonObject.put("wrongQuestIds",getIntent().getStringExtra("wrongQuestIds"));
+     jsonObject.put("oldBankId",String.valueOf(getIntent().getLongExtra("bankId",1L)));
+     jsonObject.put("answerId",String.valueOf(getIntent().getLongExtra("answerId",1L)));
+     jsonObject.put("orderId",getIntent().getStringExtra("orderId"));
+     jsonObject.put("packageId",getIntent().getStringExtra("packageId"));
+     jsonObject.put("bankIds",getIntent().getStringExtra("bankIds"));
+     * @param listener
+     * @param jsonObjectParam
+     * @param context
+     */
 
-    }
+    @Override
+    public void doAnswerAgain(final OnAnswerAgainFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+        bro = new BaseResultObject();
+            String orderId = "";
+            AsyncHttpClient client = new AsyncHttpClient();
+            try {
+                jsonObjectParam.put("orderStatus","AGAIN");
+                orderId = jsonObjectParam.getString("oldBankId");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String url = Constants.restfulEndpoints + Constants.updateOrderStatusUrl + "/"+ orderId;
+            Log.d("url:",url);
+            //StringEntity entity = null;
+            ByteArrayEntity entity = null;
+            try {
+                // entity = new StringEntity(jsonObject.toString());
+                entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
+            }catch (UnsupportedEncodingException e1){
+                e1.printStackTrace();
+            }
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())
+            client.put(context,url,entity,"application/json",new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject){
+
+                    Log.d("statusCode",String.valueOf(statusCode));
+                    Log.d("createOrderByBankId","更新order状态为Again成功!");
+                    // called when response HTTP status is "200 OK"
+                    bro.setResultStateCode(statusCode);
+                    Order order = new Order();
+                    try {
+                        bro.setResultMsg(jsonObject.getString("msg"));
+                        order.setOrderId(jsonObject.getLong("orderId"));
+                        order.setAnswerId(jsonObject.getString("answerId"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    listener.onAnswerAgainFinished(order);
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String content, Throwable error) {
+                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                    Log.d("statusCode2",String.valueOf(statusCode));
+                    Log.d("createOrderByBankId","更新order状态为Again失败!");
+                    error.printStackTrace();
+                    // Hide Progress Dialog
+                    //progress.hide();
+                    String resultErrorMsg = "";
+                    // When Http response code is '404'
+                    if (statusCode == 404) {
+                        resultErrorMsg="Requested resource not found";
+                    }
+                    // When Http response code is '500'
+                    else if (statusCode == 500) {
+                        resultErrorMsg= "Something went wrong at server end";
+                    }
+                    // When Http response code other than 404, 500
+                    else {
+                        resultErrorMsg= "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]";
+                    }
+                    bro.setResultStateCode(statusCode);
+                    bro.setResultMsg(resultErrorMsg);
+                    bro.setResultJSONArray(null);
+                    listener.onAnswerAgainFailure(bro);
+                }
+            });
+     }
 }

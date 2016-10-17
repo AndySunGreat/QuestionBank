@@ -131,8 +131,12 @@ public class AnswersPresenterImpl implements AnswersPresenter,
 
 
     @Override
-    public void onAnswerAgainFinished(BaseResultObject items) {
-
+    public void onAnswerAgainFinished(Order items) {
+        if (answersView != null) {
+            // 是否显示更新订单状态成功
+            Log.d("updateOrder:","Successful");
+            answersView.navigateQuestionActivity(items);
+        }
     }
 
     @Override
@@ -143,7 +147,11 @@ public class AnswersPresenterImpl implements AnswersPresenter,
     @Override
     public void onCreateOrderFinished(Order items) {
         // jump back into question activity
-
+        if (answersView != null) {
+            // 是否显示更新订单状态成功
+            Log.d("updateOrder:","Successful");
+            answersView.navigateQuestionActivity(items);
+        }
     }
 
     @Override

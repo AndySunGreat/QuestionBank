@@ -65,14 +65,18 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
      */
     @Override
     public void submitAllAnswers(JSONObject jsonObject,View v) {
-
-
         RequestParams params = new RequestParams();
         // 1.生成新的answer记录，获得answerId以便更新到Order信息表中,包括打分逻辑放到后端
         questionsInteractor.createNewAnswerRecord(this,jsonObject,v.getContext());
         BankAnswers bankAnswers = questionsView.getAnswers();
+        String orderAnswerIds = "";
         try {
-            jsonObject.put("answerId",bankAnswers.getAnswerId());
+            if(jsonObject.get("oldAnswerId")!=null && jsonObject.get("orderStatus").equals("AGAIN")) {
+                orderAnswerIds = jsonObject.get("oldAnswerId").toString() + "," + bankAnswers.getAnswerId();
+            }else if(jsonObject.get("orderStatus").equals("NEW")){
+                orderAnswerIds =  String.valueOf(bankAnswers.getAnswerId());
+            }
+            jsonObject.put("answerId",orderAnswerIds);
         } catch (JSONException e) {
             e.printStackTrace();
         }
