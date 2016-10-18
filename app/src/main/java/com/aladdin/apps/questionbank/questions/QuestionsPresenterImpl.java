@@ -1,5 +1,6 @@
 package com.aladdin.apps.questionbank.questions;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,11 +39,10 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
         if (questionsView != null) {
             questionsView.showTitleBar();
             questionsView.showProgress();
+            // 从Activity传入
             map = questionsView.getFilterParamsByIntent();
-            Log.d("bankId1",map.get("bankId").toString());
         }
         RequestParams params = new RequestParams();
-        Log.d("bankId2",map.get("bankId").toString());
         questionsInteractor.getQuestionsByBankId(this,map,params);
     }
 
@@ -66,22 +66,9 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
     @Override
     public void submitAllAnswers(JSONObject jsonObject,View v) {
         RequestParams params = new RequestParams();
+        //map.put("")
         // 1.生成新的answer记录，获得answerId以便更新到Order信息表中,包括打分逻辑放到后端
         questionsInteractor.createNewAnswerRecord(this,jsonObject,v.getContext());
-        BankAnswers bankAnswers = questionsView.getAnswers();
-        String orderAnswerIds = "";
-        try {
-            if(jsonObject.get("oldAnswerId")!=null && jsonObject.get("orderStatus").equals("AGAIN")) {
-                orderAnswerIds = jsonObject.get("oldAnswerId").toString() + "," + bankAnswers.getAnswerId();
-            }else if(jsonObject.get("orderStatus").equals("NEW")){
-                orderAnswerIds =  String.valueOf(bankAnswers.getAnswerId());
-            }
-            jsonObject.put("answerId",orderAnswerIds);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        // 2.更新order表的状态为"Completed"以及更新answerId字段
-        questionsInteractor.updateOrderStatus(this,jsonObject,v.getContext());
     }
 
 
@@ -119,7 +106,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
     }
 
     @Override
-    public void onUpdateOrderFailure(BaseResultObject items) {
+    public void onUpdateOrderFailure(BaseResultObject items, Context context) {
         if (questionsView != null) {
             questionsView.setItemsError(items);
             questionsView.hideProgress();
@@ -127,7 +114,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
     }
 
     @Override
-    public void onCreateAnswerFailure(BaseResultObject items) {
+    public void onCreateAnswerFailure(BaseResultObject items, Context context) {
         if (questionsView != null) {
             questionsView.setItemsError(items);
             questionsView.hideProgress();
@@ -135,20 +122,40 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
     }
 
     @Override
-    public void onCreateAnswerFinished(BankAnswers items) {
+    public void onCreateAnswerFinished(BankAnswers items, Context context) {
+        String orderAnswerIds = "";
+        JSONObject updateParamJsonObj = new JSONObject();
         if (questionsView != null) {
-            questionsView.setAnswers(items);
             questionsView.hideProgress();
+            try {
+                if(map.get("orderStatus").equals("AGAIN")) {
+                    orderAnswerIds = map.get("prevAnswerId").toString() + ","
+                            + String.valueOf(items.getAnswerId());
+                }else if(map.get("orderStatus").equals("NEW")){
+                    orderAnswerIds =  String.valueOf(items.getAnswerId());
+                }else if(map.get("orderStatus").equals("WRONGAGAIN")){
+                    orderAnswerIds = map.get("prevAnswerId").toString() + ","
+                            + String.valueOf(items.getAnswerId());
+                }
+                Log.d("OrderStatus",map.get("orderStatus").toString());
+                Log.d("更新状态的AnswerId:",orderAnswerIds);
+                updateParamJsonObj.put("answerId",orderAnswerIds);
+                updateParamJsonObj.put("orderStatus","COMPLETED");
+                updateParamJsonObj.put("orderId",items.getOrderId());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            // 2.更新order表的状态为"Completed"以及更新answerId字段
+            questionsInteractor.updateOrderStatus(this,updateParamJsonObj,context);
         }
     }
 
     @Override
-    public void onUpdateOrderFinished(BaseResultObject items) {
+    public void onUpdateOrderFinished(BaseResultObject items, Context context) {
         if (questionsView != null) {
             // 是否显示更新订单状态成功
             Log.d("updateOrder:","Successful");
-            BankAnswers bankAnswers = questionsView.getAnswers();
-            questionsView.navigateAnswersActivity(items.getResultDataMap(),bankAnswers);
+            questionsView.navigateAnswersActivity(items.getResultDataMap());
         }
     }
             /*

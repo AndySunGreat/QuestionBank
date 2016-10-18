@@ -91,7 +91,7 @@ public class AnswersPresenterImpl implements AnswersPresenter,
         try {
             bankIdsArray = jsonObject.get("bankIds").toString().split(",");
             bankIdsArrayLength = bankIdsArray.length;
-            oldBankId = jsonObject.get("oldBankId").toString();
+            oldBankId = jsonObject.get("bankId").toString();
             // 判断是否是最后一题库
             if(!bankIdsArray[bankIdsArrayLength-1].equals(oldBankId)){
                 for(int i=0;i<bankIdsArray.length;i++){

@@ -1,11 +1,15 @@
 package com.aladdin.apps.questionbank.data.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by AndySun on 2016/10/6.
  */
-public class BankAnswers {
+public class BankAnswers implements Serializable{
     private long answerId;
     private long bankId;
     private long score;
@@ -72,4 +76,6 @@ public class BankAnswers {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
+
 }

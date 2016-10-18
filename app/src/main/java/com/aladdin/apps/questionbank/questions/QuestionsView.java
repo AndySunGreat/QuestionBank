@@ -13,13 +13,11 @@ import java.util.Map;
  */
 public interface QuestionsView extends BaseModuleView {
 
-    void navigateAnswersActivity(Map map,BankAnswers bankAnswers);
+    void navigateAnswersActivity(Map map);
 
     void showProgress();
 
     void hideProgress();
-
-    void setAnswers(BankAnswers mData);
 
     void setItems(List<Question> mData);
 
@@ -31,5 +29,4 @@ public interface QuestionsView extends BaseModuleView {
 
     Map getFilterParamsByIntent();
 
-    BankAnswers getAnswers();
 }

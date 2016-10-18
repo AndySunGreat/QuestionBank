@@ -80,13 +80,26 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
 
     @Override
     public Map getFilterParamsByIntent(){
-        Intent packageIntent =  getIntent();
-        map.put("bankId",packageIntent.getStringExtra("bankId"));
-        map.put("orderId",String.valueOf(packageIntent.getLongExtra("orderId",1L)));
-        map.put("packageId",packageIntent.getStringExtra("packageId"));
-        map.put("orderStatus",packageIntent.getStringExtra("orderStatus"));
-        if(packageIntent.getStringExtra("wrongQuestIds")!=null){
-            map.put("oldWrongQuestIds",packageIntent.getStringExtra("wrongQuestIds"));
+        Intent currentIntent =  getIntent();
+        // constants
+        map.put("packageId",currentIntent.getStringExtra("packageId"));
+        map.put("orderStatus",currentIntent.getStringExtra("orderStatus"));
+        map.put("bankId",currentIntent.getStringExtra("bankId"));
+        map.put("bankIds",currentIntent.getStringExtra("bankIds"));
+        map.put("orderId",String.valueOf(currentIntent.getLongExtra("orderId",1L)));
+        // Navigate from Package
+        if("NEW".equals(currentIntent.getStringExtra("orderStatus"))){
+
+        }else if("AGAIN".equals(currentIntent.getStringExtra("orderStatus"))){
+            // 用户更新Order表answerIds
+            map.put("prevAnswerId",currentIntent.getStringExtra("answerId"));
+            // 用于显示错题列表
+            map.put("prevWrongQuestIds",currentIntent.getStringExtra("wrongQuestIds"));
+        }else if("WRONGAGAIN".equals(currentIntent.getStringExtra("orderStatus"))) {
+            // 此时会传回wrongQuestIds
+            map.put("prevAnswerId",currentIntent.getStringExtra("answerId"));
+            // 用于显示错题列表
+            map.put("prevWrongQuestIds",currentIntent.getStringExtra("wrongQuestIds"));
         }
         return map;
     }
@@ -121,7 +134,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
         Intent packageIntent =  getIntent();
         String bankId = packageIntent.getStringExtra("bankId");
-        String orderId = String.valueOf(packageIntent.getLongExtra("orderId",1L));
+        String orderId = packageIntent.getStringExtra("orderId");
+       // String orderId = String.valueOf(packageIntent.getLongExtra("orderId",1L));
         Log.d("Intent orderId",orderId);
 
         QuestionAdapter adapter = new QuestionAdapter(orders,this) ;
@@ -133,16 +147,14 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         }
         Map calculateResult = adapter.getAnswersResultMap();
         View v = getLayoutInflater().inflate(R.layout.questions_expandlistview_footview, null);
-        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(getFilterParamsByIntent(),calculateResult));
+        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(calculateResult));
         questExpandableListView.addFooterView(v);
 
     }
 
     private class SubmitAllQuestion implements View.OnClickListener{
-        Map filterParamsByIntent;
         Map calculateResult;
-        SubmitAllQuestion(Map filterParamsByIntent,Map calculateResult){
-            this.filterParamsByIntent = filterParamsByIntent;
+        SubmitAllQuestion(Map calculateResult){
             this.calculateResult = calculateResult;
         }
         @Override
@@ -150,16 +162,22 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
             Log.d("submit all question","question");
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("bankId",filterParamsByIntent.get("bankId"));
-                jsonObject.put("orderId",filterParamsByIntent.get("orderId"));
-                jsonObject.put("packageId",filterParamsByIntent.get("packageId"));
-                // AgainAnswer Logic
-                if(filterParamsByIntent.get("oldAnswerId")!=null
-                        && filterParamsByIntent.get("orderStatus").equals("AGAIN")) {
-                    jsonObject.put("oldAnswerId", filterParamsByIntent.get("oldAnswerId"));
+                jsonObject.put("orderStatus",map.get("orderStatus").toString());
+                jsonObject.put("bankId",map.get("bankId").toString());
+                jsonObject.put("orderId",map.get("orderId"));
+                jsonObject.put("packageId",map.get("packageId"));
+                if(map.get("orderStatus").equals("AGAIN")){
+                    jsonObject.put("prevAnswerId", map.get("prevAnswerId"));
+                    jsonObject.put("prevWrongQuestIds",map.get("prevWrongQuestIds"));
+                }else if(map.get("orderStatus").equals("WRONGAGAIN")){
+                    jsonObject.put("prevAnswerId", map.get("prevAnswerId"));
+                    jsonObject.put("prevWrongQuestIds",map.get("prevWrongQuestIds"));
                 }
+                // 当前用户答题结果
                 jsonObject.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
                 jsonObject.put("score",calculateResult.get("score"));
+                map.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
+                map.put("score",calculateResult.get("score"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -176,20 +194,22 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
 
     /**
      * Go to Question Page
-     * @param map
-     * @param bankAnswers
+     * @param updateStatusMap
      */
     @Override
-    public void navigateAnswersActivity(Map map,BankAnswers bankAnswers){
+    public void navigateAnswersActivity(Map updateStatusMap){
         intent = new Intent(getApplicationContext(), AnswersActivity.class);
-        intent.putExtra("score",bankAnswers.getScore());
-        intent.putExtra("wrongQuestIds",bankAnswers.getWrongQuestIds());
-        intent.putExtra("bankId",bankAnswers.getBankId());
-        intent.putExtra("answerId",bankAnswers.getAnswerId());
+
         intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
         intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
+        intent.putExtra("bankId",getIntent().getStringExtra("bankId"));
+        // 将生成的answerId传到answer page
+        intent.putExtra("answerId",updateStatusMap.get("answerId").toString());
+
+        intent.putExtra("score",map.get("score").toString());
+        intent.putExtra("wrongQuestIds", map.get("wrongQuestIds").toString());
         startActivity(intent);
     }
 
@@ -267,16 +287,6 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     public void hideProgress() {
         //progressBar.setVisibility(View.INVISIBLE);
         //fBankContentlistPager.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void setAnswers(BankAnswers mData) {
-        // 装载用户送给AnswerActivity使用
-        insertAndGetAnswer = mData;
-    }
-    @Override
-    public BankAnswers getAnswers(){
-        return insertAndGetAnswer;
     }
 
     @Override

@@ -46,6 +46,12 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
     private java.util.Date date;
     private String bankId;
     private JSONObject jsonObjectParam;
+    /**
+     *
+     * @param listener
+     * @param map 1.bankId   2.wrong question ids来查询
+     * @param params
+     */
     @Override
     public void getQuestionsByBankId(final OnShowingQuestionsFinishedListener listener, Map map, RequestParams params){
 
@@ -54,14 +60,16 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
             bankId = map.get("bankId").toString();
         }
         String url = "";
-        if(map.get("oldWrongQuestIds")!=null){
+        // WRONG AGAIN
+        if("WRONGAGAIN".equals(map.get("orderStatus")) && map.get("prevWrongQuestIds")!=null){
             url = Constants.restfulEndpoints + Constants.getQuestionsByQuestionIdsUrl;
-            params.put("questionIds",map.get("oldWrongQuestIds"));
+            params.put("questionIds",map.get("prevWrongQuestIds"));
         }else{
+            // AGAIN,NEW
             url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl + bankId;
         }
 
-        Log.d("Pkg-url:",url);
+        Log.d("QuestDAOUrl:",url);
         AsyncHttpClient client = new AsyncHttpClient();
         // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())
         client.get(url,params,new JsonHttpResponseHandler(){
@@ -106,8 +114,6 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                         question.setQuestOptions(questionItemList);
                     }catch(JSONException e){
                         e.printStackTrace();
-/*                    }catch (ParseException e2){
-                        e2.printStackTrace();*/
                     }
                     questionList.add(question);
                 }
@@ -145,7 +151,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
 
 
     @Override
-    public void createNewAnswerRecord(final OnCreatingAnswerFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+    public void createNewAnswerRecord(final OnCreatingAnswerFinishedListener listener,JSONObject jsonObjectParam, final Context context) {
         bro = new BaseResultObject();
         String url = Constants.restfulEndpoints + Constants.postBankAnswersUrl;
         Log.d("url:",url);
@@ -153,7 +159,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         //StringEntity entity = null;
         ByteArrayEntity entity = null;
         try {
-            // entity = new StringEntity(jsonObject.toString());
+           // answer_id, order_id,score,wrong_quest_ids,create_date,bank_id
             entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e1){
             e1.printStackTrace();
@@ -179,7 +185,8 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
-                listener.onCreateAnswerFinished(bankAnswers);
+
+                listener.onCreateAnswerFinished(bankAnswers,context);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String content, Throwable error) {
@@ -204,14 +211,14 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 bro.setResultStateCode(statusCode);
                 bro.setResultMsg(resultErrorMsg);
                 bro.setResultJSONArray(null);
-                listener.onCreateAnswerFailure(bro);
+                listener.onCreateAnswerFailure(bro,context);
             }
         });
     }
 
 
     @Override
-    public void updateOrderStatus(final OnUpdatingOrderFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+    public void updateOrderStatus(final OnUpdatingOrderFinishedListener listener, JSONObject jsonObjectParam, final Context context) {
         bro = new BaseResultObject();
         String orderId = "";
         AsyncHttpClient client = new AsyncHttpClient();
@@ -226,7 +233,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         //StringEntity entity = null;
         ByteArrayEntity entity = null;
         try {
-            // entity = new StringEntity(jsonObject.toString());
+            // answer_id, order_status
             entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e1){
             e1.printStackTrace();
@@ -255,7 +262,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 }
 
                 bro.setResultDataMap(map);
-                listener.onUpdateOrderFinished(bro);
+                listener.onUpdateOrderFinished(bro,context);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String content, Throwable error) {
@@ -281,7 +288,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 bro.setResultStateCode(statusCode);
                 bro.setResultMsg(resultErrorMsg);
                 bro.setResultJSONArray(null);
-                listener.onUpdateOrderFailure(bro);
+                listener.onUpdateOrderFailure(bro,context);
             }
         });
     }

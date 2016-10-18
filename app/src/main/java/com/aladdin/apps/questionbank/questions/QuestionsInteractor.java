@@ -24,18 +24,22 @@ public interface QuestionsInteractor {
     }
 
     interface OnUpdatingOrderFinishedListener{
-        void onUpdateOrderFinished(BaseResultObject items);
-        void onUpdateOrderFailure(BaseResultObject items);
+        void onUpdateOrderFinished(BaseResultObject items,Context context);
+        void onUpdateOrderFailure(BaseResultObject items,Context context);
     }
 
     interface OnCreatingAnswerFinishedListener{
-        void onCreateAnswerFinished(BankAnswers items);
-        void onCreateAnswerFailure(BaseResultObject items);
+        void onCreateAnswerFinished(BankAnswers items,Context context);
+        void onCreateAnswerFailure(BaseResultObject items,Context context);
     }
 
 
-
-    // AHC calling for getting auto recommend packages based on JobId
+    /**
+     *
+     * @param listener
+     * @param map 1.bankId   2.wrong question ids来查询
+     * @param params
+     */
     void getQuestionsByBankId(OnShowingQuestionsFinishedListener listener, Map map, RequestParams params);
 
 

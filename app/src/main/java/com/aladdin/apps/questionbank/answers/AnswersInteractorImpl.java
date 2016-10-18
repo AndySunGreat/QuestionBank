@@ -48,7 +48,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
         try {
             // TODO: 2016/10/17  Hardcode userId value
             jsonObjectData.put("userId",2);
-            jsonObjectData.put("orderType","bank");
+            jsonObjectData.put("orderType","1");  // 1.bank
             jsonObjectData.put("orderStatus","NEW");
             jsonObjectData.put("bankId",jsonObjectParam.getString("newBankId"));
             jsonObjectData.put("packageId",jsonObjectParam.getString("packageId"));
@@ -134,7 +134,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
             String orderId = "";
             AsyncHttpClient client = new AsyncHttpClient();
             try {
-                orderId = jsonObjectParam.getString("oldBankId");
+                orderId = jsonObjectParam.getString("bankId");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -161,7 +161,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
                     Order order = new Order();
                     try {
                         bro.setResultMsg(jsonObject.getString("msg"));
-                        order.setOrderId(jsonObject.getLong("orderId"));
+                        //order.setOrderId();
                         order.setAnswerId(jsonObject.getString("answerId"));
                     } catch (JSONException e) {
                         e.printStackTrace();

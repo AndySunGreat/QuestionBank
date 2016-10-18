@@ -104,7 +104,7 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     @Override
     public void showAnswerInfo() {
         String answerInfo = "您的分数是：";
-        answerInfo = answerInfo + String.valueOf(getIntent().getLongExtra("score",1L));
+        answerInfo = answerInfo + getIntent().getStringExtra("score");
         answerScore.setText(answerInfo);
     }
 
@@ -112,10 +112,10 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     public Map getFilterParamsByIntent() {
         Intent questionIntent =  getIntent();
         map = new HashMap();
-        map.put("score",String.valueOf(questionIntent.getLongExtra("score",1L)));
+        map.put("score",questionIntent.getStringExtra("score"));
         map.put("wrongQuestIds",questionIntent.getStringExtra("wrongQuestIds"));
-        map.put("bankId",String.valueOf(questionIntent.getLongExtra("bankId",1L)));
-        map.put("answerId",String.valueOf(questionIntent.getLongExtra("answerId",1L)));
+        map.put("bankId",questionIntent.getStringExtra("bankId"));
+        map.put("answerId",questionIntent.getStringExtra("answerId"));
         map.put("orderId",questionIntent.getStringExtra("orderId"));
         map.put("packageId",questionIntent.getStringExtra("packageId"));
         map.put("bankIds",questionIntent.getStringExtra("bankIds"));
@@ -130,27 +130,15 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     @Override
     public void navigateQuestionActivity(Order order){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
-        if(order.getBankId()!=null) {
-            intent.putExtra("bankId", order.getBankId());
-        }else{
-            intent.putExtra("bankId",String.valueOf(getIntent().getLongExtra("bankId",1L)));
-        }
-        if(order.getPackageId()!=null) {
-            intent.putExtra("packageId", order.getPackageId());
-        }else{
-            intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
-        }
-        if(order.getOrderId()!=0) {
-            intent.putExtra("orderId", order.getOrderId());
-        }else{
-            intent.putExtra("orderId",Long.valueOf(getIntent().getStringExtra("orderId")));
-        }
+        intent.putExtra("bankId", map.get("bankId").toString());
+        intent.putExtra("orderId", map.get("orderId").toString());
+        intent.putExtra("packageId", map.get("packageId").toString());
         if(order.getOrderStatus()!=null){
             intent.putExtra("orderStatus", order.getOrderStatus());
         }else{
             intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
         }
-        intent.putExtra("oldAnswerId",String.valueOf(getIntent().getLongExtra("answerId",1L)));
+        intent.putExtra("prevAnswerId",getIntent().getStringExtra("answerId"));
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         startActivity(intent);
     }
@@ -159,10 +147,10 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     public void showBottomButtons(){
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("score",String.valueOf(getIntent().getLongExtra("score",1L)));
+            jsonObject.put("score",getIntent().getStringExtra("score"));
             jsonObject.put("wrongQuestIds",getIntent().getStringExtra("wrongQuestIds"));
-            jsonObject.put("oldBankId",String.valueOf(getIntent().getLongExtra("bankId",1L)));
-            jsonObject.put("answerId",String.valueOf(getIntent().getLongExtra("answerId",1L)));
+            jsonObject.put("bankId",getIntent().getStringExtra("bankId"));
+            jsonObject.put("answerId",getIntent().getStringExtra("answerId"));
             jsonObject.put("orderId",getIntent().getStringExtra("orderId"));
             jsonObject.put("packageId",getIntent().getStringExtra("packageId"));
             jsonObject.put("bankIds",getIntent().getStringExtra("bankIds"));
