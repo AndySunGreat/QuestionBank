@@ -130,7 +130,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
         intent.putExtra("bankId", order.getBankId());
         intent.putExtra("packageId",order.getPackageId());
-        intent.putExtra("orderId",order.getOrderId());
+        intent.putExtra("orderId",String.valueOf(order.getOrderId()));
         intent.putExtra("orderStatus",order.getOrderStatus());
         String strBankIds = ((TextView)findViewById(R.id.hiddenBankIds)).getText().toString();
         Log.d("strBankIds",strBankIds);

@@ -130,15 +130,26 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     @Override
     public void navigateQuestionActivity(Order order){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
-        intent.putExtra("bankId", map.get("bankId").toString());
-        intent.putExtra("orderId", map.get("orderId").toString());
+
+
         intent.putExtra("packageId", map.get("packageId").toString());
-        if(order.getOrderStatus()!=null){
-            intent.putExtra("orderStatus", order.getOrderStatus());
-        }else{
-            intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
+        intent.putExtra("orderStatus", order.getOrderStatus());
+        if(order.getAnswerId()!=null){
+            intent.putExtra("answerId",order.getAnswerId());
         }
-        intent.putExtra("prevAnswerId",getIntent().getStringExtra("answerId"));
+        // 如果是新的Order，则修改全局 Intent的orderId
+        if( order.getOrderStatus().equals("NEW")){
+            intent.putExtra("bankId", String.valueOf(order.getBankId()));
+            intent.putExtra("orderId", String.valueOf(order.getOrderId()));
+        }else if(order.getOrderStatus().equals("AGAIN")){
+            intent.putExtra("bankId", map.get("bankId").toString());
+            intent.putExtra("orderId", map.get("orderId").toString());
+            intent.putExtra("prevAnswerId",getIntent().getStringExtra("answerId"));
+        }else if(order.getOrderStatus().equals("WRONGAGAIN")){
+            intent.putExtra("bankId", map.get("bankId").toString());
+            intent.putExtra("orderId", map.get("orderId").toString());
+            intent.putExtra("prevAnswerId",getIntent().getStringExtra("answerId"));
+        }
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         startActivity(intent);
     }

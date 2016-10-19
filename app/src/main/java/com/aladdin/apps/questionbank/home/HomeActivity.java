@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.home.view.HomeView;
 import com.aladdin.apps.questionbank.others.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;

@@ -125,6 +125,7 @@ public class QuestionsPresenterImpl implements QuestionsPresenter,
     public void onCreateAnswerFinished(BankAnswers items, Context context) {
         String orderAnswerIds = "";
         JSONObject updateParamJsonObj = new JSONObject();
+        map = questionsView.getFilterParamsByIntent();
         if (questionsView != null) {
             questionsView.hideProgress();
             try {

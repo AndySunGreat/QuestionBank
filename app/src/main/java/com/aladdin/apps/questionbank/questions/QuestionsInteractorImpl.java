@@ -159,6 +159,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         //StringEntity entity = null;
         ByteArrayEntity entity = null;
         try {
+            Log.d("creatAnswerParamer:",jsonObjectParam.toString());
            // answer_id, order_id,score,wrong_quest_ids,create_date,bank_id
             entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e1){
@@ -181,6 +182,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                     bankAnswers.setScore(jsonObject.getLong("score"));
                     bankAnswers.setBankId(jsonObject.getLong("bankId"));
                     bankAnswers.setOrderId(jsonObject.getLong("orderId"));
+                    Log.d("afterNewAnswer-OrderId",jsonObject.getLong("orderId")+"");
                     bankAnswers.setWrongQuestIds(jsonObject.getString("wrongQuestIds"));
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -233,6 +235,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
         //StringEntity entity = null;
         ByteArrayEntity entity = null;
         try {
+            Log.d("updOrderStatusParame:",jsonObjectParam.toString());
             // answer_id, order_status
             entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
         }catch (UnsupportedEncodingException e1){
@@ -256,7 +259,9 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 Map map = new HashMap();
                 try {
                     map.put("orderId",String.valueOf(jsonObject.getLong("orderId")));
+                    Log.d("afterUpdateOrderId",String.valueOf(jsonObject.getLong("orderId")));
                     map.put("answerId",jsonObject.getString("answerId"));
+                    Log.d("afterUpdateAnswerId",jsonObject.getString("answerId"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

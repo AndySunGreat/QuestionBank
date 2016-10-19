@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
@@ -86,7 +87,9 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         map.put("orderStatus",currentIntent.getStringExtra("orderStatus"));
         map.put("bankId",currentIntent.getStringExtra("bankId"));
         map.put("bankIds",currentIntent.getStringExtra("bankIds"));
-        map.put("orderId",String.valueOf(currentIntent.getLongExtra("orderId",1L)));
+        map.put("orderId",currentIntent.getStringExtra("orderId"));
+        Log.d("currentIntent(orderId)",currentIntent.getStringExtra("orderId"));
+        Log.d("curIntent(orderStatus)",currentIntent.getStringExtra("orderStatus"));
         // Navigate from Package
         if("NEW".equals(currentIntent.getStringExtra("orderStatus"))){
 
@@ -135,6 +138,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         Intent packageIntent =  getIntent();
         String bankId = packageIntent.getStringExtra("bankId");
         String orderId = packageIntent.getStringExtra("orderId");
+        Log.d("QuestIntent orderId:",orderId);
        // String orderId = String.valueOf(packageIntent.getLongExtra("orderId",1L));
         Log.d("Intent orderId",orderId);
 
@@ -145,26 +149,29 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         for (int i=0;i<size;i++) {
             questExpandableListView.expandGroup(i);
         }
-        Map calculateResult = adapter.getAnswersResultMap();
+        //Map calculateResult = adapter.getAnswersResultMap();
         View v = getLayoutInflater().inflate(R.layout.questions_expandlistview_footview, null);
-        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(calculateResult));
+        v.findViewById(R.id.submitAllQuestBtn).setOnClickListener(new SubmitAllQuestion(adapter));
         questExpandableListView.addFooterView(v);
 
     }
 
     private class SubmitAllQuestion implements View.OnClickListener{
-        Map calculateResult;
-        SubmitAllQuestion(Map calculateResult){
-            this.calculateResult = calculateResult;
+        private QuestionAdapter adapter;
+        public SubmitAllQuestion(QuestionAdapter adapter) {
+            this.adapter = adapter;
         }
+
         @Override
         public void onClick(View view) {
+
             Log.d("submit all question","question");
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("orderStatus",map.get("orderStatus").toString());
                 jsonObject.put("bankId",map.get("bankId").toString());
                 jsonObject.put("orderId",map.get("orderId"));
+                Log.d("OnClick orderId:",map.get("orderId").toString());
                 jsonObject.put("packageId",map.get("packageId"));
                 if(map.get("orderStatus").equals("AGAIN")){
                     jsonObject.put("prevAnswerId", map.get("prevAnswerId"));
@@ -173,11 +180,12 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
                     jsonObject.put("prevAnswerId", map.get("prevAnswerId"));
                     jsonObject.put("prevWrongQuestIds",map.get("prevWrongQuestIds"));
                 }
+                Map resultMap = adapter.markAllGroupQuestions();
                 // 当前用户答题结果
-                jsonObject.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
-                jsonObject.put("score",calculateResult.get("score"));
-                map.put("wrongQuestIds",calculateResult.get("wrongQuestIds"));
-                map.put("score",calculateResult.get("score"));
+                jsonObject.put("wrongQuestIds",resultMap.get("wrongQuestIds").toString());
+                jsonObject.put("score",resultMap.get("score"));
+                map.put("wrongQuestIds",resultMap.get("wrongQuestIds").toString());
+                map.put("score",resultMap.get("score"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -200,7 +208,8 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     public void navigateAnswersActivity(Map updateStatusMap){
         intent = new Intent(getApplicationContext(), AnswersActivity.class);
 
-        intent.putExtra("orderId", String.valueOf(getIntent().getLongExtra("orderId",1L)));
+        intent.putExtra("orderId", getIntent().getStringExtra("orderId"));
+        Log.d("Navigate Answer OrderId",getIntent().getStringExtra("orderId"));
         intent.putExtra("packageId",getIntent().getStringExtra("packageId"));
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));

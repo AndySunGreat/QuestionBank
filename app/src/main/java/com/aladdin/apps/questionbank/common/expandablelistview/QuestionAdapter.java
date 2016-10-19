@@ -43,7 +43,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         setDefaultChkList();
     }
 
-    public Map getAnswersResultMap(){
+    public Map markAllGroupQuestions(){
         Map answerResultMap = new HashMap();
         int groupPosition = this.getGroupCount();
         int childrenCount = 0;
@@ -51,10 +51,13 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         float score;
         int wrongQuestionCount = 0;
         String strWrongQuestIds = "";
-        for(int i=0;i<groupPosition-1;i++) {
+        for(int i=0;i<groupPosition;i++) {
+            Log.d("GroupPosition:",i+"");
             questionOrder  = (QuestionOrder) getGroup(i);
             childrenCount = this.getChildrenCount(i);
+            Log.d("ChildCount:",childrenCount+"");
             questionOrder = markingQuestions(i,childrenCount);
+            Log.d("AnswerResult():",questionOrder.getAnswerResult());
             if("回答错误".equals(questionOrder.getAnswerResult())){
                 strWrongQuestIds =  strWrongQuestIds + questionOrder.getQuestionId() + ",";
                 wrongQuestionCount++;
@@ -64,13 +67,41 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         if(strWrongQuestIds.endsWith(",")) {
             strWrongQuestIds = strWrongQuestIds.substring(0, strWrongQuestIds.length() - 1);
         }
-        score = ((float)wrongQuestionCount/(float)groupPosition)*100;
+        Log.d("strWrongQuestIds",strWrongQuestIds);
+        score = ((float)(groupPosition-wrongQuestionCount)/(float)groupPosition)*100;
+        Log.d("score",score+"");
         answerResultMap.put("wrongQuestIds",strWrongQuestIds);
         answerResultMap.put("score",score);
         return answerResultMap;
     }
 
-
+    // 对每一个试题进行批卷打分，将错误生成字符串(wrong_quest_ids)以及成绩(score)返回。
+    public QuestionOrder markingQuestions(int groupPosition,int childCount){
+        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
+        Log.d("childCount",childCount+"");
+        String strChildPosition = "";
+        for (int i = 1; i < childCount - 1; i++) {
+            if(isSelectedMap.get(groupPosition).get(i)){
+                strChildPosition = strChildPosition + i + ",";
+            }
+        }
+        if(strChildPosition.endsWith(",")) {
+            strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
+        }
+        Log.d("strChildPosition",strChildPosition);
+        Log.d("order:",order.getCorrectPostions()+"");
+        // 1.2 判断单选题用户答案是否正确
+        if(strChildPosition.equals(order.getCorrectPostions())){
+            // 回答正确,则直接收起该group的item内容,或是整体隐藏
+            //order.setFootVisibility(View.VISIBLE);
+            order.setAnswerResult("回答正确");
+            order.setFootVisibility("GONE,VISIBLE");
+        }else{
+            // 若错误在footer中显示“回答错误”
+            order.setAnswerResult("回答错误");
+        }
+        return order;
+    }
 
     @Override
     public int getGroupCount() {
@@ -178,6 +209,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 holder.optSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        Log.d("CheckedChangeListener","a1");
                        // Log.d("当前groupPosition:", groupPosition+"");
                         //Log.d("当前childPosition",childPosition+"");
                          QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
@@ -309,33 +341,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    // 对每一个试题进行批卷打分，将错误生成字符串(wrong_quest_ids)以及成绩(score)返回。
-    public QuestionOrder markingQuestions(int groupPosition,int childCount){
-        QuestionOrder order = (QuestionOrder) getGroup(groupPosition);
-        Log.d("childCount",childCount+"");
-        String strChildPosition = "";
-        for (int i = 1; i < childCount - 1; i++) {
-            if(isSelectedMap.get(groupPosition).get(i)){
-                strChildPosition = strChildPosition + i + ",";
-            }
-        }
-        if(strChildPosition.endsWith(",")) {
-            strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
-        }
-        Log.d("strChildPosition",strChildPosition);
-        Log.d("order:",order.getCorrectPostions()+"");
-        // 1.2 判断单选题用户答案是否正确
-        if(strChildPosition.equals(order.getCorrectPostions())){
-            // 回答正确,则直接收起该group的item内容,或是整体隐藏
-            //order.setFootVisibility(View.VISIBLE);
-            order.setAnswerResult("回答正确");
-            order.setFootVisibility("GONE,VISIBLE");
-        }else{
-            // 若错误在footer中显示“回答错误”
-            order.setAnswerResult("回答错误");
-        }
-        return order;
-    }
+
 
     private class submitBtnClick implements Button.OnClickListener{
         View view = null;

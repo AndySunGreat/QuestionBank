@@ -76,6 +76,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
                 Order newOrder = new Order();
                 try {
                     newOrder.setOrderId(jsonObject.getLong("orderId"));
+                    Log.d("newOrderId:",String.valueOf(jsonObject.getLong("orderId")));
                     newOrder.setUserId(jsonObject.getLong("userId"));
                     newOrder.setBankId(jsonObject.getString("bankId"));
                     newOrder.setOrderStatus(jsonObject.getString("orderStatus"));
@@ -129,12 +130,12 @@ public class AnswersInteractorImpl implements AnswersInteractor {
      */
 
     @Override
-    public void doAnswerAgain(final OnAnswerAgainFinishedListener listener, JSONObject jsonObjectParam, Context context) {
+    public void doAnswerAgain(final OnAnswerAgainFinishedListener listener,final JSONObject jsonObjectParam, Context context) {
         bro = new BaseResultObject();
             String orderId = "";
             AsyncHttpClient client = new AsyncHttpClient();
             try {
-                orderId = jsonObjectParam.getString("bankId");
+                orderId = jsonObjectParam.getString("orderId");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -143,6 +144,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
             //StringEntity entity = null;
             ByteArrayEntity entity = null;
             try {
+                Log.d("doAnswerAgainUpdParam",jsonObjectParam.toString());
                 // entity = new StringEntity(jsonObject.toString());
                 entity = new ByteArrayEntity(jsonObjectParam.toString().getBytes("UTF-8"));
             }catch (UnsupportedEncodingException e1){
@@ -162,7 +164,9 @@ public class AnswersInteractorImpl implements AnswersInteractor {
                     try {
                         bro.setResultMsg(jsonObject.getString("msg"));
                         //order.setOrderId();
+                        order.setOrderId(jsonObject.getLong("orderId"));
                         order.setAnswerId(jsonObject.getString("answerId"));
+                        order.setOrderStatus(jsonObject.getString("orderStatus"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

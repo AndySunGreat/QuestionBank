@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- android:background="@color/darkslategray" -->
     <!-- 1. TitleBar -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/homeToolBar"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:background="@color/darkslategray"
+        android:layout_height="78dp"
+        android:background="@color/royalblue"
         android:elevation="4dp"
         android:titleTextColor="@color/white"
         android:titleTextAppearance="@color/white"
