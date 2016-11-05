@@ -3,24 +3,17 @@
     <tab
         id="@+id/tab_question"
         icon="@drawable/ic_recents"
-        title="面试题"
+        title="首页"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
     <tab
         id="@+id/tab_promotion"
         icon="@drawable/ic_favorites"
-        title="干货"
+        title="微题"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
-    <tab  id="@+id/tab_discovery"
-        title="充电圈"
-        icon="@drawable/ic_nearby"
-        barColorWhenSelected="@color/white"
-        badgeBackgroundColor="@color/lightcoral"
-        />
-
     <tab
         id="@+id/tab_me"
         title="我"

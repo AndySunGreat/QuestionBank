@@ -194,12 +194,12 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
             switch (menuItem.getItemId()) {
-                case R.id.action_favorite:
+/*                case R.id.action_favorite:
                     msg += "Click edit";
                     break;
                 case R.id.action_friends:
                     msg += "Click share";
-                    break;
+                    break;*/
                 case R.id.action_settings:
                     msg += "Click setting";
                     break;

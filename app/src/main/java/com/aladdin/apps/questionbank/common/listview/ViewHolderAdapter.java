@@ -52,7 +52,7 @@ public class ViewHolderAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             // 通过LayoutInflater实例化布局
-            convertView = mInflater.inflate(R.layout.ques_c_content_listview_row, null);
+            convertView = mInflater.inflate(R.layout.home_channel_listview, null);
             viewHolder.img = (ImageView) convertView.findViewById(R.id.imageView);
             viewHolder.title = (TextView) convertView.findViewById(R.id.textView);
             convertView.setTag(viewHolder);

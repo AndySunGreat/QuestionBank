@@ -24,13 +24,13 @@ public class Constants {
     // 获得定购的题库
     public static final String getOrderQuestionBankUrl = "orderQuestionBank";
     // 根据题库ID来获得题库内容
-    public static final String getQuestionsByBankIDPartOneUrl = "bank/itquest/bankid/";
+    public static final String getQuestionsByBankIDPartOneUrl = "questions/";
 
     // 根据错题questionIDs来获得题库内容
-    public static final String getQuestionsByQuestionIdsUrl = "bank/itquest";
+    public static final String getQuestionsByQuestionIdsUrl = "questions/qids";
 
     // 插入新的Answer记录
-    public static final String postBankAnswersUrl = "bank/answers";
+    public static final String postBankAnswersUrl = "answers/";
     // 更新订单状态
     public static final String  updateOrderStatusUrl = "me/orders";
 

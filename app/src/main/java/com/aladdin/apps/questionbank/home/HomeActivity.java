@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.others.question.QuestionChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -62,8 +61,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void createTitleBar(){
         // App Logo
-        homeToolBar.setLogo(R.mipmap.ic_launcher);
-        String strSyncCount = "(11)";
+        //homeToolBar.setLogo(R.mipmap.ic_launcher);
+        //String strSyncCount = "(11)";
+        String strSyncCount = "";
         // Title
         homeToolBar.setTitle("充电宝"+strSyncCount);
         // Sub Title
@@ -88,8 +88,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
          * (只会在第一次初始化菜单时调用) Inflate the menu; this adds items to the action bar
          * if it is present.
          */
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        //return true;
+        return false;
     }
 
 
@@ -98,12 +99,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         public boolean onMenuItemClick(MenuItem menuItem) {
             String msg = "";
             switch (menuItem.getItemId()) {
-                case R.id.action_favorite:
+/*                case R.id.action_favorite:
                     msg += "Click edit";
                     break;
                 case R.id.action_friends:
                     msg += "Click share";
-                    break;
+                    break;*/
                 case R.id.action_settings:
                     msg += "Click setting";
                     break;
@@ -119,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void createViewPagerTab(){
         fragmentList = new ArrayList<>();
-        fragmentList.add(new QuestionChannelFragment());
+        fragmentList.add(new HomeChannelFragment());
         //fragmentList.add(new PromotionFragment());
         //fragmentList.add(new DiscoveryFragment());
         //fragmentList.add(new MeChannelFragment());
@@ -170,12 +171,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 }else if(tabId == R.id.tab_promotion){
                     //messageView.setText("PromotionActivity");
                     viewPager.setCurrentItem(1);
-                }else if(tabId == R.id.tab_discovery){
+                }else if(tabId == R.id.tab_me){
                     //messageView.setText("DiscoveryFragment");
                     viewPager.setCurrentItem(2);
-                }else if(tabId == R.id.tab_me){
-                    //messageView.setText("MeActivity");
-                    viewPager.setCurrentItem(3);
                 }
             }
         });
@@ -194,6 +192,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     // 创建BadgeView
     public void asyncBadgeView(){
+        BottomBarTab homeTab = bottomBar.getTabWithId(R.id.tab_question);
+        //homeTab.getTitleTextAppearance();
         BottomBarTab nearby = bottomBar.getTabWithId(R.id.tab_me);
         nearby.setBadgeCount(6);
         nearby.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {

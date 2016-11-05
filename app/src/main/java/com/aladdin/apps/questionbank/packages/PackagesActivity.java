@@ -88,7 +88,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
                     autoPackage.getCreateDate().toString(), "进入答题");
             mDatas.add(bean);
         }
-        bean = new PackageListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
+/*        bean = new PackageListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
         mDatas.add(bean);
 
         bean = new PackageListViewEntity("Android新技能3", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
@@ -104,7 +104,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
         mDatas.add(bean);
 
         bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
+        mDatas.add(bean);*/
 
         //为数据绑定适配器
         packageListVAdapter = new PackageListVAdapter(this, mDatas);

@@ -66,7 +66,9 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
             params.put("questionIds",map.get("prevWrongQuestIds"));
         }else{
             // AGAIN,NEW
-            url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl + bankId;
+            url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl;
+            params.put("bankId",bankId);
+            // url = Constants.restfulEndpoints + Constants.getQuestionsByBankIDPartOneUrl + bankId;
         }
 
         Log.d("QuestDAOUrl:",url);
