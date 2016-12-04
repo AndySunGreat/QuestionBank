@@ -91,11 +91,10 @@ public class MyChannelFragment extends Fragment {
     private void createQuesChlContent() {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
-        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "继续答题"));
-        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "能力指数"));
-        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "我要跳槽"));
-        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "我要升职"));
-        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "充电 +"));
+        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "个人信息"));
+        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "我的题库"));
+        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "问题收藏"));
+        mData1.add(new ChannelRow(R.drawable.ic_action_account_balance, "设置"));
         //Adapter初始化
         myAdapter1 = new ListViewAdapter<ChannelRow>((ArrayList) mData1, R.layout.home_channel_listview_row) {
             @Override

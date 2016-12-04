@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
+import com.aladdin.apps.questionbank.my.MyChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -121,6 +122,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public void createViewPagerTab(){
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeChannelFragment());
+        fragmentList.add(new MyChannelFragment());
         //fragmentList.add(new PromotionFragment());
         //fragmentList.add(new DiscoveryFragment());
         //fragmentList.add(new MeChannelFragment());
@@ -168,10 +170,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
                     viewPager.setCurrentItem(0);
-                }else if(tabId == R.id.tab_promotion){
+                }else if(tabId == R.id.tab_me){
                     //messageView.setText("PromotionActivity");
                     viewPager.setCurrentItem(1);
-                }else if(tabId == R.id.tab_me){
+                }else if(tabId == R.id.tab_promotion){
                     //messageView.setText("DiscoveryFragment");
                     viewPager.setCurrentItem(2);
                 }

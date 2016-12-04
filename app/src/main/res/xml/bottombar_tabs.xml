@@ -8,19 +8,20 @@
         badgeBackgroundColor="@color/lightcoral"
         />
     <tab
-        id="@+id/tab_promotion"
-        icon="@drawable/ic_favorites"
-        title="微题"
-        barColorWhenSelected="@color/white"
-        badgeBackgroundColor="@color/lightcoral"
-        />
-    <tab
         id="@+id/tab_me"
         title="我"
         icon="@drawable/ic_friends"
         barColorWhenSelected="@color/white"
         badgeBackgroundColor="@color/lightcoral"
         />
+    <tab
+        id="@+id/tab_promotion"
+        icon="@drawable/ic_favorites"
+        title="微题"
+        barColorWhenSelected="@color/white"
+        badgeBackgroundColor="@color/lightcoral"
+        />
+
 
 
 </tabs>

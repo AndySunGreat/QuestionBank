@@ -101,8 +101,10 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         }else if("WRONGAGAIN".equals(currentIntent.getStringExtra("orderStatus"))) {
             // 此时会传回wrongQuestIds
             map.put("prevAnswerId",currentIntent.getStringExtra("answerId"));
+            Log.d("prevAnswerId",currentIntent.getStringExtra("answerId"));
             // 用于显示错题列表
             map.put("prevWrongQuestIds",currentIntent.getStringExtra("wrongQuestIds"));
+            Log.d("prevWrongQuestIds",currentIntent.getStringExtra("wrongQuestIds"));
         }
         return map;
     }

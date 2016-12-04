@@ -67,12 +67,14 @@ public class PackagesInteractorImpl  implements PackagesInteractor {
                         autoPackage.setBankIdsJson(obj.getString("bankIdsJson"));
                         autoPackage.setJobId(obj.getLong("jobId"));
                         autoPackage.setPackageName(obj.getString("packageName"));
+                        autoPackage.setPackageDesc(obj.getString("packageDesc"));
                         sdf =new SimpleDateFormat("yyyy-MM-dd");
-                        strCreateDate = obj.getString("createDate");
+                        autoPackage.setCreateDate(obj.getString("createDate"));
+                        //strCreateDate = obj.getString("createDate");
                         strChangeDate = obj.getString("changeDate");
-                        if(strChangeDate!=null) {
+/*                        if(strChangeDate!=null) {
                             autoPackage.setCreateDate((java.util.Date) sdf.parse(strCreateDate));
-                        }
+                        }*/
                         if(strChangeDate!=null){
                             autoPackage.setChangeDate((java.util.Date)sdf.parse(strChangeDate));
                         }

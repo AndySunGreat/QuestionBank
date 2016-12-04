@@ -84,27 +84,11 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
             bean = new PackageListViewEntity(
                     String.valueOf(autoPackage.getPackageId()),
                     autoPackage.getBankIdsJson(),
-                    autoPackage.getPackageName(), "Android为ListView和GridView打造万能适配器",
+                    autoPackage.getPackageName(), autoPackage.getPackageDesc(),
                     autoPackage.getCreateDate().toString(), "进入答题");
             mDatas.add(bean);
         }
-/*        bean = new PackageListViewEntity("Android新技能2", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
 
-        bean = new PackageListViewEntity("Android新技能3", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);
-
-        bean = new PackageListViewEntity("Android新技能4", "Android为ListView和GridView打造万能适配器", "2015-05-04", "10086");
-        mDatas.add(bean);*/
 
         //为数据绑定适配器
         packageListVAdapter = new PackageListVAdapter(this, mDatas);
@@ -143,9 +127,10 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     public void showTitleBar() {
         // App Logo
         //homeToolBar.setLogo(R.mipmap.ic_launcher);
-        String strSyncCount = "(12)";
+        //String strSyncCount = "(12)";
+        String strSyncCount = "";
         // Title
-        homeToolBar.setTitle("我的题库" + strSyncCount);
+        homeToolBar.setTitle("请选择题库" + strSyncCount);
         // Sub Title
         //homeToolBar.setSubtitle("Sub title");
         setSupportActionBar(homeToolBar);

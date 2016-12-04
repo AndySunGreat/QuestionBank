@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
  * Created by AndySun on 2016/9/19.
  */
 public class Constants {
-    public static final String restfulEndpoints = "http://192.168.2.105:8081/MajorBank/api/";
+    public static final String restfulEndpoints = "http://192.168.2.104:8081/MajorBank/api/";
     //public static final String restfulEndpoints = "http://10.10.8.102:8081/MajorBank/api/";
     public static final String  getCustomersById= "questionBanks";
     public static final String  getLoginByAccountNumberUrl= "login/user/validate";
@@ -33,5 +33,8 @@ public class Constants {
     public static final String postBankAnswersUrl = "answers/";
     // 更新订单状态
     public static final String  updateOrderStatusUrl = "me/orders";
+
+    // 根据用户ID获得订单信息
+    public static final String getOrderInfoByUserIdUrl = "me/orders";
 
 }

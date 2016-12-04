@@ -12,29 +12,33 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.aladdin.apps.questionbank.R;
+import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
+import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.questions.QuestionsActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by AndySun on 2016/9/19.
  */
-public class HomeChannelFragment extends Fragment {
+public class HomeChannelFragment extends Fragment implements HomeChannelView{
 
     ListView mainListView;
     private ArrayList<ChannelRow> mData1;
     private ListViewAdapter  myAdapter1;
     Intent intent = new Intent();
     private ArrayAdapter<String> listAdapter ;
-
+    private HomeChannelPresenter homeChannelPresenter;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_channel_listview, container, false);
         mainListView = (ListView) view.findViewById( R.id.quescContentListview );
         createQuesChlContent();
+        homeChannelPresenter = new HomeChannelPresenterImpl(this,new HomeChannelInteractorImpl());
          /*为ListView添加点击事件*/
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -42,7 +46,7 @@ public class HomeChannelFragment extends Fragment {
                                     int position, long id) {
                 // 1.继续答题[Question]
                 if(position==0){
-                    // 1.根据用户userId来获得用户套餐信息(packageId,bankIds),当前题库bankId,当前订单orderId&orderStatus
+                    // 1.根据用户userId来查询orders表，获得用户套餐信息(packageId,bankIds),当前题库bankId,当前订单orderId&orderStatus
                     // 2.将如下信息传到QuestionActivity
                     intent = new Intent(getActivity(), QuestionsActivity.class);
                     intent.putExtra("userId","");
@@ -88,6 +92,7 @@ public class HomeChannelFragment extends Fragment {
     }
 
 
+
     private void createQuesChlContent() {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
@@ -113,5 +118,15 @@ public class HomeChannelFragment extends Fragment {
             }
         };
         mainListView.setAdapter(myAdapter1);
+    }
+
+    @Override
+    public void setItems(List<Order> mData) {
+
+    }
+
+    @Override
+    public void setItemsError(BaseResultObject bro) {
+
     }
 }
