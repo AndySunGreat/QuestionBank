@@ -17,10 +17,16 @@ import java.util.Map;
  */
 public interface HomeChannelInteractor {
     interface  OnShowingOrdersFinishedListener{
-        void onFinished(List<Order> items);
-        void onFailure(BaseResultObject items);
+        void onShowingOrdersFinished(List<Order> items);
+        void onShowingOrdersFailure(BaseResultObject items);
+    }
+    interface  OnShowingPackagesFinishedListener{
+        void onShowingPackagesFinished(List<Package> items);
+        void onShowingPackagesFailure(BaseResultObject items);
     }
 
     void getOrderInfoByUserId(OnShowingOrdersFinishedListener listener, Map map, RequestParams params);
+
+    void getPackageInfoById(OnShowingPackagesFinishedListener listener, Map map, RequestParams params);
 
 }

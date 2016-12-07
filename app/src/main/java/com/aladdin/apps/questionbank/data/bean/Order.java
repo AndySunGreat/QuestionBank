@@ -1,7 +1,7 @@
 package com.aladdin.apps.questionbank.data.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by AndySun on 2016/10/5.

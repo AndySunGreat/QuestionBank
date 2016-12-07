@@ -30,7 +30,9 @@ import cz.msebera.android.httpclient.Header;
 public class HomeChannelInteractorImpl implements HomeChannelInteractor{
     private BaseResultObject bro;
     private Order orders;
+    private Package packageTmp;
     private List<Order> orderList;
+    private List<Package> packageList;
     private JSONObject obj;
     private SimpleDateFormat sdf;
     private String strChangeDate;
@@ -38,7 +40,9 @@ public class HomeChannelInteractorImpl implements HomeChannelInteractor{
     @Override
     public void getOrderInfoByUserId(final HomeChannelInteractor.OnShowingOrdersFinishedListener listener, Map map, RequestParams params){
         bro = new BaseResultObject();
-        String userId = map.get("userId").toString();
+        // TODO: HARDCORD 232
+        String userId = "232";
+        //String userId = map.get("userId").toString();
         String url = Constants.restfulEndpoints + Constants.getOrderInfoByUserIdUrl + "?userId="+ userId;
         Log.d("Pkg-url:",url);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -63,12 +67,13 @@ public class HomeChannelInteractorImpl implements HomeChannelInteractor{
                         orders.setOrderType(obj.getString("orderType"));
                         orders.setAnswerId(obj.getString("answerId"));
                         orders.setBankId(obj.getString("bankId"));
+                        Log.d("bankId",obj.getString("bankId"));
                         orders.setUserId(obj.getLong("userId"));
                         sdf =new SimpleDateFormat("yyyy-MM-dd");
                         //strCreateDate = obj.getString("createDate");
                         strChangeDate = obj.getString("changeDate");
                         if(strChangeDate!=null){
-                            orders.setChangeDate((java.sql.Date)sdf.parse(strChangeDate));
+                            orders.setChangeDate((java.util.Date)sdf.parse(strChangeDate));
                         }
                     }catch(JSONException e){
                         e.printStackTrace();
@@ -77,7 +82,7 @@ public class HomeChannelInteractorImpl implements HomeChannelInteractor{
                     }
                     orderList.add(orders);
                 }
-                listener.onFinished(orderList);
+                listener.onShowingOrdersFinished(orderList);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String content,
@@ -103,7 +108,83 @@ public class HomeChannelInteractorImpl implements HomeChannelInteractor{
                 bro.setResultStateCode(statusCode);
                 bro.setResultMsg(resultErrorMsg);
                 bro.setResultJSONArray(null);
-                listener.onFailure(bro);
+                listener.onShowingOrdersFailure(bro);
+            }
+        });
+    }
+
+    @Override
+    public void getPackageInfoById(final OnShowingPackagesFinishedListener listener, Map map, RequestParams params) {
+        bro = new BaseResultObject();
+        String packageId = map.get("packageId").toString();
+        String url = Constants.restfulEndpoints + Constants.crudPackagePartialUrl + "?packageId="+ packageId;
+        Log.d("Pkg-url:",url);
+        AsyncHttpClient client = new AsyncHttpClient();
+        // POST Usage: client.post(Context, URL, StringEntity, "application/json", AsyncHttpResponseHandler())
+        client.get(url,params,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response){
+                super.onSuccess(statusCode, headers, response);
+                bro.setResultStateCode(statusCode);
+                bro.setResultMsg("Success");
+                bro.setResultJSONArray(response);
+                Log.d("Get Packages Info","获得Packages信息成功!");
+                packageList = new ArrayList<Package>();
+                // 循环遍历auoRecommendPackages
+                for (int i = 0; i < response.length(); i++) {
+                    packageTmp = new Package();
+                    try {
+                        obj = response.getJSONObject(i);
+                        packageTmp.setPackageId(obj.getLong("packageId"));
+                        packageTmp.setBankIdsJson(obj.getString("bankIdsJson"));
+                        packageTmp.setJobId(obj.getLong("jobId"));
+                        packageTmp.setPackageName(obj.getString("packageName"));
+                        packageTmp.setPackageDesc(obj.getString("packageDesc"));
+                        sdf =new SimpleDateFormat("yyyy-MM-dd");
+                        packageTmp.setCreateDate(obj.getString("createDate"));
+                        //strCreateDate = obj.getString("createDate");
+                        strChangeDate = obj.getString("changeDate");
+                        /* if(strChangeDate!=null) {
+                            packageTmp.setCreateDate((java.util.Date) sdf.parse(strCreateDate));
+                        }*/
+                        if(strChangeDate!=null){
+                            packageTmp.setChangeDate((java.util.Date)sdf.parse(strChangeDate));
+                        }
+
+                    }catch(JSONException e){
+                        e.printStackTrace();
+                    }catch (ParseException e2){
+                        e2.printStackTrace();
+                    }
+                    packageList.add(packageTmp);
+                }
+                listener.onShowingPackagesFinished(packageList);
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String content,
+                                  Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.d("statusCode","4XX");
+                Log.d("getOrdersInfo","获得Packages信息失败!");
+                // Hide Progress Dialog
+                //progress.hide();
+                String resultErrorMsg = "";
+                // When Http response code is '404'
+                if (statusCode == 404) {
+                    resultErrorMsg="Requested resource not found";
+                }
+                // When Http response code is '500'
+                else if (statusCode == 500) {
+                    resultErrorMsg= "Something went wrong at server end";
+                }
+                // When Http response code other than 404, 500
+                else {
+                    resultErrorMsg= "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]";
+                }
+                bro.setResultStateCode(statusCode);
+                bro.setResultMsg(resultErrorMsg);
+                bro.setResultJSONArray(null);
+                listener.onShowingPackagesFailure(bro);
             }
         });
     }
