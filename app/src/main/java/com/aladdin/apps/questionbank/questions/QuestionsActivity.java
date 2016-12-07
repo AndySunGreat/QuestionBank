@@ -88,6 +88,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         map.put("bankId",currentIntent.getStringExtra("bankId"));
         map.put("bankIds",currentIntent.getStringExtra("bankIds"));
         map.put("orderId",currentIntent.getStringExtra("orderId"));
+        map.put("userId",currentIntent.getStringExtra("userId"));
         Log.d("currentIntent(orderId)",currentIntent.getStringExtra("orderId"));
         Log.d("curIntent(orderStatus)",currentIntent.getStringExtra("orderStatus"));
         // Navigate from Package
@@ -216,6 +217,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         intent.putExtra("bankIds",getIntent().getStringExtra("bankIds"));
         intent.putExtra("orderStatus",getIntent().getStringExtra("orderStatus"));
         intent.putExtra("bankId",getIntent().getStringExtra("bankId"));
+        intent.putExtra("userId",getIntent().getStringExtra("userId"));
         // 将生成的answerId传到answer page
         intent.putExtra("answerId",updateStatusMap.get("answerId").toString());
 

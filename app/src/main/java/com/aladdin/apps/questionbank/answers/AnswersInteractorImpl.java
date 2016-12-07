@@ -46,8 +46,7 @@ public class AnswersInteractorImpl implements AnswersInteractor {
         ByteArrayEntity entity = null;
         JSONObject jsonObjectData = new JSONObject();
         try {
-            // TODO: 2016/10/17  Hardcode userId value
-            jsonObjectData.put("userId",2);
+            jsonObjectData.put("userId",jsonObjectParam.getString("userId"));
             jsonObjectData.put("orderType","1");  // 1.bank
             jsonObjectData.put("orderStatus","NEW");
             jsonObjectData.put("bankId",jsonObjectParam.getString("newBankId"));

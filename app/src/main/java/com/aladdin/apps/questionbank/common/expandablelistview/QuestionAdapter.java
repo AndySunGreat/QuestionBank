@@ -379,7 +379,6 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
-            // TODO Auto-generated method stub
             //setOnCheckedChanged(view,groupPosition,childPosition,b);
             Log.d("CheckedChange","end----------------------------------------------");
         }

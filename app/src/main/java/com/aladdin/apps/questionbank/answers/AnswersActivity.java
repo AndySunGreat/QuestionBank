@@ -120,6 +120,7 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
         map.put("packageId",questionIntent.getStringExtra("packageId"));
         map.put("bankIds",questionIntent.getStringExtra("bankIds"));
         map.put("orderStatus",questionIntent.getStringExtra("orderStatus"));
+        map.put("userId",questionIntent.getStringExtra("userId"));
         return map;
     }
 
@@ -131,7 +132,7 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
     public void navigateQuestionActivity(Order order){
         intent = new Intent(getApplicationContext(), QuestionsActivity.class);
 
-
+        intent.putExtra("userId", map.get("userId").toString());
         intent.putExtra("packageId", map.get("packageId").toString());
         intent.putExtra("orderStatus", order.getOrderStatus());
         if(order.getAnswerId()!=null){
@@ -165,6 +166,7 @@ public class AnswersActivity extends BaseActivity implements AnswersView,
             jsonObject.put("orderId",getIntent().getStringExtra("orderId"));
             jsonObject.put("packageId",getIntent().getStringExtra("packageId"));
             jsonObject.put("bankIds",getIntent().getStringExtra("bankIds"));
+            jsonObject.put("userId",getIntent().getStringExtra("userId"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
