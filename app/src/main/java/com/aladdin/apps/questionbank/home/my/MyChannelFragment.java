@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.my;
+package com.aladdin.apps.questionbank.home.my;
 
 import android.content.Intent;
 import android.os.Bundle;

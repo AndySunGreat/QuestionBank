@@ -1,18 +1,13 @@
-package com.aladdin.apps.questionbank.home;
+package com.aladdin.apps.questionbank.home.hm;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.aladdin.apps.questionbank.answers.AnswersInteractor;
-import com.aladdin.apps.questionbank.answers.AnswersPresenter;
-import com.aladdin.apps.questionbank.answers.AnswersView;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.loopj.android.http.RequestParams;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;

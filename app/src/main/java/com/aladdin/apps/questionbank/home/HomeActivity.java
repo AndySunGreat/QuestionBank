@@ -15,7 +15,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
-import com.aladdin.apps.questionbank.my.MyChannelFragment;
+import com.aladdin.apps.questionbank.home.hm.HomeChannelFragment;
+import com.aladdin.apps.questionbank.home.my.MyChannelFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -197,16 +198,16 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         BottomBarTab homeTab = bottomBar.getTabWithId(R.id.tab_question);
         //homeTab.getTitleTextAppearance();
         BottomBarTab nearby = bottomBar.getTabWithId(R.id.tab_me);
-        nearby.setBadgeCount(6);
+        //nearby.setBadgeCount(6);
         nearby.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
             public void onViewAttachedToWindow(View view) {
-                Toast.makeText(getApplicationContext(), "我的Tab onViewAttachedToWindow", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "我的Tab onViewAttachedToWindow", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onViewDetachedFromWindow(View view) {
-                Toast.makeText(getApplicationContext(), "我的Tab onViewDetachedFromWindow", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "我的Tab onViewDetachedFromWindow", Toast.LENGTH_SHORT).show();
             }
         });
     }
