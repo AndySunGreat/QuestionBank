@@ -100,12 +100,19 @@ public class HopperConditionAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            // 显示Group名称，即问题主题
-            convertView = inflater.inflate(R.layout.hopper_conditon_entity_view,null) ;
-        }
-        TextView group = (TextView) convertView.findViewById(R.id.expandGroup);
-        group.setText("");
+
+            if (convertView == null) {
+                // 显示Group名称，即问题主题
+                convertView = inflater.inflate(R.layout.hopper_conditon_entity_view, null);
+            }
+            TextView group = (TextView) convertView.findViewById(R.id.expandGroup);
+            String strGroupTitle = ((HopperConditionEntity)orderList.get(groupPosition)).getGroupTitle();
+            group.setText(strGroupTitle);
+/*            if(groupPosition==0){
+                group.setHeight(0);
+                group.setVisibility(INVISIBLE);
+            }*/
+
 /*        if(groupPosition==0){
             group.setText("请选择跳槽原因：");
         }else if(groupPosition==1){

@@ -10,6 +10,7 @@ import java.util.List;
 public class HopperConditionEntity extends BaseExpandListViewEntity{
     private Long conditionId;
     private String conditionTitle;
+    private String groupTitle;
 
     private List<HopperConditionSubEntity> items;
 
@@ -31,6 +32,23 @@ public class HopperConditionEntity extends BaseExpandListViewEntity{
         this.conditionId = conditionId;
         this.conditionTitle = conditionTitle;
         this.items = items;
+    }
+
+    public HopperConditionEntity(String headVisibility, String itemsVisibility, String footVisibility, Long conditionId,
+                                 String conditionTitle, String groupTitle, List<HopperConditionSubEntity> items) {
+        super(headVisibility, itemsVisibility, footVisibility);
+        this.conditionId = conditionId;
+        this.conditionTitle = conditionTitle;
+        this.groupTitle = groupTitle;
+        this.items = items;
+    }
+
+    public String getGroupTitle() {
+        return groupTitle;
+    }
+
+    public void setGroupTitle(String groupTitle) {
+        this.groupTitle = groupTitle;
     }
 
     public Long getConditionId() {

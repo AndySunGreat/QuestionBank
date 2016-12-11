@@ -19,7 +19,8 @@
         android:layout_weight="1.5"
         android:padding="10dp"
         android:textSize="16sp"
-        android:text="80"/>
+        android:text="80"
+        android:visibility="invisible"/>
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/correctAnswerFooter"

@@ -3,7 +3,7 @@
     android:id="@+id/tvHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="16sp"
+    android:textSize="18sp"
     android:textStyle="bold"
     android:padding="10dp"
     android:text="共8份美食" />
