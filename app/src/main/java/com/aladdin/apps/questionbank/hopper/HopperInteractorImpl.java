@@ -1,37 +1,17 @@
-package com.aladdin.apps.questionbank.questions;
-
-import android.content.Context;
-import android.util.Log;
+package com.aladdin.apps.questionbank.hopper;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.common.expandablelistview.QuestionSubEntity;
-import com.aladdin.apps.questionbank.data.bean.BankAnswers;
 import com.aladdin.apps.questionbank.data.bean.Question;
-import com.aladdin.apps.questionbank.util.Constants;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.ByteArrayEntity;
-import cz.msebera.android.httpclient.message.BasicHeader;
-import cz.msebera.android.httpclient.protocol.HTTP;
 
 /**
  * Created by AndySun on 2016/10/8.
  */
-public class QuestionsInteractorImpl implements QuestionsInteractor {
+public class HopperInteractorImpl implements HopperInteractor {
     private BaseResultObject bro;
     private List<Question> questionList;
     private JSONObject obj;
@@ -48,7 +28,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
      * @param map 1.bankId   2.wrong question ids来查询
      * @param params
      */
-    @Override
+/*    @Override
     public void getQuestionsByBankId(final OnShowingQuestionsFinishedListener listener, Map map, RequestParams params){
 
         bro = new BaseResultObject();
@@ -80,12 +60,12 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 questionList = new ArrayList<Question>();
                 JSONArray jsonArrayTemp;
                 JSONObject jsonObjectTemp;
-                List<QuestionSubEntity> questionSubEntityList = new ArrayList<QuestionSubEntity>();
-                QuestionSubEntity questionSubEntityTemp;
+                List<QuestionSubEntity> questionItemList = new ArrayList<QuestionSubEntity>();
+                QuestionSubEntity questionItemTemp;
                 // 循环遍历auoRecommendPackages
                 for (int i = 0; i < response.length(); i++) {
                     question = new Question();
-                    questionSubEntityList = new ArrayList<QuestionSubEntity>();
+                    questionItemList = new ArrayList<QuestionSubEntity>();
                     try {
                         obj = response.getJSONObject(i);
                         question.setQuestionId(obj.getLong("questionId"));
@@ -94,9 +74,9 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                         //sdf =new SimpleDateFormat("yyyy-MM-dd");
                         strCreateDate = obj.getString("changeDate");
                         question.setChangeDate(strCreateDate);
-/*                        if(strChangeDate!=null){
+*//*                        if(strChangeDate!=null){
                             question.setChangeDate((java.util.Date)sdf.parse(strChangeDate));
-                        }*/
+                        }*//*
                         question.setCorrectIndexes(obj.getString("correctIndexes"));
                         question.setCorrectAnswer(obj.getString("correctAnswer"));
                         question.setQuestOptionsJson(obj.getString("questOptionsJson"));
@@ -104,12 +84,12 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                         jsonArrayTemp = (JSONArray) obj.get("questOptions");
                         for(int w=0;w<jsonArrayTemp.length();w++){
                             jsonObjectTemp = (JSONObject)jsonArrayTemp.get(w);
-                            questionSubEntityTemp = new QuestionSubEntity();
-                            questionSubEntityTemp.setOptSeq(jsonObjectTemp.getString("optSeq"));
-                            questionSubEntityTemp.setOptContent(jsonObjectTemp.getString("optContent"));
-                            questionSubEntityList.add(questionSubEntityTemp);
+                            questionItemTemp = new QuestionSubEntity();
+                            questionItemTemp.setOptSeq(jsonObjectTemp.getString("optSeq"));
+                            questionItemTemp.setOptContent(jsonObjectTemp.getString("optContent"));
+                            questionItemList.add(questionItemTemp);
                         }
-                        question.setQuestOptions(questionSubEntityList);
+                        question.setQuestOptions(questionItemList);
                     }catch(JSONException e){
                         e.printStackTrace();
                     }
@@ -294,7 +274,7 @@ public class QuestionsInteractorImpl implements QuestionsInteractor {
                 listener.onUpdateOrderFailure(bro,context);
             }
         });
-    }
+    }*/
 
 
 

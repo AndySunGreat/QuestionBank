@@ -15,88 +15,31 @@ import android.widget.TextView;
 
 import com.aladdin.apps.questionbank.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.widget.ExpandableListView.*;
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 /**
- * Created by AndySun on 2016/10/12.
+ * Created by AndySun on 2016/12/9.
  */
-public class QuestionAdapter extends BaseExpandableListAdapter {
-    public static Map<Integer, Map<Integer, Boolean>> isSelectedMap;
-    private List<QuestionEntity> orderList ;
+public class HopperConditionAdapter extends BaseExpandableListAdapter {
+
+    //public static Map<Integer, Map<Integer, Boolean>> isSelectedMap;
+    private List<HopperConditionEntity> orderList ;
     private LayoutInflater inflater ;
     private View group ;
-    private QuestionEntity questionEntity;
-    public QuestionAdapter(List<QuestionEntity> orderList, Context context) {
+    private HopperConditionEntity hopperConditionEntity;
+    public HopperConditionAdapter(List<HopperConditionEntity> orderList, Context context) {
         this.orderList = orderList ;
         inflater = LayoutInflater.from(context) ;
         group = new FrameLayout(context) ;
-        setDefaultChkList();
+        //setDefaultChkList();
     }
 
-    public Map markAllGroupQuestions(){
-        Map answerResultMap = new HashMap();
-        int groupPosition = this.getGroupCount();
-        int childrenCount = 0;
-        List<QuestionEntity> questionEntityList = new ArrayList<>();
-        float score;
-        int wrongQuestionCount = 0;
-        String strWrongQuestIds = "";
-        for(int i=0;i<groupPosition;i++) {
-            Log.d("GroupPosition:",i+"");
-            questionEntity = (QuestionEntity) getGroup(i);
-            childrenCount = this.getChildrenCount(i);
-            Log.d("ChildCount:",childrenCount+"");
-            questionEntity = markingQuestions(i,childrenCount);
-            Log.d("AnswerResult():", questionEntity.getAnswerResult());
-            if("回答错误".equals(questionEntity.getAnswerResult())){
-                strWrongQuestIds =  strWrongQuestIds + questionEntity.getQuestionId() + ",";
-                wrongQuestionCount++;
-            }
-            questionEntityList.add(questionEntity);
-        }
-        if(strWrongQuestIds.endsWith(",")) {
-            strWrongQuestIds = strWrongQuestIds.substring(0, strWrongQuestIds.length() - 1);
-        }
-        Log.d("strWrongQuestIds",strWrongQuestIds);
-        score = ((float)(groupPosition-wrongQuestionCount)/(float)groupPosition)*100;
-        Log.d("score",score+"");
-        answerResultMap.put("wrongQuestIds",strWrongQuestIds);
-        answerResultMap.put("score",score);
-        return answerResultMap;
-    }
-
-    // 对每一个试题进行批卷打分，将错误生成字符串(wrong_quest_ids)以及成绩(score)返回。
-    public QuestionEntity markingQuestions(int groupPosition, int childCount){
-        QuestionEntity order = (QuestionEntity) getGroup(groupPosition);
-        Log.d("childCount",childCount+"");
-        String strChildPosition = "";
-        for (int i = 1; i < childCount - 1; i++) {
-            if(isSelectedMap.get(groupPosition).get(i)){
-                strChildPosition = strChildPosition + i + ",";
-            }
-        }
-        if(strChildPosition.endsWith(",")) {
-            strChildPosition = strChildPosition.substring(0, strChildPosition.length() - 1);
-        }
-        Log.d("strChildPosition",strChildPosition);
-        Log.d("order:",order.getCorrectPostions()+"");
-        // 1.2 判断单选题用户答案是否正确
-        if(strChildPosition.equals(order.getCorrectPostions())){
-            // 回答正确,则直接收起该group的item内容,或是整体隐藏
-            //order.setFootVisibility(View.VISIBLE);
-            order.setAnswerResult("回答正确");
-            order.setFootVisibility("GONE,VISIBLE");
-        }else{
-            // 若错误在footer中显示“回答错误”
-            order.setAnswerResult("回答错误");
-        }
-        return order;
-    }
 
     @Override
     public int getGroupCount() {
@@ -105,7 +48,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        List<QuestionSubEntity> children = ((QuestionEntity)orderList.get(groupPosition)).getItems();
+        List<HopperConditionSubEntity> children = ((HopperConditionEntity)orderList.get(groupPosition)).getItems();
         int size = children.size() ;
         // 加上header和footer
         return size == 0 ? 0 : size + 2 ;
@@ -118,8 +61,8 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-       // Log.d("groupPosition:",groupPosition+"");
-       // Log.d("childPosition:",childPosition+"");
+        // Log.d("groupPosition:",groupPosition+"");
+        // Log.d("childPosition:",childPosition+"");
         return orderList.get(groupPosition).getItems().get(childPosition) ;
     }
 
@@ -138,7 +81,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    // 初始化 设置所有checkbox都为未选择
+/*    // 初始化 设置所有checkbox都为未选择
     public void setDefaultChkList() {
         isSelectedMap = new HashMap<Integer, Map<Integer, Boolean>>();
         Map<Integer,Boolean> subMap = new HashMap<Integer,Boolean>();
@@ -153,21 +96,26 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
             }
             isSelectedMap.put(i,subMap);
         }
-    }
+    }*/
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             // 显示Group名称，即问题主题
-            convertView = inflater.inflate(R.layout.common_view_group,null) ;
+            convertView = inflater.inflate(R.layout.hopper_conditon_entity_view,null) ;
         }
         TextView group = (TextView) convertView.findViewById(R.id.tvGroup);
-        group.setText("题" + (groupPosition + 1));
+        if(groupPosition==0){
+            group.setText("请选择跳槽原因：");
+        }else if(groupPosition==1){
+            group.setText("请输入当前月薪：");
+        }else{
+            group.setText("该group未设置标题");
+        }
+        //group.setText("题" + (groupPosition + 1));
 
         return convertView;
     }
-
-
 
     // 得到小组成员的view
     @Override
@@ -177,12 +125,12 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         do {
             // 判断childPosition的索引数是否不是header或不是footer
             if (childPosition > 0 && childPosition < getChildrenCount(groupPosition) - 1) {
-                QuestionSubEntity item = (QuestionSubEntity) getChild(groupPosition,childPosition - 1);
+                HopperConditionSubEntity item = (HopperConditionSubEntity) getChild(groupPosition,childPosition - 1);
                 ChildHolder holder ;
                 // 复用View
                 if (convertView == null) {
                     holder = new ChildHolder();
-                    convertView = inflater.inflate(R.layout.common_view_order_item,null) ;
+                    convertView = inflater.inflate(R.layout.hopper_condition_sub_entity_view,null) ;
                     CheckBox optSeq = (CheckBox) convertView.findViewById(R.id.optSeq);
                     TextView optContent = (TextView) convertView.findViewById(R.id.optContent);
                     TextView tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);
@@ -199,16 +147,16 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
 
                 int childCount=this.getChildrenCount(groupPosition);
                 //Log.d("groupPosition:",groupPosition+"");
-               // Log.d("childPosition:",childPosition+"");
-               // Log.d("isLastChild:",String.valueOf(isLastChild));
+                // Log.d("childPosition:",childPosition+"");
+                // Log.d("isLastChild:",String.valueOf(isLastChild));
                 holder.optSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                         Log.d("CheckedChangeListener","a1");
-                       // Log.d("当前groupPosition:", groupPosition+"");
+                      /*  // Log.d("当前groupPosition:", groupPosition+"");
                         //Log.d("当前childPosition",childPosition+"");
-                         QuestionEntity order = (QuestionEntity) getGroup(groupPosition);
-                       // Log.d("QuesAdapter",order.getQuestionType());
+                        HopperConditionEntity order = (HopperConditionEntity) getGroup(groupPosition);
+                        // Log.d("QuesAdapter",order.getQuestionType());
                         int childCount = getChildrenCount(groupPosition);
                         // 1.单选题逻辑
                         if("单选题".equals(order.getQuestionType())){
@@ -243,24 +191,24 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                             //Log.d("groupPosition",groupPosition+"");
                             //Log.d("childPosition",childPosition+"");
                         }
-                        notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状
+                        notifyDataSetChanged();//注意这一句必须加上，否则checkbox无法正常更新状*/
                     }
                 });
                 // 这点语句必须在设置监听器之后，
-                holder.optSeq.setChecked(isSelectedMap.get(groupPosition).get(childPosition));
+                //holder.optSeq.setChecked(isSelectedMap.get(groupPosition).get(childPosition));
                 holder.optContent.setText(item.getOptContent());
                 //holder.quantity.setText(String.valueOf(item.getQuantity()));
                 holder.quantity.setText("100.01");
                 break ;
             }
 
-            QuestionEntity order = (QuestionEntity) getGroup(groupPosition);
+            HopperConditionEntity order = (HopperConditionEntity) getGroup(groupPosition);
 
             // 判断是否是header
             if (childPosition == 0) {
                 convertView = inflater.inflate(R.layout.common_view_order_header,null) ;
                 TextView header = (TextView) convertView.findViewById(R.id.tvHeader);
-                header.setText(order.getQuestTitle());
+                header.setText(order.getConditionTitle());
                 //header.setText("共" + order.getItems().size() + "份美食");
                 break ;
             }
@@ -280,14 +228,14 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 }else{
                     footerHolder = (FooterHolder)convertView.getTag();
                 }
-                // 单选题隐藏按钮，直接显示结果
+/*                // 单选题隐藏按钮，直接显示结果
                 if("单选题".equals(order.getQuestionType())){
                     order.setFootVisibility("GONE,VISIBLE");
                 }else if("多选题".equals(order.getQuestionType())){
                     order.setFootVisibility("VISIBLE,VISIBLE");
-                }
+                }*/
                 // 一定要设置该语句
-                footerHolder.submitFooter.setFocusable(false);
+/*                footerHolder.submitFooter.setFocusable(false);
                 int childCount = this.getChildrenCount(groupPosition);
                 footerHolder.submitFooter.setOnClickListener(new submitBtnClick(
                         convertView,groupPosition,childPosition,childCount,this
@@ -319,20 +267,20 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
                 }else {
                     footerHolder.answerResultFooter.setText("答题结果:  " + order.getAnswerResult().toString());
                 }
-                footerHolder.correctAnswerFooter.setText("正确答案:  " + order.getCorrectAnswer());
+                footerHolder.correctAnswerFooter.setText("正确答案:  " + order.getCorrectAnswer());*/
 
 
                 break ;
             }
         } while(false) ;
 
-        convertView.setOnClickListener(new OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //setSelectedPosition(groupPosition, childPosition);
                 notifyDataSetChanged();
             }
         });
-       // Log.d("getChildView end ","************************************************");
+        // Log.d("getChildView end ","************************************************");
         return convertView;
     }
 
@@ -353,7 +301,7 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
         }
         @Override
         public void onClick(View view) {
-            markingQuestions(groupPosition,childCount);
+            //markingQuestions(groupPosition,childCount);
             adapter.notifyDataSetChanged();
         }
     }
@@ -408,27 +356,5 @@ public class QuestionAdapter extends BaseExpandableListAdapter {
     }
 
 
-    /*
-    public Map getCheckedChildPosition(final int groupPosition){
-        Map checkedChildPostionMap = new HashMap();
-        Map<Integer,Boolean> subMap = new HashMap<Integer,Boolean>();
-        // 获得当前group的child account
-        int childCount = this.getChildrenCount(groupPosition);
-        for(int i=0;i<childCount;i++){
-            if(isSelectedMap.get(groupPosition).get(i)){
-                checkedChildPostionMap.put(i,"");
-            }
-        }
-        return null;
-    }*/
-/*
-    public void checkIfAnswerCorrect(View view, final int groupPosition,final int childPosition){
-        // 获得当前group的所有数据
-        QuestionEntity order = (QuestionEntity) getGroup(groupPosition);
-        Log.d("QuesAdapter",order.getQuestionType());
-        // 1.单选题逻辑
-        if("单选题".equals(order.getQuestionType())){
-            String strChildPosition = childPosition + "";
-        }
-    }*/
+
 }

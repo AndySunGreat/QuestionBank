@@ -28,6 +28,8 @@
 
         <activity android:name=".questions.QuestionsActivity"></activity>
         <activity android:name=".answers.AnswersActivity"></activity>
+        <activity android:name=".hopper.HopperActivity"></activity>
+
         <activity
             android:name=".login.signup.RegisterActivity"
             android:label="@string/app_name">

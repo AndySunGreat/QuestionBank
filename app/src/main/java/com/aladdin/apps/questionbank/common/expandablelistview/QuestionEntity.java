@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Created by AndySun on 2016/10/12.
  */
-public class QuestionOrder {
+public class QuestionEntity {
     private Long questionId;
     private String questTitle ;
-    private List<QuestionItem> items ;
+    private List<QuestionSubEntity> items ;
     private String correctAnswer;
     private String answerResult;
     private String questionType;
@@ -21,23 +21,23 @@ public class QuestionOrder {
 
 
 
-    public QuestionOrder() {
+    public QuestionEntity() {
     }
-    public QuestionOrder(String questTitle, List<QuestionItem> items, String correctAnswer) {
+    public QuestionEntity(String questTitle, List<QuestionSubEntity> items, String correctAnswer) {
         this.questTitle = questTitle;
         this.items = items;
         this.correctAnswer = correctAnswer;
     }
 
-    public QuestionOrder(String questTitle, List<QuestionItem> items, String correctAnswer, String answerResult) {
+    public QuestionEntity(String questTitle, List<QuestionSubEntity> items, String correctAnswer, String answerResult) {
         this.questTitle = questTitle;
         this.items = items;
         this.correctAnswer = correctAnswer;
         this.answerResult = answerResult;
     }
 
-    public QuestionOrder(String questTitle, List<QuestionItem> items,
-                         String correctAnswer, String answerResult, String questionType) {
+    public QuestionEntity(String questTitle, List<QuestionSubEntity> items,
+                          String correctAnswer, String answerResult, String questionType) {
         this.questTitle = questTitle;
         this.items = items;
         this.correctAnswer = correctAnswer;
@@ -45,10 +45,10 @@ public class QuestionOrder {
         this.questionType = questionType;
     }
 
-    public QuestionOrder(Long questionId, String questTitle, List<QuestionItem> items,
-                         String correctAnswer, String answerResult,
-                         String questionType, String correctPostions,
-                         String headVisibility, String itemsVisibility, String footVisibility) {
+    public QuestionEntity(Long questionId, String questTitle, List<QuestionSubEntity> items,
+                          String correctAnswer, String answerResult,
+                          String questionType, String correctPostions,
+                          String headVisibility, String itemsVisibility, String footVisibility) {
         this.questionId = questionId;
         this.questTitle = questTitle;
         this.items = items;
@@ -135,11 +135,11 @@ public class QuestionOrder {
         this.questTitle = questTitle;
     }
 
-    public List<QuestionItem> getItems() {
+    public List<QuestionSubEntity> getItems() {
         return items;
     }
 
-    public void setItems(List<QuestionItem> items) {
+    public void setItems(List<QuestionSubEntity> items) {
         this.items = items;
     }
 

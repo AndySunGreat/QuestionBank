@@ -31,8 +31,6 @@ public class HomeChannelPresenterImpl implements HomeChannelPresenter,
 
     @Override
     public void onResume() {
-
-
         if (homeChannelView != null) {
             //homeChannelView.showTitleBar();
             //homeChannelView.showProgress();
@@ -49,10 +47,7 @@ public class HomeChannelPresenterImpl implements HomeChannelPresenter,
             // 1.根据用户userId来查询orders表，获得用户套餐信息(packageId,bankIds),当前题库bankId,当前订单orderId&orderStatus
             // 2.将如下信息传到QuestionActivity
             Log.v("首页频道", "你点击了该频道条目" + position + id);
-            homeChannelView.nagivateQuestionAcitivity();
-            /*
-                    map.put("bankIds",currentIntent.getStringExtra("bankIds"));*/
-
+            homeChannelView.navigateQuestionAcitivity();
 
         }else if(position==1){
             // 题库推荐类型：主要是生成针对用户能力劣势的题库，题库内容也更多更全面，稳定发展型。
@@ -70,7 +65,7 @@ public class HomeChannelPresenterImpl implements HomeChannelPresenter,
             //   B.谋求离家近：不换区域
             // 3.2 提供“猎头池”、“公司分析”、“薪酬【谈判及分析】”等多个模块
             // 3.3 Solution: 根据以上用户选择结果来生成针对面试的题库来【面试型题库】。
-
+            homeChannelView.navigateHopperActivity();
 
         }else if(position==3){
             // 4.我要升职[Promotion]，从职业角度来看。

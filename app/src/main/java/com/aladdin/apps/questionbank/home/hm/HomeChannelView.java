@@ -18,5 +18,7 @@ public interface HomeChannelView {
 
     Map getFilterMap();
     void setFilterMap(Map filterMap);
-    void nagivateQuestionAcitivity();
+    void navigateQuestionAcitivity();
+
+    void navigateHopperActivity();
 }

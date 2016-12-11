@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aladdin.apps.questionbank.R;
@@ -22,8 +21,8 @@ import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.common.entity.QuestionsListViewEntity;
 import com.aladdin.apps.questionbank.common.expandablelistview.QuestionAdapter;
-import com.aladdin.apps.questionbank.common.expandablelistview.QuestionItem;
-import com.aladdin.apps.questionbank.common.expandablelistview.QuestionOrder;
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionSubEntity;
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionEntity;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
 import com.aladdin.apps.questionbank.data.bean.BankAnswers;
 import com.aladdin.apps.questionbank.data.bean.Question;
@@ -117,27 +116,26 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
     }
 
     public void loadExpandableListView(List<Question> mData){
-        questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
+        //questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
         // Group Data
-        List<QuestionOrder> orders = new ArrayList<>() ;
+        List<QuestionEntity> orders = new ArrayList<>() ;
         // Child Data
-        List<QuestionItem> questionItemList;
+        List<QuestionSubEntity> questionSubEntityList;
         // 遍历所有试题
         for (int i=0;i<mData.size();i++) {
             question = (Question)mData.get(i);
-            QuestionOrder order = new QuestionOrder();
+            QuestionEntity order = new QuestionEntity();
             order.setQuestionId(question.getQuestionId());
             // 设置题目标题
             order.setQuestTitle("["+question.getQuestType().toString() + "]    " + question.getQuestContent().toString());
             //questOptJson = question.getQuestOptionsJson();
-            questionItemList = question.getQuestOptions();
-            order.setItems(questionItemList);
+            questionSubEntityList = question.getQuestOptions();
+            order.setItems(questionSubEntityList);
             order.setCorrectAnswer(question.getCorrectAnswer());
             order.setCorrectPostions(question.getCorrectIndexes());
             order.setQuestionType(question.getQuestType());
             orders.add(order);
         }
-        questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
         Intent packageIntent =  getIntent();
         String bankId = packageIntent.getStringExtra("bankId");
         String orderId = packageIntent.getStringExtra("orderId");
@@ -146,6 +144,7 @@ public class QuestionsActivity extends BaseActivity implements QuestionsView,
         Log.d("Intent orderId",orderId);
 
         QuestionAdapter adapter = new QuestionAdapter(orders,this) ;
+        questExpandableListView = (ExpandableListView)findViewById(R.id.questExpandableListView);
         questExpandableListView.setAdapter(adapter);
 
         int size = adapter.getGroupCount() ;

@@ -1,9 +1,8 @@
 package com.aladdin.apps.questionbank.data.bean;
 
-import com.aladdin.apps.questionbank.common.expandablelistview.QuestionItem;
+import com.aladdin.apps.questionbank.common.expandablelistview.QuestionSubEntity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ public class Question implements Serializable {
     private String questOptionsJson;
     private String correctAnswer;
     private String changeDate;
-    private List<QuestionItem> questOptions;
+    private List<QuestionSubEntity> questOptions;
     private String correctIndexes;
 
     public Question() {
@@ -26,7 +25,7 @@ public class Question implements Serializable {
     public Question(long questionId, long bankId, String questContent,
                     String questType, String questOptionsJson,
                     String correctAnswer, String changeDate,
-                    List<QuestionItem> questOptions,String correctIndexes) {
+                    List<QuestionSubEntity> questOptions, String correctIndexes) {
 
         this.questionId = questionId;
         this.bankId = bankId;
@@ -47,11 +46,11 @@ public class Question implements Serializable {
         this.correctIndexes = correctIndexes;
     }
 
-    public List<QuestionItem> getQuestOptions() {
+    public List<QuestionSubEntity> getQuestOptions() {
         return questOptions;
     }
 
-    public void setQuestOptions(List<QuestionItem> questOptions) {
+    public void setQuestOptions(List<QuestionSubEntity> questOptions) {
         this.questOptions = questOptions;
     }
 

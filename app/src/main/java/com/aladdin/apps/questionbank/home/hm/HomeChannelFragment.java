@@ -16,6 +16,7 @@ import com.aladdin.apps.questionbank.base.ChannelRow;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
 import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
+import com.aladdin.apps.questionbank.hopper.HopperActivity;
 import com.aladdin.apps.questionbank.questions.QuestionsActivity;
 
 import java.util.ArrayList;
@@ -95,9 +96,6 @@ public class HomeChannelFragment extends Fragment implements HomeChannelView,Ada
 
     }
 
-
-
-
     private void createQuesChlContent() {
         //数据初始化
         mData1 = new ArrayList<ChannelRow>();
@@ -126,7 +124,7 @@ public class HomeChannelFragment extends Fragment implements HomeChannelView,Ada
     }
 
     @Override
-    public void nagivateQuestionAcitivity() {
+    public void navigateQuestionAcitivity() {
         intent = new Intent(getActivity(), QuestionsActivity.class);
         intent.putExtra("userId",filterMap.get("userId").toString());
         intent.putExtra("packageId",filterMap.get("packageId").toString());
@@ -134,6 +132,12 @@ public class HomeChannelFragment extends Fragment implements HomeChannelView,Ada
         intent.putExtra("bankId",filterMap.get("bankId").toString());
         intent.putExtra("orderId",filterMap.get("orderId").toString());
         intent.putExtra("bankIds",filterMap.get("bankIds").toString());
+        startActivity(intent);
+    }
+
+    @Override
+    public void navigateHopperActivity() {
+        intent = new Intent(getActivity(), HopperActivity.class);
         startActivity(intent);
     }
 
