@@ -104,14 +104,15 @@ public class HopperConditionAdapter extends BaseExpandableListAdapter {
             // 显示Group名称，即问题主题
             convertView = inflater.inflate(R.layout.hopper_conditon_entity_view,null) ;
         }
-        TextView group = (TextView) convertView.findViewById(R.id.tvGroup);
-        if(groupPosition==0){
+        TextView group = (TextView) convertView.findViewById(R.id.expandGroup);
+        group.setText("");
+/*        if(groupPosition==0){
             group.setText("请选择跳槽原因：");
         }else if(groupPosition==1){
             group.setText("请输入当前月薪：");
         }else{
             group.setText("该group未设置标题");
-        }
+        }*/
         //group.setText("题" + (groupPosition + 1));
 
         return convertView;
@@ -206,7 +207,7 @@ public class HopperConditionAdapter extends BaseExpandableListAdapter {
 
             // 判断是否是header
             if (childPosition == 0) {
-                convertView = inflater.inflate(R.layout.common_view_order_header,null) ;
+                convertView = inflater.inflate(R.layout.hopper_condition_sub_entity_header,null) ;
                 TextView header = (TextView) convertView.findViewById(R.id.tvHeader);
                 header.setText(order.getConditionTitle());
                 //header.setText("共" + order.getItems().size() + "份美食");
