@@ -1,28 +1,24 @@
 package com.aladdin.apps.questionbank.hopper;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.data.bean.BankAnswers;
-import com.aladdin.apps.questionbank.data.bean.Question;
-import com.aladdin.apps.questionbank.hopper.HopperInteractor;
-import com.aladdin.apps.questionbank.hopper.HopperPresenter;
-import com.aladdin.apps.questionbank.hopper.HopperView;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by AndySun on 2016/9/24.
  */
-public class HopperPresenterImpl implements HopperPresenter{
+public class HopperPresenterImpl implements HopperPresenter,HopperInteractor.OnShowingJobsFinishedListener{
 
     private HopperView hopperView;
     private HopperInteractor hopperInteractor;
@@ -60,9 +56,11 @@ public class HopperPresenterImpl implements HopperPresenter{
     @Override
     public void submitSearching(JSONObject jsonObject,View v) {
         RequestParams params = new RequestParams();
+        Log.d("submitSearching","HopperPresenterImpl");
+        Map map = new HashMap();
         //map.put("")
-        // 1.生成新的answer记录，获得answerId以便更新到Order信息表中,包括打分逻辑放到后端
-        //hopperInteractor.createNewAnswerRecord(this,jsonObject,v.getContext());
+        // 根据用户输入的查询条件，返回符合条件的职位信息列表
+        hopperInteractor.queryJobListForHopper(this,map,params);
     }
 
 
@@ -80,6 +78,19 @@ public class HopperPresenterImpl implements HopperPresenter{
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onShowJobsFinished(List<HopperPositionsEntity> items) {
+        if (hopperView != null) {
+            hopperView.setShowJobItems(items);
+            hopperView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onShowJobsFailure(BaseResultObject items) {
 
     }
 

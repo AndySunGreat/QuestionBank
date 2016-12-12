@@ -15,6 +15,9 @@ import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionAdapter;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionEntity;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionSubEntity;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsAdapter;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.roughike.bottombar.BottomBar;
 
@@ -38,6 +41,7 @@ public class HopperActivity extends BaseActivity implements HopperView,
     BottomBar bottomBar;
 
     ExpandableListView hopperReasonExpListView;
+    ExpandableListView hopperJobsExpListView;
     private HopperPresenter presenter;
 
     @Override
@@ -51,7 +55,7 @@ public class HopperActivity extends BaseActivity implements HopperView,
         ButterKnife.bind(this);
         //insertAndGetAnswer = new BankAnswers();
         presenter = new HopperPresenterImpl(this,new HopperInteractorImpl());
-        hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperReasonExpListView);
+        hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperConditionExpListView);
         //bottomBar = (BottomBar) findViewById(R.id.bottomBar);
     }
 
@@ -62,7 +66,7 @@ public class HopperActivity extends BaseActivity implements HopperView,
     @Override
     public void setItems(List<Question> mData) {
         if(hopperReasonExpListView==null){
-            hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperReasonExpListView);
+            hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperConditionExpListView);
         }
 
         List<HopperConditionEntity> orders = new ArrayList<>() ;
@@ -102,9 +106,7 @@ public class HopperActivity extends BaseActivity implements HopperView,
         hopperConditionSubEntityList.add(hopperConditionSubEntity6);
         hopperConditionSubEntityList.add(hopperConditionSubEntity7);
         hopperConditionSubEntityList.add(hopperConditionSubEntity8);
-
-
-        //hopperConditionSubEntityList
+      //hopperConditionSubEntityList
         hopperConditionEntity1.setItems(hopperConditionSubEntityList);
         orders.add(hopperConditionEntity1);
 
@@ -128,6 +130,8 @@ public class HopperActivity extends BaseActivity implements HopperView,
         @Override
         public void onClick(View view) {
             JSONObject jsonObject = new JSONObject();
+            hopperReasonExpListView.collapseGroup(0);
+            hopperReasonExpListView.collapseGroup(1);
             presenter.submitSearching(jsonObject,view);
         }
     }
@@ -147,10 +151,25 @@ public class HopperActivity extends BaseActivity implements HopperView,
 
     }
 
+    @Override
+    public void setShowJobItems(List<HopperPositionsEntity> mData) {
+        if(hopperJobsExpListView==null){
+            hopperJobsExpListView = (ExpandableListView)findViewById(R.id.hopperJobExpListView);
+        }
+        //List<HopperPositionsEntity> orders = new ArrayList<>() ;
+
+        HopperPositionsAdapter hopperPositionsAdapter = new HopperPositionsAdapter(mData,this);
+        hopperJobsExpListView.setAdapter(hopperPositionsAdapter);
+        int size = hopperPositionsAdapter.getGroupCount();
+        for(int i=0;i<size;i++){
+            hopperJobsExpListView.expandGroup(i);
+        }
+    }
+
 
     public void loadData(){
         if(hopperReasonExpListView==null){
-            hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperReasonExpListView);
+            hopperReasonExpListView = (ExpandableListView)findViewById(R.id.hopperConditionExpListView);
         }
 
         List<HopperConditionEntity> orders = new ArrayList<>() ;

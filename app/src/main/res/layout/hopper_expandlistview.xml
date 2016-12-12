@@ -20,19 +20,28 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         />
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp">
         <ExpandableListView
-            android:id="@+id/hopperReasonExpListView"
+            android:id="@+id/hopperConditionExpListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:groupIndicator="@null"
             android:divider="@color/white"
             android:dividerHeight="2dp"
             />
-    </LinearLayout>
+        <ExpandableListView
+            android:id="@+id/hopperJobExpListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:groupIndicator="@null"
+            android:divider="@color/white"
+            android:dividerHeight="2dp"
+            android:layout_below="@+id/hopperConditionExpListView"
+            />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"

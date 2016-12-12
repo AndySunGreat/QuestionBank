@@ -7,14 +7,25 @@ public class BaseExpandListViewEntity {
     private String headVisibility;
     private String itemsVisibility;
     private String footVisibility;
+    private String groupTitle;
 
     public BaseExpandListViewEntity() {
     }
 
-    public BaseExpandListViewEntity(String headVisibility, String itemsVisibility, String footVisibility) {
+
+    public BaseExpandListViewEntity(String headVisibility, String itemsVisibility, String footVisibility, String groupTitle) {
         this.headVisibility = headVisibility;
         this.itemsVisibility = itemsVisibility;
         this.footVisibility = footVisibility;
+        this.groupTitle = groupTitle;
+    }
+
+    public String getGroupTitle() {
+        return groupTitle;
+    }
+
+    public void setGroupTitle(String groupTitle) {
+        this.groupTitle = groupTitle;
     }
 
     public String getHeadVisibility() {

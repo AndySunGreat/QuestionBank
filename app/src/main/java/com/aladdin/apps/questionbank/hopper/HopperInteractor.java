@@ -3,8 +3,8 @@ package com.aladdin.apps.questionbank.hopper;
 import android.content.Context;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
-import com.aladdin.apps.questionbank.data.bean.BankAnswers;
-import com.aladdin.apps.questionbank.data.bean.Question;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
@@ -48,7 +48,12 @@ public interface HopperInteractor {
 
     void createNewAnswerRecord(OnCreatingAnswerFinishedListener listener, JSONObject jsonObject, Context context);*/
 
+    interface OnShowingJobsFinishedListener{
+        void onShowJobsFinished(List<HopperPositionsEntity> items);
+        void onShowJobsFailure(BaseResultObject items);
+    }
 
+    void queryJobListForHopper(OnShowingJobsFinishedListener listener, Map map, RequestParams params);
 
 
 }

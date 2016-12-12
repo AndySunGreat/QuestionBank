@@ -37,4 +37,6 @@ public class Constants {
     // 根据用户ID获得订单信息
     public static final String getOrderInfoByUserIdUrl = "me/orders";
 
+    // 根据用户输入条件获得职位信息列表
+    public static final String getPositionsUrl = "positions/";
 }
