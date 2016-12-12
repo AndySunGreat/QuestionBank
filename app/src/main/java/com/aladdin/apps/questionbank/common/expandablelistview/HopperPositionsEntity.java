@@ -15,9 +15,23 @@ public class HopperPositionsEntity extends BaseExpandListViewEntity {
     private String salary;
     private long experience;
     private String city;
+    private String optSeq;
 
     public HopperPositionsEntity(){
 
+    }
+
+    public HopperPositionsEntity(String headVisibility, String itemsVisibility, String footVisibility, String groupTitle, long positionId, String positionName, String requiredJson,
+                                 List<HopperPositionsSubEntity> hopperPositionsSubEntityList, String salary, long experience, String city, String optSeq) {
+        super(headVisibility, itemsVisibility, footVisibility, groupTitle);
+        this.positionId = positionId;
+        this.positionName = positionName;
+        this.requiredJson = requiredJson;
+        this.hopperPositionsSubEntityList = hopperPositionsSubEntityList;
+        this.salary = salary;
+        this.experience = experience;
+        this.city = city;
+        this.optSeq = optSeq;
     }
 
     public HopperPositionsEntity(long positionId, String positionName, String requiredJson,
@@ -41,6 +55,14 @@ public class HopperPositionsEntity extends BaseExpandListViewEntity {
         this.salary = salary;
         this.experience = experience;
         this.city = city;
+    }
+
+    public String getOptSeq() {
+        return optSeq;
+    }
+
+    public void setOptSeq(String optSeq) {
+        this.optSeq = optSeq;
     }
 
     public long getPositionId() {

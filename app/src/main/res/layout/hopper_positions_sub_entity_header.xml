@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/headerEntity"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<CheckBox
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text=""
+    android:layout_weight="0.5"
+    android:id="@+id/positionIdChk"
+    android:gravity="left|center_vertical"
+    android:singleLine="true"
+    />
+<TextView
+    android:id="@+id/positionNameText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="18sp"
+    android:textSize="16sp"
     android:textStyle="bold"
     android:padding="10dp"
-    android:text="共8份美食" />
+    android:gravity="left"
+    android:text="" />
+
+</LinearLayout>

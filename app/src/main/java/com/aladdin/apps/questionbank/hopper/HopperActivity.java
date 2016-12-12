@@ -17,6 +17,7 @@ import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionEn
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionSubEntity;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsAdapter;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
 import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.roughike.bottombar.BottomBar;

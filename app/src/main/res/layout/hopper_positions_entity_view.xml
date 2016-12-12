@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="6dp"
-    android:background="#FFD700"
+    android:background="@color/darkcyan"
     android:textStyle="bold"
     android:textSize="20dp"
-    android:textColor="@color/blue"
+    android:textColor="@color/whitesmoke"
     android:fontFamily="sans-serif-light"
-    android:text="问题主题"/>
+    android:text="GroupTitle"/>
+

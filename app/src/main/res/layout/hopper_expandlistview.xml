@@ -37,8 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:groupIndicator="@null"
-            android:divider="@color/white"
-            android:dividerHeight="2dp"
+            android:divider="#FFCC00"
+            android:dividerHeight="4px"
             android:layout_below="@+id/hopperConditionExpListView"
             />
     </RelativeLayout>

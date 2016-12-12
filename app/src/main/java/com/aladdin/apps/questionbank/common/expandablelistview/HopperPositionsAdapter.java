@@ -99,23 +99,10 @@ public class HopperPositionsAdapter extends BaseExpandableListAdapter {
                 // 显示Group名称，即问题主题,hopper_conditon_entity_view
                 convertView = inflater.inflate(R.layout.hopper_positions_entity_view, null);
             }
-            TextView group = (TextView) convertView.findViewById(R.id.expandGroup);
+         TextView group = (TextView) convertView.findViewById(R.id.expandGroup);
             String strGroupTitle = ((HopperPositionsEntity)orderList.get(groupPOSPostion)).getGroupTitle();
             group.setText(strGroupTitle);
-/*            if(groupPOSPostion==0){
-                group.setHeight(0);
-                group.setVisibility(INVISIBLE);
-            }*/
-
-/*        if(groupPOSPostion==0){
-            group.setText("请选择跳槽原因：");
-        }else if(groupPOSPostion==1){
-            group.setText("请输入当前月薪：");
-        }else{
-            group.setText("该group未设置标题");
-        }*/
-        //group.setText("题" + (groupPOSPostion + 1));
-
+        //group.setVisibility(View.INVISIBLE);
         return convertView;
     }
 
@@ -125,7 +112,7 @@ public class HopperPositionsAdapter extends BaseExpandableListAdapter {
         //Log.d("getChildView begin ","************************************************");
 
         do {
-            // 判断childPOSPosition的索引数是否不是header或不是footer
+            // 1.1 判断childPOSPosition的索引数是否不是header或不是footer
             if (childPOSPosition > 0 && childPOSPosition < getChildrenCount(groupPOSPostion) - 1) {
                 HopperPositionsSubEntity item = (HopperPositionsSubEntity) getChild(groupPOSPostion,childPOSPosition - 1);
                 ChildHolder holder ;
@@ -133,42 +120,42 @@ public class HopperPositionsAdapter extends BaseExpandableListAdapter {
                 if (convertView == null) {
                     holder = new ChildHolder();//hopper_condition_sub_entity_view
                     convertView = inflater.inflate(R.layout.hopper_positions_sub_entity_view,null) ;
-                    CheckBox optSeq = (CheckBox) convertView.findViewById(R.id.optSeq);
-                    TextView optContent = (TextView) convertView.findViewById(R.id.optContent);
-                    TextView tvQuantity = (TextView) convertView.findViewById(R.id.tvQuantity);
+                    TextView requiredItem = (TextView) convertView.findViewById(R.id.requiredItem);
+                    TextView requiredValue = (TextView) convertView.findViewById(R.id.requiredValue);
+                    TextView requiredDegree = (TextView) convertView.findViewById(R.id.requiredDegree);
 
-                    holder.optSeq = optSeq ;
-                    holder.optContent = optContent ;
-                    holder.quantity = tvQuantity ;
+                    holder.requiredItem = requiredItem ;
+                    holder.requiredValue = requiredValue ;
+                    holder.requiredDegree = requiredDegree ;
                     convertView.setTag(holder);
                 } else {
                     holder = (ChildHolder) convertView.getTag();
                 }
-
-                holder.optSeq.setText(item.getOptSeq());
-
-                int childCount=this.getChildrenCount(groupPOSPostion);
-                holder.optSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                        Log.d("CheckedChangeListener","a1");
-
-                    }
-                });
+                holder.requiredItem.setText(item.getRequiredItem());
+                holder.requiredValue.setText(item.getRequiredValue());
+                holder.requiredDegree.setText(item.getRequiredDegree());
+                //holder.optSeq.setText(item.getOptSeq());
+                // int childCount=this.getChildrenCount(groupPOSPostion);
                 // 这点语句必须在设置监听器之后，
                 //holder.optSeq.setChecked(isSelectedMap.get(groupPOSPostion).get(childPOSPosition));
-                holder.optContent.setText(item.getOptContent());
                 //holder.quantity.setText(String.valueOf(item.getQuantity()));
-                holder.quantity.setText("100.01");
                 break ;
             }
 
             HopperPositionsEntity order = (HopperPositionsEntity) getGroup(groupPOSPostion);
 
-            // 判断是否是header
+            // 1.2 判断是否是header
             if (childPOSPosition == 0) {
                 convertView = inflater.inflate(R.layout.hopper_positions_sub_entity_header,null) ;
-                TextView header = (TextView) convertView.findViewById(R.id.headerEntity);
+                CheckBox positionIdChk = (CheckBox) convertView.findViewById(R.id.positionIdChk);
+                TextView header = (TextView) convertView.findViewById(R.id.positionNameText);
+                positionIdChk.setText(String.valueOf(order.getPositionId()));
+                positionIdChk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        Log.d("CheckedChangeListener","a1");
+                    }
+                });
                 header.setText(order.getPositionName());
                 //header.setText("共" + order.getItems().size() + "份美食");
                 break ;
@@ -305,9 +292,9 @@ public class HopperPositionsAdapter extends BaseExpandableListAdapter {
     }
 
     static class ChildHolder {
-        public CheckBox optSeq ;
-        public TextView optContent ;
-        public TextView quantity ;
+        public TextView requiredItem ;
+        public TextView requiredValue ;
+        public TextView requiredDegree ;
     }
 
     static class FooterHolder{

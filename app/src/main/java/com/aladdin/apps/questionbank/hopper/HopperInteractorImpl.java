@@ -67,12 +67,24 @@ public class HopperInteractorImpl implements HopperInteractor {
              hopperPositionsEntityList = new ArrayList<HopperPositionsEntity>();
              JSONArray jsonArrayTemp;
              JSONObject jsonObjectTemp;
-
+             String previousCity = "";
              for (int i = 0; i < response.length(); i++) {
                  hopperPositionsEntity = new HopperPositionsEntity();
                  hopperPositionsSubEntityList = new ArrayList<HopperPositionsSubEntity>();
+
                  try {
                      obj = response.getJSONObject(i);
+/*                     if(i==0){
+                         previousCity = obj.getString("city");
+                     }else{
+                         // 新建group
+                         if(!obj.getString("city").equals(previousCity)){
+                             hopperPositionsGroupEntityList.add(hopperPositionsGroupEntity);
+                             hopperPositionsGroupEntity = new HopperPositionsEntity();
+                         }else{
+                             previousCity = obj.getString("city");
+                         }
+                     }*/
                      hopperPositionsEntity.setPositionId(obj.getLong("positionId"));
                      hopperPositionsEntity.setPositionName(obj.getString("positionName"));
                      hopperPositionsEntity.setGroupTitle(obj.getString("city"));
@@ -92,6 +104,7 @@ public class HopperInteractorImpl implements HopperInteractor {
                          hopperPositionsSubEntityList.add(hopperPositionsSubEntity);
                      }
                      hopperPositionsEntity.setHopperPositionsSubEntityList(hopperPositionsSubEntityList);
+
                  } catch (JSONException e) {
                      e.printStackTrace();
                  }

@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsGroupEntity;
 import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.loopj.android.http.RequestParams;
 
