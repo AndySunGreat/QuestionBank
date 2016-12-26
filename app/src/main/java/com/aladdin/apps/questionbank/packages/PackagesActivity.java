@@ -16,15 +16,12 @@ import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseActivity;
 import com.aladdin.apps.questionbank.base.BaseResultObject;
 import com.aladdin.apps.questionbank.base.ChannelRow;
-import com.aladdin.apps.questionbank.common.entity.PackageListViewEntity;
+import com.aladdin.apps.questionbank.common.listview.PackageListViewEntity;
 import com.aladdin.apps.questionbank.common.listview.ListViewAdapter;
-import com.aladdin.apps.questionbank.common.listview.PackageListVAdapter;
+import com.aladdin.apps.questionbank.common.listview.PackageListViewAdapter;
 import com.aladdin.apps.questionbank.data.bean.Order;
 import com.aladdin.apps.questionbank.data.bean.Package;
 import com.aladdin.apps.questionbank.questions.QuestionsActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +46,7 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
     private PackagesPresenter presenter;
     Map map = new HashMap<>();
     private List<PackageListViewEntity> mDatas;
-    private PackageListVAdapter packageListVAdapter;
+    private PackageListViewAdapter packageListViewAdapter;
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +88,8 @@ public class PackagesActivity extends BaseActivity implements PackagesView, Adap
 
 
         //为数据绑定适配器
-        packageListVAdapter = new PackageListVAdapter(this, mDatas);
-        packageListView.setAdapter(packageListVAdapter);
+        packageListViewAdapter = new PackageListViewAdapter(this, mDatas);
+        packageListView.setAdapter(packageListViewAdapter);
         // Click each item
         packageListView.setOnItemClickListener(this);
     }

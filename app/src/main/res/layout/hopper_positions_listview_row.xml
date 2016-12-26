@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/hiddenCompanyId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/hiddenPositionId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/titlePosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text=""
+        android:textColor="#444"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/descPosition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titlePosition"
+        android:layout_marginTop="10dp"
+        android:maxLines="2"
+        android:minLines="1"
+        android:text=""
+        android:textColor="#898989"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/timePosition"
+        android:paddingTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descPosition"
+        android:layout_marginTop="10dp"
+        android:text=""
+        android:textColor="#444"
+        android:textSize="13sp" />
+
+    <TextView
+        android:padding="5dp"
+        android:id="@+id/doPosition"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descPosition"
+        android:layout_marginTop="10dp"
+        android:background="#2ED667"
+        android:drawablePadding="5dp"
+        android:text=""
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

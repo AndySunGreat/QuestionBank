@@ -85,6 +85,8 @@ public class HopperInteractorImpl implements HopperInteractor {
                              previousCity = obj.getString("city");
                          }
                      }*/
+                     hopperPositionsEntity.setChangDate(obj.getString("changeDate"));
+                     hopperPositionsEntity.setCompanyId(String.valueOf(obj.getLong("companyId")));
                      hopperPositionsEntity.setPositionId(obj.getLong("positionId"));
                      hopperPositionsEntity.setPositionName(obj.getString("positionName"));
                      hopperPositionsEntity.setGroupTitle(obj.getString("city"));

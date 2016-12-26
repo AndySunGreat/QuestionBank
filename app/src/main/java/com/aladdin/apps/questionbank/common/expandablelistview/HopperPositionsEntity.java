@@ -16,13 +16,19 @@ public class HopperPositionsEntity extends BaseExpandListViewEntity {
     private long experience;
     private String city;
     private String optSeq;
+    private String companyId;
+    private String changDate;
 
     public HopperPositionsEntity(){
 
     }
-
-    public HopperPositionsEntity(String headVisibility, String itemsVisibility, String footVisibility, String groupTitle, long positionId, String positionName, String requiredJson,
-                                 List<HopperPositionsSubEntity> hopperPositionsSubEntityList, String salary, long experience, String city, String optSeq) {
+    public HopperPositionsEntity(String headVisibility, String itemsVisibility,
+                                 String footVisibility, String groupTitle,
+                                 long positionId, String positionName,
+                                 String requiredJson, List<HopperPositionsSubEntity> hopperPositionsSubEntityList,
+                                 String salary, long experience,
+                                 String city, String optSeq,
+                                 String companyId, String changDate) {
         super(headVisibility, itemsVisibility, footVisibility, groupTitle);
         this.positionId = positionId;
         this.positionName = positionName;
@@ -32,29 +38,24 @@ public class HopperPositionsEntity extends BaseExpandListViewEntity {
         this.experience = experience;
         this.city = city;
         this.optSeq = optSeq;
+        this.companyId = companyId;
+        this.changDate = changDate;
     }
 
-    public HopperPositionsEntity(long positionId, String positionName, String requiredJson,
-                                 List<HopperPositionsSubEntity> hopperPositionsSubEntityList,
-                                 String salary, long experience, String city) {
-        this.positionId = positionId;
-        this.positionName = positionName;
-        this.requiredJson = requiredJson;
-        this.hopperPositionsSubEntityList = hopperPositionsSubEntityList;
-        this.salary = salary;
-        this.experience = experience;
-        this.city = city;
+    public String getChangDate() {
+        return changDate;
     }
 
-    public HopperPositionsEntity(String headVisibility, String itemsVisibility, String footVisibility, String groupTitle, long positionId, String positionName, String requiredJson, List<HopperPositionsSubEntity> hopperPositionsSubEntityList, String salary, long experience, String city) {
-        super(headVisibility, itemsVisibility, footVisibility, groupTitle);
-        this.positionId = positionId;
-        this.positionName = positionName;
-        this.requiredJson = requiredJson;
-        this.hopperPositionsSubEntityList = hopperPositionsSubEntityList;
-        this.salary = salary;
-        this.experience = experience;
-        this.city = city;
+    public void setChangDate(String changDate) {
+        this.changDate = changDate;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getOptSeq() {

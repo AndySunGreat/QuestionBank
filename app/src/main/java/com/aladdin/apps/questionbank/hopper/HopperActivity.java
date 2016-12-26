@@ -18,6 +18,8 @@ import com.aladdin.apps.questionbank.common.expandablelistview.HopperConditionSu
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsAdapter;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
 import com.aladdin.apps.questionbank.common.expandablelistview.HopperPositionsEntity;
+import com.aladdin.apps.questionbank.common.listview.PositionListViewAdapter;
+import com.aladdin.apps.questionbank.common.listview.PositionListViewEntity;
 import com.aladdin.apps.questionbank.data.bean.HopperPositions;
 import com.aladdin.apps.questionbank.data.bean.Question;
 import com.roughike.bottombar.BottomBar;
@@ -41,9 +43,12 @@ public class HopperActivity extends BaseActivity implements HopperView,
     @Bind(R.id.bottomBar)
     BottomBar bottomBar;
 
-    ExpandableListView hopperReasonExpListView;
-    ExpandableListView hopperJobsExpListView;
+    private ExpandableListView hopperReasonExpListView;
+    private ExpandableListView hopperJobsExpListView;
+    private ListView hopperJobsListView;
     private HopperPresenter presenter;
+    private List mDatas;
+    private PositionListViewAdapter positionListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +170,26 @@ public class HopperActivity extends BaseActivity implements HopperView,
         for(int i=0;i<size;i++){
             hopperJobsExpListView.expandGroup(i);
         }
+        hopperJobsListView = (ListView)findViewById(R.id.hopperPositionListview);
+        mDatas = new ArrayList<PositionListViewEntity>();
+        HopperPositionsEntity hopperPositionsEntity = new HopperPositionsEntity();
+        PositionListViewEntity positionListViewEntity = new PositionListViewEntity();
+        for(int i=0;i<mData.size();i++) {
+            hopperPositionsEntity = (HopperPositionsEntity)mData.get(i);
+            positionListViewEntity = new PositionListViewEntity(
+                    String.valueOf(hopperPositionsEntity.getPositionId()),
+                    hopperPositionsEntity.getCompanyId(),
+                    hopperPositionsEntity.getPositionName(),
+                    hopperPositionsEntity.getRequiredJson(),
+                    hopperPositionsEntity.getSalary(),
+                    String.valueOf(hopperPositionsEntity.getExperience()),
+                    hopperPositionsEntity.getCity(),
+                    hopperPositionsEntity.getChangDate());
+            mDatas.add(positionListViewEntity);
+        }
+        positionListViewAdapter = new PositionListViewAdapter(this,mDatas);
+        hopperJobsListView.setAdapter(positionListViewAdapter);
+        hopperJobsListView.setOnItemClickListener(this);
     }
 
 

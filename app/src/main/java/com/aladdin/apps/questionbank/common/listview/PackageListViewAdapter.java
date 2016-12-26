@@ -7,7 +7,7 @@ package com.aladdin.apps.questionbank.common.listview;
 import com.aladdin.apps.questionbank.R;
 import com.aladdin.apps.questionbank.base.BaseListViewAdapter;
 import com.aladdin.apps.questionbank.base.BaseViewHolder;
-import com.aladdin.apps.questionbank.common.entity.PackageListViewEntity;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 /**
  * Created by smyhvae on 2015/5/4.
  */
-public class PackageListVAdapter extends BaseListViewAdapter<PackageListViewEntity> implements TextView.OnClickListener{
+public class PackageListViewAdapter extends BaseListViewAdapter<PackageListViewEntity> implements TextView.OnClickListener{
 
     //MyAdapter需要一个Context，通过Context获得Layout.inflater，然后通过inflater加载item的布局
-    public PackageListVAdapter(Context context, List<PackageListViewEntity> datas) {
+    public PackageListViewAdapter(Context context, List<PackageListViewEntity> datas) {
         super(context, datas, R.layout.packages_listview_row);
     }
 

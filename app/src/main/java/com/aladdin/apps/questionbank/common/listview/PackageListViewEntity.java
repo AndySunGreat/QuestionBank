@@ -1,4 +1,4 @@
-package com.aladdin.apps.questionbank.common.entity;
+package com.aladdin.apps.questionbank.common.listview;
 
 /**
  * Created by AndySun on 2016/10/10.
@@ -78,4 +78,6 @@ public class PackageListViewEntity {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }
